@@ -1,19 +1,28 @@
-import { Controller, Delete, Get, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseUUIDPipe, Post } from '@nestjs/common';
 import { ChatService } from './chat.service';
+import { ChatEntity } from 'src/entidades/chat.entity';
 
 @Controller('chat')
 export class ChatController {
     constructor(private readonly chatservices:ChatService){}
 
     @Get()
-    async chat(){}
+    async chat(){
+        return await this.chatservices.chat()
+    }
 
     @Get(':id')
-    async chatById(){}
+    async chatById(@Param('id',ParseUUIDPipe) id:string){
+        return await this.chatservices.chatById(id)
+    }
 
     @Post('new')
-    async newChat(){}
+    async newChat(@Body() chat: ChatEntity){
+        return await this.chatservices.newChat(chat)
+    }
 
     @Delete('delete/:id')
-    async DeleteChat(){}
+    async DeleteChat(@Param('id',ParseUUIDPipe) id:string){
+        return await this.chatservices.DeleteChat(id)
+    }
 }

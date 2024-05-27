@@ -1,17 +1,41 @@
 import { Injectable } from "@nestjs/common";
+import { InjectRepository } from "@nestjs/typeorm";
+import { DonationEntity } from "src/entidades/donation.entity";
+import { ShelterEntity } from "src/entidades/shelter.entity";
+import { UserEntity } from "src/entidades/user.entity";
+import { Repository } from "typeorm";
 
 @Injectable()
 export class DonationRepository {
 
-    async Donation (){}
+    constructor(
+        @InjectRepository(UserEntity)
+        private readonly userrepository : Repository<UserEntity>,
+        @InjectRepository(ShelterEntity)
+        private readonly shelterepository : Repository<ShelterEntity>
+    ){}
 
-    async DonationById (){}
+    async donation (){
+        return
+    }
 
-    async UserDonation(){}
+    async donationById (id:string){
+        return
+    }
 
-    async ShelterDonation(){}
+    async userDonation(userid:Partial<UserEntity>){
+        return
+    }
 
-    async NewDonation(){}
+    async shelterDonation(shelterid:Partial<ShelterEntity>){
+        return
+    }
 
-    async ConfirmDonation(){}
+    async newDonation(donation:DonationEntity){
+        return
+    }
+
+    async confirmDonation(donation:DonationEntity){
+        return
+    }
 }

@@ -1,19 +1,34 @@
 import { Injectable } from '@nestjs/common';
 import { DonationRepository } from './donation.repository';
+import { UserEntity } from 'src/entidades/user.entity';
+import { ShelterEntity } from 'src/entidades/shelter.entity';
+import { DonationEntity } from 'src/entidades/donation.entity';
 
 @Injectable()
 export class DonationService {
     constructor(private readonly donationrepository:DonationRepository){}
 
-    async Donation (){}
+    async donation (){
+        return await this.donationrepository.donation()
+    }
 
-    async DonationById (){}
+    async donationById (id:string){
+        return await this.donationrepository.donationById(id)
+    }
 
-    async UserDonation(){}
+    async userDonation(userid:Partial<UserEntity>){
+        return await this.donationrepository.userDonation(userid)
+    }
 
-    async ShelterDonation(){}
+    async shelterDonation(shelterid:Partial<ShelterEntity>){
+        return await this.donationrepository.shelterDonation(shelterid)
+    }
 
-    async NewDonation(){}
+    async newDonation(donation:DonationEntity){
+        return await this.donationrepository.newDonation(donation)
+    }
 
-    async ConfirmDonation(){}
+    async confirmDonation(donation:DonationEntity){
+        return await this.donationrepository.confirmDonation(donation)
+    }
 }
