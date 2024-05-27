@@ -1,4 +1,4 @@
-import { Entity } from "typeorm";
+import { Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity
 ({
@@ -6,5 +6,6 @@ import { Entity } from "typeorm";
 })
 export class UserEntity
 {
-
+    @PrimaryGeneratedColumn('uuid')
+    id:string;
 }
