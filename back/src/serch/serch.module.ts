@@ -4,8 +4,7 @@ import { SerchController } from './serch.controller';
 import { SerchRepository } from './serch.repository';
 
 @Module({
-  providers: [SerchService],
-  controllers: [SerchController],
-  exports:[SerchRepository]
+  providers: [SerchService,SerchRepository],
+  controllers: [SerchController]
 })
 export class SerchModule {}

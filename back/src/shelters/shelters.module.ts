@@ -3,12 +3,11 @@ import { SheltersService } from './shelters.service';
 import { SheltersController } from './shelters.controller';
 import { ShelterRepository } from './shelters.repository';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { ShelterEntity } from './shelter.entity';
+import { ShelterEntity } from '../entidades/shelter.entity';
 
 @Module({
   imports:[TypeOrmModule.forFeature([ShelterEntity])],
-  providers: [SheltersService],
-  controllers: [SheltersController],
-  exports:[ShelterRepository]
+  providers: [SheltersService,ShelterRepository],
+  controllers: [SheltersController]
 })
 export class SheltersModule {}
