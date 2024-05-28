@@ -3,25 +3,19 @@ import {v4 as uuid} from "uuid"
 
 
 @Entity({
-    name: 'chat'
+    name:'favs'
 })
-
-export class ChatEntity{
+export class FavsEntity{
 
     @PrimaryGeneratedColumn("uuid")
     id: number = uuid()
 
 
-    @Column({
-        nullable: false,
-    })
-    date: Date
-
-
     @Column()
     user_id: string
-    
+
 
     @Column()
-    shelter_id: string
+    pet_id: string
+
 }

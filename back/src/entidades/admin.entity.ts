@@ -3,31 +3,33 @@ import {v4 as uuid} from "uuid"
 
 
 @Entity({
-    name:'volunteer'    
+    name: 'admin'
 })
-export class VolunteerEntity{
+
+export class AdminEntity{
 
     @PrimaryGeneratedColumn("uuid")
     id: number = uuid()
 
 
     @Column({
+        type:"varchar",
         nullable: false,
     })
-    date:Date
+    name: string
 
 
     @Column({
+        type:"varchar",
+        unique: true,
         nullable: false,
-        default: true
     })
-    status: boolean
-
-
-    @Column()
-    shelter_id: string
-
+    email: string
     
-    @Column()
-    user_id: string
+
+    @Column({
+        type:"varchar",
+        nullable: false,
+    })
+    password: string
 }
