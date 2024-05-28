@@ -9,9 +9,22 @@ import { AdoptionModule } from './adoptions/adoption.module';
 import { AuthModule } from './auth/auth.module';
 import { PetsModule } from './pets/pets.module';
 import { ChatModule } from './chats/chat.module';
+import { databaseConfig } from './config/database.config';
+import { FileUploadModule } from './file_upload/file_upload.module';
 
 @Module({
-  imports: [SerchModule,UsersModule,SheltersModule,DonationModule,AdoptionModule,AuthModule,PetsModule, ChatModule],
+  imports: [
+    databaseConfig,
+    SerchModule,
+    UsersModule,
+    SheltersModule,
+    DonationModule,
+    AdoptionModule,
+    AuthModule,
+    PetsModule,
+    ChatModule,
+    FileUploadModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
