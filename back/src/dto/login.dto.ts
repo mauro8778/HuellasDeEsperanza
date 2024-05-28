@@ -12,6 +12,7 @@ export class LoginDto{
     email: string
 
     @IsNotEmpty()
+    @IsString()
     @ApiProperty({
         description: "La password, debe tener como minimo 8 caracteres y 15 como maximo",
         example: "********"
