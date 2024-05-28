@@ -26,17 +26,23 @@ export class PetsEntity{
 
 
     @Column({
-        type:"varchar",
         nullable: false
     })
-    age: Date
+    age: number
 
 
     @Column({
         type:"varchar",
         nullable: false
     })
-    dog_size: string
+    pet_size: string
+
+
+    @Column({
+        type: "text",
+        default: "https://upload.wikimedia.org/wikipedia/commons/a/a3/Image-not-found.png"
+    })
+    imgUrl: string
 
 
     @Column({
@@ -44,5 +50,9 @@ export class PetsEntity{
         nullable: true
     })
     godfather?: string | undefined
+
+
+    @Column()
+    refugio_id: string
 
 }
