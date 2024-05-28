@@ -1,6 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger"
 import { IsDate, IsNotEmpty, IsOptional, IsString } from "class-validator"
-import { species } from "./helpers/species.enum"
 import { petSize } from "./helpers/pet_size.enum"
 
 export class CreatePetsDto{ 
