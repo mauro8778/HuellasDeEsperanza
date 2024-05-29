@@ -1,6 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger"
-import { species } from "./helpers/species.enum"
-import { IsEmail, IsNumber, IsOptional, IsString, Matches } from "class-validator"
+import { IsBoolean, IsEmail, IsNumber, IsOptional, IsString, Matches } from "class-validator"
 
 export class UpdateShelterDto{
 
@@ -76,7 +75,7 @@ export class UpdateShelterDto{
 
 
     @IsOptional()
-    @IsString()
+    @IsBoolean()
     @ApiProperty()
-    species?: species.Domestic | species.Exotic
+    exotic_animals?: boolean
 }
