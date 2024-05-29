@@ -1,6 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger"
-import { IsEmail, IsNotEmpty, IsNumber, IsOptional, IsString, Matches } from "class-validator"
-import { species } from "./helpers/species.enum"
+import { IsBoolean, IsEmail, IsNotEmpty, IsNumber, IsOptional, IsString, Matches } from "class-validator"
 
 
 export class CreateShelterDto {
@@ -77,7 +76,7 @@ export class CreateShelterDto {
 
 
     @IsNotEmpty()
-    @IsString()
+    @IsBoolean()
     @ApiProperty()
-    species: species.Domestic | species.Exotic
+    exotic_animals: boolean
 }

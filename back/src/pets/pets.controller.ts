@@ -5,7 +5,7 @@ import { UpdatePetsDto } from 'src/dto/updatePets.dto';
 
 @Controller('pets')
 export class PetsController {
-    constructor(private readonly petsService : PetsService) {}
+    constructor(private readonly petsService: PetsService) {}
 
     @Get()
     getPets(){
@@ -13,7 +13,7 @@ export class PetsController {
     }
 
     @Get(':id')
-    getPetById(@Param('id', ParseUUIDPipe) id : string){
+    getPetById(@Param('id', ParseUUIDPipe) id: string){
         return this.petsService.getPetById(id);
     }
 
@@ -23,12 +23,12 @@ export class PetsController {
     }
 
     @Put(':id')
-    updatedPet(@Param('id', ParseUUIDPipe) id : string ,@Body() dataPet : UpdatePetsDto){
+    updatedPet(@Param('id', ParseUUIDPipe) id: string ,@Body() dataPet: UpdatePetsDto){
         return this.petsService.updatedPet(id, dataPet);
     }
 
     @Delete(':id')
-    deletePet(@Param('id', ParseUUIDPipe) id : string){
+    deletePet(@Param('id', ParseUUIDPipe) id: string){
         return this.petsService.deletePet(id);
     }
 

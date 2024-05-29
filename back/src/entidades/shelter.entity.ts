@@ -70,9 +70,8 @@ export class ShelterEntity{
 
 
     @Column({
-        type:"varchar",
         nullable: false
     })
-    species: string
+    exotic_animals: boolean
 
 }

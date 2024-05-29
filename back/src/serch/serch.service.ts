@@ -11,11 +11,11 @@ export class SerchService {
                 ){}
 
     
-    filterPets(race : string, size : string, age : number) {
-        return
-    }
+    filterPets(breed? : string, pet_size? : string, age? : number) {
+        return this.petsRepository.filterPets(breed, pet_size, age);
+    };
 
-    filterShelters(prov: string, city : string, address : string){
-        return
-    }
+    filterShelters(exotic_animals?: string, location?: string){
+        return this.sheltersRepository.filterShelters(exotic_animals, location);
+    };
 }

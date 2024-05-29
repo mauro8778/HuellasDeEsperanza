@@ -3,23 +3,27 @@ import { SerchService } from './serch.service';
 
 @Controller('search')
 export class SearchController {
-
-    constructor(private readonly searchService : SerchService){}
+    constructor(private readonly searchService: SerchService){}
 
     @Get('pets')
     filterPets(@Query() pet){
-        const {race, tam, age} = pet
+        const {breed, pet_size, age} = pet;
 
-        if(!race && !tam && !age) throw new BadRequestException('Se debe indicar al menos un filtro')
-        return this.searchService.filterPets(race,tam,age)
-    }
+        if(!breed && !pet_size && !age){
+            throw new BadRequestException('Se debe indicar al menos un filtro');
+        };
+
+        return this.searchService.filterPets(breed, pet_size, age);
+    };
 
     @Get('shelters')
     filterShelters(@Query() shelter){
-        const {prov, city, address} = shelter
+        const {exotic_animals, location} = shelter;
 
-        if(!prov && !city && !address) throw new BadRequestException('Se debe indicar al menos un filtro')
+        if(!exotic_animals && !location ){ 
+            throw new BadRequestException('Se debe indicar al menos un filtro');
+        };
 
-        return this.searchService.filterShelters(prov, city, address)
-    }
+        return this.searchService.filterShelters(exotic_animals, location);
+    };
 }
