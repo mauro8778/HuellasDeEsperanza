@@ -1,14 +1,12 @@
-import { IMascotas } from "@/interface/IMascotas"
 
-
-const Mascotas : IMascotas[]= [
+const Mascotas= [
     {
       id: 1,
       name: "Max",
       edad: "2 años" ,
       sexo: "Macho",
       description: " Un perro juguetón y lleno de energía. Perfecto para familias activas.",
-      image: "",
+      image: "/imgs/max.jpg",
       category: "Perro",
       refugio: "Refugio Canino"
     },
@@ -18,7 +16,7 @@ const Mascotas : IMascotas[]= [
       edad: "3 años",
       sexo: "Hembra",
       description: "Una perra cariñosa que adora los abrazos. Buena con niños",
-      image: "",
+      image: "/imgs/Bella.jpeg",
       category: "Perro",
       refugio: "Hogar de Perros Felices"
     },
@@ -28,7 +26,7 @@ const Mascotas : IMascotas[]= [
       edad: "1 año",
       sexo: "Macho",
       description: "Un cachorro lleno de vida que necesita entrenamiento y amor.",
-      image: "",
+      image: "/imgs/Rocky.jpg",
       category: "Perro",
       refugio: "Refugio Canino"
     },
@@ -38,7 +36,7 @@ const Mascotas : IMascotas[]= [
       edad: " 5 años",
       sexo: "Hembra",
       description: "Perro leal y protector. Necesita un hogar con espacio.",
-      image: "",
+      image: "/imgs/Luna.jpeg",
       category: "Perro",
       refugio: "4 Patas"
     },
@@ -48,7 +46,7 @@ const Mascotas : IMascotas[]= [
       edad: "6 meses",
       sexo: "Hembra",
       description: "Perra alegre y juguetona. Le encanta correr y jugar con pelotas.",
-      image: "",
+      image: "/imgs/Daisy.jpg",
       category: "Perro",
       refugio: "Refugio Canino"
     },
@@ -58,7 +56,7 @@ const Mascotas : IMascotas[]= [
       edad: "8 meses",
       sexo: "Macho",
       description: "Perro tranquilo y obediente, perfecto para compañía.",
-      image: "",
+      image: "/imgs/Toby.jpg",
       category: "Perro",
       refugio: "Refugio de Animales Amistad"
     },
@@ -68,7 +66,7 @@ const Mascotas : IMascotas[]= [
       edad: "3 años",
       sexo: "Macho",
       description: "Perro sociable y amistoso. Se lleva bien con otros perros.",
-      image: "",
+      image: "/imgs/Buddy.jpeg",
       category: "Perro",
       refugio: "Refugio de Animales Amistad"
     },
@@ -78,7 +76,7 @@ const Mascotas : IMascotas[]= [
       edad: "6 años",
       sexo: "Hembra",
       description: "Perra tranquila que disfruta de paseos cortos y mucho cariño.",
-      image: "",
+      image: "/imgs/Lola.jpeg",
       category: "Perro",
       refugio: "Hogar de Perros Felices"
     },
@@ -88,7 +86,7 @@ const Mascotas : IMascotas[]= [
       edad: " 1 año",
       sexo: "Macho",
       description: "Cachorro curioso y juguetón. Necesita entrenamiento básico.",
-      image: "",
+      image: "/imgs/Duke.jpeg",
       category: "Perro",
       refugio: " Refugio Canino"
     },
@@ -98,7 +96,7 @@ const Mascotas : IMascotas[]= [
       edad: "1 año",
       sexo: "Hembra",
       description: "Perrita cariñosa, muy timida. Necesita un hogar con mucho afecto",
-      image: "",
+      image: "/imgs/Palta.jpeg",
       category: "Perro",
       refugio: " Refugio Canino"
     },
@@ -108,17 +106,17 @@ const Mascotas : IMascotas[]= [
       edad: "3 años",
       sexo: "Macho",
       description: "Gato curioso y juguetón. Le encanta explorar su entorno.",
-      image: "",
+      image: "/imgs/Whiskers.jpg",
       category: "Gato",
       refugio: "Refugio Felino Paz"
     },
     {
       id: 12,
-      name: "Luna",
+      name: "Nala",
       edad: "2 años",
       sexo: "Hembra",
       description: "Gata juguetona y afectuosa. Le encanta perseguir juguetes.",
-      image: "",
+      image: "/imgs/Nala.jpg",
       category: "Gato",
       refugio: "Refugio Felino Paz"
     },
@@ -128,7 +126,7 @@ const Mascotas : IMascotas[]= [
       edad: "6 meses",
       sexo: "Macho",
       description: "Gato tranquilo que prefiere lugares acogedores y tranquilos.",
-      image: "",
+      image: "/imgs/Shadow.jpg",
       category: "Gato",
       refugio: "Refugio de Animales Amistad"
     },
@@ -138,17 +136,17 @@ const Mascotas : IMascotas[]= [
       edad: "5 años",
       sexo: "Macho",
       description: "Gato cariñoso y mimoso. Le encanta estar en el regazo.",
-      image: "",
+      image: "/imgs/Oliver.jpg",
       category: "Gato",
       refugio: "Hogar de Gatos Felices"
     },
     {
       id: 15,
-      name: "Bella",
+      name: "Price",
       edad: "1 año",
       sexo: "Hembra",
       description: "Gata joven y enérgica. Perfecta para un hogar con mucho espacio para jugar.",
-      image: "",
+      image: "/imgs/Prince.jpg",
       category: "Gato",
       refugio: "Refugio Felino Paz"
     },
@@ -158,17 +156,17 @@ const Mascotas : IMascotas[]= [
       edad: "4 años",
       sexo: "Macho",
       description: " Gato aventurero que disfruta trepando y explorando.",
-      image: "",
+      image: "/imgs/Simba.jpg",
       category: "Gato",
       refugio: "Refugio de Animales Amistad"
     },
     {
       id: 17,
-      name: "Daisy",
+      name: "Cane",
       edad: "2 años",
       sexo: "Hembra",
       description: "Gata tranquila y observadora. Le encanta mirar por la ventana.",
-      image: "",
+      image: "/imgs/Cane.jpg",
       category: "Gato",
       refugio: "Hogar de Gatos Felices"
     },
@@ -178,7 +176,7 @@ const Mascotas : IMascotas[]= [
       edad: "2 años",
       sexo: "Macho",
       description: "Gato juguetón y curioso. Le gusta interactuar con otros gatos",
-      image: "",
+      image: "/imgs/Felix.jpg",
       category: "Gato",
       refugio: " Refugio Felino Paz"
     },
@@ -188,17 +186,17 @@ const Mascotas : IMascotas[]= [
       edad: "8 meses",
       sexo: "Hembra",
       description: "Gata cariñosa y sociable. Ideal para hogares con otros animales.",
-      image: "",
+      image: "/imgs/Chloe.jpg",
       category: "Gato",
       refugio: "Refugio de Animales Amistad"
     },
     {
       id: 20,
-      name: "Max",
-      edad: "5 años",
+      name: "Teo",
+      edad: "1 año",
       sexo: "Macho",
-      description: "Gato tranquilo que disfruta de la compañía humana. Perfecto para un hogar ",
-      image: "",
+      description: "Gato juguetón que disfruta de la compañía humana. Perfecto para un hogar ",
+      image: "/imgs/Teo.jpg",
       category: "Gato",
       refugio: "Hogar de Gatos Felices"
     },
