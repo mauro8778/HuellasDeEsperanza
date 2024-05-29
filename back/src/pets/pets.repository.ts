@@ -10,7 +10,7 @@ export class PetsRepository {
     private petsRepository: Repository<PetsEntity>){}
     
     async getPets(){
-        const Pets = await this.petsRepository.find();
+        const Pets: PetsEntity[] = await this.petsRepository.find();
         
         return Pets;
     };

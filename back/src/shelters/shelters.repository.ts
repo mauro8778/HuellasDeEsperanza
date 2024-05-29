@@ -15,7 +15,7 @@ export class ShelterRepository {
         return
     }
     
-    addShelter(shelter : ShelterEntity) {
+    addShelter(shelter : Partial<ShelterEntity>) {
         return
     }
     

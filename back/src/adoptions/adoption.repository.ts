@@ -21,7 +21,7 @@ export class AdoptionRepository {
         return
     }
 
-    async NewAdoption(adoption : AdoptionEntity){
+    async NewAdoption( adoption: Partial<AdoptionEntity>){
         return
     }
 
@@ -29,7 +29,7 @@ export class AdoptionRepository {
         return
     }
 
-    async AdoptionUser( userid : Partial<UserEntity>){
+    async AdoptionUser( userid : string){
         return
     }
     async AdoptionShelter(shelterid : Partial<ShelterEntity>){

@@ -25,7 +25,7 @@ import { FileUploadModule } from './file_upload/file_upload.module';
     ChatModule,
     FileUploadModule,
   ],
-  controllers: [AppController],
+  controllers: [AppController], 
   providers: [AppService],
 })
 export class AppModule {}

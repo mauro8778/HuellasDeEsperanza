@@ -14,7 +14,7 @@ export class SheltersService {
         return this.sheltersRepository.getShelterById(id);
     }
 
-    addShelter(shelter : ShelterEntity){
+    addShelter(shelter : Partial<ShelterEntity>){
         return this.sheltersRepository.addShelter(shelter);
     }
 
