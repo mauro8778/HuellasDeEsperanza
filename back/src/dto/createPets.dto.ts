@@ -1,5 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger"
-import { IsDate, IsNotEmpty, IsOptional, IsString } from "class-validator"
+import { IsEmpty, IsNotEmpty, IsNumber, IsOptional, IsString } from "class-validator"
 import { petSize } from "./helpers/pet_size.enum"
 
 export class CreatePetsDto{ 
@@ -7,7 +7,7 @@ export class CreatePetsDto{
     @IsNotEmpty()
     @IsString()
     @ApiProperty({
-        description: "El nombre del usuario, debe tener como minimo 3 caracteres",
+        description: "Nombre de la mascota",
         example: "Oscar"
     })
     name?: string | undefined
@@ -16,15 +16,15 @@ export class CreatePetsDto{
     @IsNotEmpty()
     @IsString()
     @ApiProperty({
-        example: "Firulais"
+        example: "Perro"
     })
     breed: string
 
 
     @IsNotEmpty()
-    @IsDate()
+    @IsNumber()
     @ApiProperty({
-        example: "Firulais"
+        example: "2"
     })
     age: number
 
@@ -35,5 +35,17 @@ export class CreatePetsDto{
         example: "medium"
     })
     pet_size: petSize.Big | petSize.Little | petSize.Medium
+
+    @IsOptional()
+    @IsString()
+    @ApiProperty({
+        description: "Imagen del producto",
+        example: "img.jpg"
+    })
+    imgUrl?: string   
+
+    @IsEmpty()
+    godfather?: string | undefined
+
 
 }

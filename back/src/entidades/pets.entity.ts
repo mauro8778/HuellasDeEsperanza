@@ -52,7 +52,9 @@ export class PetsEntity{
     godfather?: string | undefined
 
 
-    @Column()
+    @Column({
+        nullable: true
+    })
     refugio_id: string
 
 }
