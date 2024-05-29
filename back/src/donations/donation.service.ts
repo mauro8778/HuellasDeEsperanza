@@ -16,11 +16,11 @@ export class DonationService {
         return await this.donationrepository.donationById(id)
     }
 
-    async userDonation(userid:Partial<UserEntity>){
+    async userDonation(userid: string){
         return await this.donationrepository.userDonation(userid)
     }
 
-    async shelterDonation(shelterid:Partial<ShelterEntity>){
+    async shelterDonation(shelterid:string){
         return await this.donationrepository.shelterDonation(shelterid)
     }
 

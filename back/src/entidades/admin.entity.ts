@@ -9,7 +9,7 @@ import {v4 as uuid} from "uuid"
 export class AdminEntity{
 
     @PrimaryGeneratedColumn("uuid")
-    id: number = uuid()
+    id: string = uuid()
 
 
     @Column({

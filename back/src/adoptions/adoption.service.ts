@@ -17,15 +17,15 @@ export class AdoptionService {
         return await this.adoptionrepository.AdoptionsById(id)
     }
 
-    async newAdoption( adoption : AdoptionEntity ){
+    async newAdoption( adoption : Partial<AdoptionEntity> ){
         return await this.adoptionrepository.NewAdoption(adoption)
     }
-
+ 
     async Delete( id : string ){
         return await this.adoptionrepository.Delete(id)
     }
 
-    async adoptionUser(userid:Partial<UserEntity>){
+    async adoptionUser(userid: string){
         return await this.adoptionrepository.AdoptionUser(userid)
     }
 

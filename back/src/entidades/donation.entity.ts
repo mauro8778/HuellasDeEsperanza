@@ -8,7 +8,7 @@ import {v4 as uuid} from "uuid"
 export class DonationEntity{
 
     @PrimaryGeneratedColumn("uuid")
-    id: number = uuid()
+    id: string = uuid()
 
     @Column({
         type: "decimal",

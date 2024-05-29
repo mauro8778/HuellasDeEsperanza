@@ -1,6 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { PetsRepository } from './pets.repository';
 import { PetsEntity } from 'src/entidades/pets.entity';
+import { UpdatePetsDto } from 'src/dto/updatePets.dto';
+import { CreatePetsDto } from 'src/dto/createPets.dto';
 
 @Injectable()
 export class PetsService {
@@ -14,7 +16,7 @@ export class PetsService {
         return this.petsRepository.getPetById(id);
     }
 
-    addPet(pet : PetsEntity){
+    addPet(pet: CreatePetsDto){
         return this.petsRepository.addPet(pet);
     }
 

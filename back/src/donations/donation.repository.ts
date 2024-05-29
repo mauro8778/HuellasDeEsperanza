@@ -23,11 +23,11 @@ export class DonationRepository {
         return
     }
 
-    async userDonation(userid:Partial<UserEntity>){
+    async userDonation(userid: string){
         return
     }
 
-    async shelterDonation(shelterid:Partial<ShelterEntity>){
+    async shelterDonation(shelterid:string){
         return
     }
 

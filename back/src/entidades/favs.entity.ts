@@ -8,7 +8,7 @@ import {v4 as uuid} from "uuid"
 export class FavsEntity{
 
     @PrimaryGeneratedColumn("uuid")
-    id: number = uuid()
+    id: string = uuid()
 
 
     @Column()

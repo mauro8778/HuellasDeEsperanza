@@ -8,7 +8,7 @@ import {v4 as uuid} from "uuid"
 export class ShelterEntity{
 
     @PrimaryGeneratedColumn("uuid")
-    id: number = uuid()
+    id: string = uuid()
 
     
     @Column({
@@ -70,9 +70,8 @@ export class ShelterEntity{
 
 
     @Column({
-        type:"varchar",
         nullable: false
     })
-    species: string
+    exotic_animals: boolean
 
 }
