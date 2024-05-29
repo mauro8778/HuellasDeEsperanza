@@ -1,14 +1,8 @@
-import RandomAnimalCards from "@/components/Card-Animals/RandomAnimalsCards";
-import Mascotas from "@/utils/mascotas";
+import Landing from "@/components/Landing";
 
 
-export default function Home() {
+export default function LandingPage() {
   return (
-    <div>
-        <h1>pagina principal</h1>
-        <RandomAnimalCards mascotas={Mascotas} />
-
-    </div>
-    
+   <Landing />
   );
 }
