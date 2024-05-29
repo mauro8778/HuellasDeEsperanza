@@ -10,7 +10,7 @@ export const Home: React.FC = () => {
   return (
     <div className="relative w-full min-h-screen overflow-hidden">
       <div>
-      <img src="/ImageNavbar.webp" alt="Wave Background" className="absolute top-0 left-0 w-full h-full object-cover -z-10 w-full h-auto " />
+      <img src="/ImageNavbar.webp" alt="Wave Background" className="absolute top-0 left-0 w-full h-full object-cover -z-10 " />
       </div>
       <h1>pagina principal</h1>
         <RandomAnimalCards mascotas={Mascotas} />
