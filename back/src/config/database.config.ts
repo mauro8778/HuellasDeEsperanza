@@ -2,7 +2,6 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { DataSource, DataSourceOptions } from 'typeorm';
 import { DB_HOST, DB_NAME, DB_PASSWORD, DB_PORT, DB_USERNAME } from './envs';
 
-
 const dbConfig: DataSourceOptions = {
   type: 'postgres',
   database: DB_NAME,
