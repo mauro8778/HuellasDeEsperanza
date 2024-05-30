@@ -2,8 +2,9 @@
 'use client'
 
 import RandomAnimalCards from "@/components/Card-Animals/RandomAnimalsCards"
-// import Navbar from "@/components/NavBar/NavBar"
 import Mascotas from "@/utils/mascotas"
+
+
 
 export const Home: React.FC = () => {
   return (
@@ -12,8 +13,15 @@ export const Home: React.FC = () => {
       <div className="absolute top-0 left-0 w-full h-[300px]">
         <img src="/BannerNav-_1_.webp" alt="Wave Background" className="absolute top-0 left-0 w-full h-full object-cover -z-10 " />
       </div>
+      <h1>pagina principal</h1>
+        <RandomAnimalCards mascotas={Mascotas} />
+        
+
+
+    
+
       
-      <RandomAnimalCards mascotas={Mascotas} />
+      
     </div>
   )
 }
