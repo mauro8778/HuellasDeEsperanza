@@ -2,7 +2,9 @@
 'use client'
 
 import RandomAnimalCards from "@/components/Card-Animals/RandomAnimalsCards"
+import RandomRefugiosCards from "@/components/Refugios/RandomRefugiosCards"
 import Mascotas from "@/utils/mascotas"
+import Refugios from "@/utils/refugios"
 
 
 
@@ -15,12 +17,9 @@ export const Home: React.FC = () => {
       </div>
       <h1>pagina principal</h1>
         <RandomAnimalCards mascotas={Mascotas} />
-        
 
+        <RandomRefugiosCards refugios={Refugios}/>
 
-    
-
-      
       
     </div>
   )
