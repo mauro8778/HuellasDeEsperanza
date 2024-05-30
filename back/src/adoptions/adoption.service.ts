@@ -20,7 +20,7 @@ export class AdoptionService {
     async newAdoption( adoption : Partial<AdoptionEntity> ){
         return await this.adoptionrepository.NewAdoption(adoption)
     }
- 
+
     async Delete( id : string ){
         return await this.adoptionrepository.Delete(id)
     }
@@ -29,7 +29,7 @@ export class AdoptionService {
         return await this.adoptionrepository.AdoptionUser(userid)
     }
 
-    async adoptionShelter(shelterid: Partial<ShelterEntity>){
+    async adoptionShelter(shelterid: string){
         return await this.adoptionrepository.AdoptionShelter(shelterid)
     }
 }

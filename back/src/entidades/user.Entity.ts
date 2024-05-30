@@ -1,6 +1,7 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import {v4 as uuid} from "uuid"
 import { DonationEntity } from "./donation.entity";
+import { AdoptionEntity } from "./adoption.entity";
 
 
 @Entity
@@ -62,6 +63,10 @@ export class UserEntity{
     location?: string | undefined
 
     @OneToMany(() => DonationEntity, donation => donation.user)
-  donations: DonationEntity[];
+    donations: DonationEntity[];
+
+
+    @OneToMany( ()=> AdoptionEntity, adoptions => adoptions.user)
+    adoptions: AdoptionEntity[]
 
 }

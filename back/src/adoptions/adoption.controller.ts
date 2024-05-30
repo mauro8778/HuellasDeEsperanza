@@ -8,7 +8,7 @@ import { ApiTags } from '@nestjs/swagger';
 export class AdoptionController {
     constructor(private readonly adopcionservice : AdoptionService){}
 
-    @Get('')
+    @Get()
     async AllAdoptions(){
         return await this.adopcionservice.AllAdoptions()
     }
