@@ -24,8 +24,10 @@ export class UserController {
     }
 
     @Put('profile')
-    updatedProfile(@Body() user : UpdateUserDto, @Req() request : Request & {user : any}){
-        return this.usersService.updatedProfile(request.user.userId, user)
+    updatedProfile(
+        @Param('id',ParseUUIDPipe) id:string,
+        @Body() user : UpdateUserDto){
+        return this.usersService.updatedProfile(id, user)
     }
 
     @Delete(':id')
