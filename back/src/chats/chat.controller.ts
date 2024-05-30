@@ -19,7 +19,7 @@ export class ChatController {
     }
 
     @Post('new')
-    async newChat(@Body() chat: ChatEntity){
+    async newChat(@Body() chat: Omit<ChatEntity, "id">){
         return await this.chatservices.newChat(chat)
     }
 

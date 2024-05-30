@@ -14,7 +14,7 @@ async chatById(id:string){
     return await this.chatrepository.chatById(id)
 }
 
-async newChat(chat:ChatEntity){
+async newChat(chat:Omit<ChatEntity, "id">){
     return await this.chatrepository.newChat(chat)
 }
 
