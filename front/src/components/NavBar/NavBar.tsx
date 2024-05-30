@@ -3,6 +3,7 @@ import Logo from './Logo';
 import Search from './Search';
 import NavMenu from './NavMenu';
 import { useState } from 'react';
+import Desplegable from './Desplegable';
 
 const Navbar: React.FC = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -12,18 +13,19 @@ const Navbar: React.FC = () => {
   };
 
   return (
-    <header className="bg-white h-20 flex items-center justify-between px-4 shadow-md">
+    <header className="bg-pink-600 h-20 flex items-center justify-between px-4 shadow-md">
       <Logo />
       <NavMenu />
+      <Desplegable />
       <Search />
       <div className="flex items-center">
         {isLoggedIn ? (
           <>
-            <img src="/avatar.png" alt="Avatar" className="w-10 h-10 rounded-full mr-2" />
-            <button onClick={handleLoginLogout} className="text-black">Logout</button>
+            
+            <button onClick={handleLoginLogout} className="text-white">Logout</button>
           </>
         ) : (
-          <button onClick={handleLoginLogout} className="text-black">Login</button>
+          <button onClick={handleLoginLogout} className="text-white">Login</button>
         )}
       </div>
     </header>

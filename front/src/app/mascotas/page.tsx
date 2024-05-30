@@ -1,25 +1,18 @@
-'use client';
-import { useEffect, useState } from 'react';
+
+
 import Mascotas from '@/utils/mascotas'; 
-import { IMascotas } from '@/interface/IMascotas';
+
+import ListaMascotas from '@/components/Card-Animals/ListaMascotas';
+import Footer from '@/components/Footer/Footer';
 
 const MascotasPage: React.FC = () => {
-  const [mascotas, setMascotas] = useState<IMascotas[]>([]);
-
-  useEffect(() => {
-    // Seteo todas las mascotas en el estado al cargar la página
-    setMascotas(Mascotas);
-  }, []);
+  
 
   return (
-    <div>
-      <h1>Todas las Mascotas</h1>
-      <ul>
-        {mascotas.map((mascota) => (
-          <li key={mascota.id}>{mascota.name}</li>
-        ))}
-      </ul>
-    </div>
+    <main>
+    <ListaMascotas mascotas={Mascotas} />
+    <Footer/>
+  </main>
   );
 };
 
