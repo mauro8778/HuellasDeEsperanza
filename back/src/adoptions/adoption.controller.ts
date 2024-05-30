@@ -1,7 +1,9 @@
 import { Body, Controller, Delete, Get, Param, ParseUUIDPipe, Post } from '@nestjs/common';
 import { AdoptionService } from './adoption.service';
 import { CreateAdopcionDto } from 'src/dto/createAdopcion.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags("Adoption")
 @Controller('adoption')
 export class AdoptionController {
     constructor(private readonly adopcionservice : AdoptionService){}

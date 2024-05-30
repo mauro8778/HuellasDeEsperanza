@@ -1,7 +1,9 @@
 import { Body, Controller, Get, Param, ParseUUIDPipe, Post } from '@nestjs/common';
 import { DonationService } from './donation.service';
 import { DonationEntity } from 'src/entidades/donation.entity';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags("Donation")
 @Controller('donation')
 export class DonationController {
     constructor(private readonly donationservice:DonationService){}

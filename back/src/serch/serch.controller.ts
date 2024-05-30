@@ -1,6 +1,8 @@
 import { BadRequestException, Controller, Get, Query } from '@nestjs/common';
 import { SerchService } from './serch.service';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags("Search")
 @Controller('search')
 export class SearchController {
     constructor(private readonly searchService: SerchService){}

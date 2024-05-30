@@ -4,7 +4,7 @@ import {v4 as uuid} from "uuid"
 
 @Entity
 ({
-    name: 'user'
+    name: 'users'
 })
 export class UserEntity{
 

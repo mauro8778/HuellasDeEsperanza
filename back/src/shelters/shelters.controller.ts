@@ -1,7 +1,9 @@
 import { Body, Controller, Delete, Get, Param, ParseUUIDPipe, Post } from '@nestjs/common';
 import { SheltersService } from './shelters.service';
 import { CreateShelterDto } from 'src/dto/createShelter.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags("Shelters")
 @Controller('shelters')
 export class SheltersController {
     constructor(private readonly sheltersService : SheltersService) {}
