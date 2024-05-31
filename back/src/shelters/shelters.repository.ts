@@ -11,7 +11,9 @@ export class ShelterRepository {
      {}
     
     async getShelters(){
-        const shelters = await this.sheltersRepository.find({where:{isActive: true}})
+        const shelters = await this.sheltersRepository.find({
+        select:['id','description','location','pets','shelter_name','isActive']
+        })
 
         if(shelters.length === 0)
         {
