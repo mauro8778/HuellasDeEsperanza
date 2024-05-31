@@ -1,4 +1,3 @@
-// src/components/FormularioMascota.tsx
 import { useState } from 'react';
 
 interface FormularioMascotaProps {
