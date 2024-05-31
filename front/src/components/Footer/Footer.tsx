@@ -27,7 +27,7 @@ const Footer= () => {
                 {/* <p className="font-semibold text-gray-800 dark:text-white">Link</p> */}
 
                 <div className="flex flex-col items-start mt-5 space-y-2">
-                    <Link href= "/" className="text-gray-600 transition-colors duration-300 dark:text-gray-300 dark:hover:text-blue-400 hover:underline hover:cursor-pointer hover:text-blue-500" >
+                    <Link href= "/Home" className="text-gray-600 transition-colors duration-300 dark:text-gray-300 dark:hover:text-blue-400 hover:underline hover:cursor-pointer hover:text-blue-500" >
                         Home
                     </Link>
 

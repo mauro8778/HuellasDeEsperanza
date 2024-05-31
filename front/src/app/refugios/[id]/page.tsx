@@ -15,12 +15,15 @@ const RefugioDetail = ({ params }: { params: IParams }) => {
     const mascotasDelRefugio = Mascotas.filter(mascota => mascota.refugio === refugio.name);
 
     return (
-        <div>
-            <h1>{refugio.name}</h1>
-            <p>{refugio.description}</p>
-            <Image src={refugio.image} alt={refugio.name} width={300} height={150} />
+        <div className="p-4">
+            <h1 className="text-2xl font-bold mb-4">{refugio.name}</h1>
+            
+            <div className="flex items-center gap-4 mb-6">
+                <Image src={refugio.image} alt={refugio.name} width={300} height={150} className="w-72 h-auto" />
+                <p>{refugio.description}</p>
+            </div>
 
-            <h2>Mascotas en este refugio</h2>
+            <h2 className="text-xl font-semibold mb-2">Mascotas en este refugio</h2>
             {mascotasDelRefugio.length > 0 ? (
                 <ListaMascotas mascotas={mascotasDelRefugio} />
             ) : (
