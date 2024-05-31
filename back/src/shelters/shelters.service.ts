@@ -21,4 +21,7 @@ export class SheltersService {
     deleteShelter(id : string) {
         return this.sheltersRepository.deleteShelter(id);
     }
+    async UpdateShelter(id:string){
+        return this.sheltersRepository.UpdateShelter(id);
+    }
 }
