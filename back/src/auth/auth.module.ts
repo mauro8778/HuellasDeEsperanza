@@ -5,10 +5,12 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserEntity } from 'src/entidades/user.entity';
 import { Auth0Module } from 'src/auth0/auth0.module';
 import { Auth0Guard } from 'src/guards/auth0.guard';
+import { MailService } from 'src/mails/mail.service';
+import { ConfigService } from '@nestjs/config';
 
 @Module({
   imports:[TypeOrmModule.forFeature([UserEntity]), Auth0Module],
-  providers: [AuthService, Auth0Guard],
+  providers: [AuthService, Auth0Guard, MailService, ConfigService],
   controllers: [AuthController]
 })
 export class AuthModule {}
