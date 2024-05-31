@@ -1,4 +1,4 @@
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import {v4 as uuid} from "uuid"
 import { ShelterEntity } from "./shelter.entity";
 
@@ -14,9 +14,17 @@ export class PetsEntity{
 
     @Column({
         type:"varchar",
-        nullable: true
+        nullable: true,
+        default: "Sin nombre"
     })
-    name?: string | undefined
+    name?: string
+
+
+    @Column({
+        type:"varchar",
+        nullable: false
+    })
+    sexo: string
 
         
     @Column({
@@ -30,6 +38,14 @@ export class PetsEntity{
         nullable: false
     })
     age: number
+
+
+    @Column({
+        type:"varchar",
+        nullable: true,
+        default: ""
+    })
+    description?: string
 
 
     @Column({
