@@ -1,5 +1,8 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import {v4 as uuid} from "uuid"
+import { DonationEntity } from "./donation.entity";
+import { AdoptionEntity } from "./adoption.entity";
+import { PetsEntity } from "./pets.entity";
 
 
 @Entity({
@@ -70,8 +73,18 @@ export class ShelterEntity{
 
 
     @Column({
-        nullable: false
+        nullable: true,
+        default: false
     })
     exotic_animals: boolean
+
+    @OneToMany(() => DonationEntity, donation => donation.shelter)
+    donations: DonationEntity[];
+
+    @OneToMany(() => AdoptionEntity, adoptions => adoptions.shelter)
+    adoptions: AdoptionEntity[];
+
+    @OneToMany(() => PetsEntity, pets => pets.shelter)
+    pets: AdoptionEntity[];
 
 }

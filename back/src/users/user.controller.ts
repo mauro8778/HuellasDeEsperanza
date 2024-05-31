@@ -1,8 +1,10 @@
 import { Body, Controller, Delete, Get, Param, ParseUUIDPipe, Put, Req } from '@nestjs/common';
 import { UserService } from './user.service';
 import { UpdateUserDto } from 'src/dto/updateUser.dto';
+import { ApiTags } from '@nestjs/swagger';
 
-@Controller('user')
+@ApiTags("Users")
+@Controller('users')
 export class UserController {
     constructor(private readonly usersService : UserService){}
 
@@ -22,8 +24,10 @@ export class UserController {
     }
 
     @Put('profile')
-    updatedProfile(@Body() user : UpdateUserDto, @Req() request : Request & {user : any}){
-        return this.usersService.updatedProfile(request.user.userId, user)
+    updatedProfile(
+        @Param('id',ParseUUIDPipe) id:string,
+        @Body() user : UpdateUserDto){
+        return this.usersService.updatedProfile(id, user)
     }
 
     @Delete(':id')

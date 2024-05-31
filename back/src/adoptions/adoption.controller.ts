@@ -1,12 +1,14 @@
 import { Body, Controller, Delete, Get, Param, ParseUUIDPipe, Post } from '@nestjs/common';
 import { AdoptionService } from './adoption.service';
 import { CreateAdopcionDto } from 'src/dto/createAdopcion.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags("Adoption")
 @Controller('adoption')
 export class AdoptionController {
     constructor(private readonly adopcionservice : AdoptionService){}
 
-    @Get('')
+    @Get()
     async AllAdoptions(){
         return await this.adopcionservice.AllAdoptions()
     }
@@ -18,7 +20,8 @@ export class AdoptionController {
 
     @Post('new')
     async newAdoption(@Body() adoption: CreateAdopcionDto){
-        return await this.adopcionservice.newAdoption(adoption)
+        const {user, shelter, pet} = adoption;
+        return await this.adopcionservice.newAdoption(user, shelter, pet)
     }
 
     @Delete('delete/:id')

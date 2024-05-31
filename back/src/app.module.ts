@@ -11,6 +11,7 @@ import { PetsModule } from './pets/pets.module';
 import { ChatModule } from './chats/chat.module';
 import { databaseConfig } from './config/database.config';
 import { FileUploadModule } from './file_upload/file_upload.module';
+import { Auth0Module } from './auth0/auth0.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { FileUploadModule } from './file_upload/file_upload.module';
     PetsModule,
     ChatModule,
     FileUploadModule,
+    Auth0Module,
   ],
   controllers: [AppController], 
   providers: [AppService],

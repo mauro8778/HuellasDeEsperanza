@@ -18,7 +18,7 @@ export class UserService {
         return this.usersRepository.getProfile(id)
     }
 
-    updatedProfile(id : string, user : UpdateUserDto){
+    updatedProfile(id : string, user : any){
         return this.usersRepository.updatedProfile(id,user)
     }
 
