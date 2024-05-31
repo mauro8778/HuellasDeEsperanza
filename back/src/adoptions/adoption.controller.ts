@@ -20,7 +20,8 @@ export class AdoptionController {
 
     @Post('new')
     async newAdoption(@Body() adoption: CreateAdopcionDto){
-        return await this.adopcionservice.newAdoption(adoption)
+        const {user, shelter, pet} = adoption;
+        return await this.adopcionservice.newAdoption(user, shelter, pet)
     }
 
     @Delete('delete/:id')

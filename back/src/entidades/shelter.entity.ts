@@ -73,7 +73,8 @@ export class ShelterEntity{
 
 
     @Column({
-        nullable: false
+        nullable: true,
+        default: false
     })
     exotic_animals: boolean
 
@@ -84,6 +85,6 @@ export class ShelterEntity{
     adoptions: AdoptionEntity[];
 
     @OneToMany(() => PetsEntity, pets => pets.shelter)
-    pets: PetsEntity[];
+    pets: AdoptionEntity[];
 
 }

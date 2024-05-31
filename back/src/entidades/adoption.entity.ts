@@ -15,7 +15,7 @@ export class AdoptionEntity{
 
 
     @Column({
-        nullable: false,
+        nullable: false
     })
     date: Date
 

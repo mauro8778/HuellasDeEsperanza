@@ -1,6 +1,8 @@
-import { Injectable, NotFoundException } from "@nestjs/common";
+import { BadRequestException, Injectable, NotFoundException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
+import { CreateAdopcionDto } from "src/dto/createAdopcion.dto";
 import { AdoptionEntity } from "src/entidades/adoption.entity";
+import { PetsEntity } from "src/entidades/pets.entity";
 import { ShelterEntity } from "src/entidades/shelter.entity";
 import { UserEntity } from "src/entidades/user.entity";
 import { Repository } from "typeorm";
@@ -12,13 +14,20 @@ export class AdoptionRepository {
         @InjectRepository(AdoptionEntity)
          private adoptionrepository: Repository<AdoptionEntity>,
          @InjectRepository(ShelterEntity)
-         private sheltersService: Repository<ShelterEntity>,
+         private sheltersRepository: Repository<ShelterEntity>,
          @InjectRepository(UserEntity)
-         private usersRepository: Repository<UserEntity>){}
+         private usersRepository: Repository<UserEntity>,
+         @InjectRepository(PetsEntity)
+         private petsRepository: Repository<PetsEntity>){}
 
 
     async AllAdoptions(){
-        const adoptions: AdoptionEntity[] = await this.adoptionrepository.find();
+        const adoptions: AdoptionEntity[] = await this.adoptionrepository.find({
+            relations:{
+                user: true,
+                pet: true
+            }
+        });
         
         if (!adoptions) {
             throw new NotFoundException('No existen adopciones');
@@ -38,8 +47,38 @@ export class AdoptionRepository {
         return adoptionId;
     }
 
-    async NewAdoption( adoption: Partial<AdoptionEntity>){
-        this.adoptionrepository.save(adoption);
+    async NewAdoption( userid: string, shelterid: string, petid: string){
+        
+        const user = await this.usersRepository.findOneBy({id: userid});
+        if (!userid) {
+            throw new BadRequestException(`Usuario no encontrado`);
+        }
+        const shelter = await this.sheltersRepository.findOneBy({id: shelterid});
+        if (!shelterid) {
+            throw new BadRequestException(`Refugio no encontrado`);
+        }
+        const pet = await this.petsRepository.findOneBy({id: petid});
+        if (!petid) {
+            throw new BadRequestException(`Mascota no encontrada`);
+        }
+
+        const adoption = new AdoptionEntity();
+        adoption.date = new Date();
+        adoption.user = user;
+        adoption.shelter = shelter;
+        adoption.pet = pet;
+
+        await this.adoptionrepository.save(adoption)
+
+        return await this.adoptionrepository.find({
+            where: {id: adoption.id},
+            relations: {
+                user: true,
+                shelter: true,
+                pet: true
+            },
+        })
+
     }
 
     async Delete(id : string){
@@ -64,7 +103,7 @@ export class AdoptionRepository {
     }
 
     async AdoptionShelter(shelterid : string){
-        const shelter: ShelterEntity = await this.sheltersService.findOne({
+        const shelter: ShelterEntity = await this.sheltersRepository.findOne({
             where:{id: shelterid},
             relations:{
                 adoptions: true

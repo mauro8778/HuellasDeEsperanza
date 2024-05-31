@@ -3,6 +3,7 @@ import { AdoptionRepository } from './adoption.repository';
 import { AdoptionEntity } from 'src/entidades/adoption.entity';
 import { UserEntity } from 'src/entidades/user.entity';
 import { ShelterEntity } from 'src/entidades/shelter.entity';
+import { CreateAdopcionDto } from 'src/dto/createAdopcion.dto';
 
 @Injectable()
 export class AdoptionService {
@@ -17,8 +18,8 @@ export class AdoptionService {
         return await this.adoptionrepository.AdoptionsById(id)
     }
 
-    async newAdoption( adoption : Partial<AdoptionEntity> ){
-        return await this.adoptionrepository.NewAdoption(adoption)
+    async newAdoption( user: string, shelter: string, pet: string ){
+        return await this.adoptionrepository.NewAdoption(user, shelter, pet)
     }
 
     async Delete( id : string ){
