@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from "@nestjs/common";
+import { BadRequestException, Injectable, NotFoundException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { ShelterEntity } from "src/entidades/shelter.entity";
 import { Repository } from "typeorm";
@@ -8,7 +8,7 @@ export class ShelterRepository {
     constructor(@InjectRepository(ShelterEntity) private readonly sheltersRepository : Repository<ShelterEntity>) {}
     
     async getShelters(){
-        const shelters = await this.sheltersRepository.find()
+        const shelters = await this.sheltersRepository.find({where:{status: true}})
 
         if(shelters.length === 0)
         {
@@ -27,7 +27,18 @@ export class ShelterRepository {
     }
     
     async addShelter(shelter : Partial<ShelterEntity>) {
+        const existE: ShelterEntity = await this.sheltersRepository.findOneBy({email: shelter.email})
+        if (existE) {
+            throw new BadRequestException(`El mail ya esta registrado`)
+        }
+        
+        const existD: ShelterEntity = await this.sheltersRepository.findOneBy({dni: shelter.dni})
+        if (existD) {
+            throw new BadRequestException(`El DNI ya esta registrado`)
+
+        }
         const newShelter = this.sheltersRepository.create(shelter);
+
     return await this.sheltersRepository.save(newShelter);
     }
     

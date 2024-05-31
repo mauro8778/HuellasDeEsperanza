@@ -87,4 +87,11 @@ export class ShelterEntity{
     @OneToMany(() => PetsEntity, pets => pets.shelter)
     pets: AdoptionEntity[];
 
+
+    @Column({
+        nullable: true,
+        default: false
+    })
+    status: boolean
+
 }

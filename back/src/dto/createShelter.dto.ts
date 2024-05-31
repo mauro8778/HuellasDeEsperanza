@@ -77,4 +77,7 @@ export class CreateShelterDto {
 
     @IsEmpty()
     exotic_animals: boolean
+
+    @IsEmpty()
+    status: boolean
 }
