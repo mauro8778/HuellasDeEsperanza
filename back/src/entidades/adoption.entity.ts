@@ -1,7 +1,8 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import {v4 as uuid} from "uuid"
 import { UserEntity } from "./user.entity";
 import { ShelterEntity } from "./shelter.entity";
+import { PetsEntity } from "./pets.entity";
 
 
 @Entity({
@@ -19,13 +20,14 @@ export class AdoptionEntity{
     date: Date
 
 
-    @Column()
-    pet_id: string
-
-
+    
     @ManyToOne(() => UserEntity, (user) => user.adoptions)
     user: UserEntity
-
+    
     @ManyToOne(() => ShelterEntity, (shelter) => shelter.adoptions)
     shelter: ShelterEntity
+    
+    @OneToOne(() => PetsEntity)
+    @JoinColumn({name: "petId"})
+    pet: PetsEntity
 }

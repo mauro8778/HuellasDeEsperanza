@@ -2,6 +2,7 @@ import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import {v4 as uuid} from "uuid"
 import { DonationEntity } from "./donation.entity";
 import { AdoptionEntity } from "./adoption.entity";
+import { PetsEntity } from "./pets.entity";
 
 
 @Entity({
@@ -81,5 +82,8 @@ export class ShelterEntity{
 
     @OneToMany(() => AdoptionEntity, adoptions => adoptions.shelter)
     adoptions: AdoptionEntity[];
+
+    @OneToMany(() => PetsEntity, pets => pets.shelter)
+    pets: PetsEntity[];
 
 }

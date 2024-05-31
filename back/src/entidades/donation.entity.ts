@@ -27,17 +27,10 @@ export class DonationEntity{
     date: Date
 
 
-    @Column()
-    user_id: string
-
-
-    @Column()
-    shelter_id: string
-
     @ManyToOne(() => ShelterEntity, shelter => shelter.donations)
-  shelter: ShelterEntity;
+    shelter: ShelterEntity;
 
     @ManyToOne(() => UserEntity, user => user.donations)
-  user: UserEntity;
+    user: UserEntity;
 
 }

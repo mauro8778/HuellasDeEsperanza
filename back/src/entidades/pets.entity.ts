@@ -1,5 +1,6 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import {v4 as uuid} from "uuid"
+import { ShelterEntity } from "./shelter.entity";
 
 
 @Entity({
@@ -52,9 +53,7 @@ export class PetsEntity{
     godfather?: string | undefined
 
 
-    @Column({
-        nullable: true
-    })
-    refugio_id: string
+    @ManyToOne(() => ShelterEntity, shelter => shelter.pets)
+    shelter: ShelterEntity 
 
 }
