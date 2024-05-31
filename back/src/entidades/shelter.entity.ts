@@ -92,6 +92,6 @@ export class ShelterEntity{
         nullable: true,
         default: false
     })
-    status: boolean
+    isActive: boolean
 
 }
