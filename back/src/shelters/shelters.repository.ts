@@ -1,14 +1,19 @@
 import { BadRequestException, Injectable, NotFoundException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { ShelterEntity } from "src/entidades/shelter.entity";
+import { MailService } from "src/mails/mail.service";
 import { Repository } from "typeorm";
 
 @Injectable()
 export class ShelterRepository {
-    constructor(@InjectRepository(ShelterEntity) private readonly sheltersRepository : Repository<ShelterEntity>) {}
+    constructor(@InjectRepository(ShelterEntity) private readonly sheltersRepository : Repository<ShelterEntity>,
+    private readonly mailService: MailService, )
+     {}
     
     async getShelters(){
-        const shelters = await this.sheltersRepository.find({where:{status: true}})
+        const shelters = await this.sheltersRepository.find({
+        select:['id','description','location','pets','shelter_name','isActive']
+        })
 
         if(shelters.length === 0)
         {
@@ -16,6 +21,18 @@ export class ShelterRepository {
         }
 
         return shelters;
+    }
+    async UpdateShelter(id:string){
+        const shelter = await this.sheltersRepository.findOne({where:{id}})
+        if(!shelter){
+            throw new NotFoundException('no existe regugio')
+        }
+        shelter.isActive=true
+
+        const UpdateShelter= this.sheltersRepository.save(shelter)
+        await this.mailService.sendShelterActivationMail(shelter.email, shelter.name);
+
+        return UpdateShelter;
     }
     
     async getShelterById(id : string) {
@@ -47,8 +64,8 @@ export class ShelterRepository {
         if (!deleteshelter) {
           throw new NotFoundException(`no se encontro el usuario con id ${id}`);
         }
-        await this.sheltersRepository.delete(id);
-        return `usuario con id ${id} y nombre ${deleteshelter.name} se ah eliminado con exito`;
+        deleteshelter.isActive=false
+        return this.sheltersRepository.save(deleteshelter)
     }
 
 

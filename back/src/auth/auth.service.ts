@@ -7,10 +7,12 @@ import { UserEntity } from 'src/entidades/user.entity';
 import axios from 'axios';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { MailService } from 'src/mails/mail.service';
 
 @Injectable()
 export class AuthService {
-  constructor(@InjectRepository(UserEntity) private userRepository:Repository<UserEntity>){}
+  constructor(@InjectRepository(UserEntity) private userRepository:Repository<UserEntity>,
+  private readonly mailService: MailService,){}
 
   async Login(email: string, password: string) {
     try {
@@ -56,6 +58,7 @@ export class AuthService {
         },
       );
       await this.userRepository.save(userData)
+      await this.mailService.sendUserRegistrationMail(userData.name,email,password)
       return { succes: "Usuario registrado correctamente" }
     } catch (error) {
       throw new BadRequestException('Error creating user');

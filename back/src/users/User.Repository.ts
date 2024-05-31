@@ -11,8 +11,8 @@ export class UserRepository {
      private readonly usersRepository : Repository<UserEntity>){}
 
     async getUsers(){
-        const users = await this.usersRepository.find()
-
+        const users = await this.usersRepository.find({select: ['id', 'name','last_name','birthdate','location','phone']},)
+        
         if(users.length === 0)
         {
             throw new NotFoundException('no existen usuarios');

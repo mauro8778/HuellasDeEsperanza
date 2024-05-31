@@ -6,9 +6,10 @@ import { ShelterRepository } from 'src/shelters/shelters.repository';
 import { ShelterEntity } from 'src/entidades/shelter.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { PetsEntity } from 'src/entidades/pets.entity';
+import { MailModule } from 'src/mails/mail.module';
 
 @Module({
-  imports:[TypeOrmModule.forFeature([ShelterEntity, PetsEntity])],
+  imports:[TypeOrmModule.forFeature([ShelterEntity, PetsEntity]), MailModule],
   providers: [SerchService, PetsRepository, ShelterRepository],
   controllers: [SearchController]
 })

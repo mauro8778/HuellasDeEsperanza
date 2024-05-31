@@ -12,6 +12,7 @@ import { ChatModule } from './chats/chat.module';
 import { databaseConfig } from './config/database.config';
 import { FileUploadModule } from './file_upload/file_upload.module';
 import { Auth0Module } from './auth0/auth0.module';
+import { MailModule } from './mails/mail.module';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { Auth0Module } from './auth0/auth0.module';
     ChatModule,
     FileUploadModule,
     Auth0Module,
+    MailModule,
   ],
   controllers: [AppController], 
   providers: [AppService],
