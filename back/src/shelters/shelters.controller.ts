@@ -26,11 +26,11 @@ export class SheltersController {
   }
 
   @Post('active/:id')
-  updateShelter(id: string) {
-    return this.sheltersService.updateShelter(id);
+  updateActiveShelter(id: string) {
+    return this.sheltersService.updateActiveShelter(id);
   }
 
-  @Delete(':id')
+  @Post(':id')
   deleteShelter(@Param('id', ParseUUIDPipe) id: string) {
     return this.sheltersService.deleteShelter(id);
   }

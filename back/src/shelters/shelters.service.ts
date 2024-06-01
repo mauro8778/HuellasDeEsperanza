@@ -17,7 +17,7 @@ export class SheltersService {
     return this.sheltersRepository.deleteShelter(id);
   }
 
-  updateShelter(id: string) {
-    return this.sheltersRepository.updateShelter(id);
+  updateActiveShelter(id: string) {
+    return this.sheltersRepository.updateActiveShelter(id);
   }
 }

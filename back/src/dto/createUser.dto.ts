@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
+import { IsEmpty } from 'class-validator';
 import {
   IsDate,
   IsEmail,
@@ -74,4 +75,7 @@ export class CreateUserDto {
   @IsString()
   @ApiProperty()
   location?: string;
+
+  @IsEmpty()
+  isActive: boolean
 }

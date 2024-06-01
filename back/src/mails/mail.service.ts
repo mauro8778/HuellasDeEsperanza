@@ -40,10 +40,27 @@ export class MailService {
     }
   }
 
-  async sendUserRegistrationMail(userEmail: string, username: string, password: string) {
+  async deleteUserMail(userEmail: string, username: string) {
     const subject = 'Bienvenido a Huellas de Esperanza';
-    const text = `Hola ${username},\n\nTus credenciales son:\nUsuario: ${username}\nContraseña: ${password}`;
-    await this.sendMail(userEmail, subject, text);
+    const text = `Hola ${username},
+
+    Tu cuenta ha sido cerrada correctamente.
+ 
+    Te informamos que hemos dado cumplimiento a su solicitud de acuerdo con la ley 25.326.
+ 
+    Asimismo, te informamos que la empresa debe dar cumplimiento obligatorio el artículo 328 del Código Civil y Comercial de la Nación que obliga al guardado de información relativa a operaciones financieras.
+    
+    Saludos,
+    Tu Empresa`;
+    const html= `<div style="border: 1px solid black; padding: 20px; background: linear-gradient(to bottom, #ff0066, #ffffff); border-radius: 15px;">
+    <p>¡Hola, <strong>${username}</strong>!</p>
+    <p>Tu cuenta ha sido cerrada correctamente.</p>
+    <p>Te informamos que hemos dado cumplimiento a su solicitud de acuerdo con la ley 25.326.</p>
+    <p>Asimismo, te informamos que la empresa debe dar cumplimiento obligatorio al artículo 328 del Código Civil y Comercial de la Nación que obliga al guardado de información relativa a operaciones financieras.</p>
+    <p>¡Saludos!</p>
+    <p>El equipo de Huellas de Esperanza</p>
+  </div>`
+    await this.sendMail(userEmail, subject, text,html);
   }
 
   async sendShelterRegistrationMail(shelterEmail: string, shelterName: string, password: string) {

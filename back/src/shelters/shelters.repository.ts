@@ -7,6 +7,7 @@ import {
 import { InjectRepository } from '@nestjs/typeorm';
 import { ShelterEntity } from 'src/entidades/shelter.entity';
 import { MailService } from 'src/mails/mail.service';
+import { Role } from 'src/users/user.enum';
 import { Repository } from 'typeorm';
 
 @Injectable()
@@ -19,16 +20,7 @@ export class ShelterRepository {
   ) {}
 
   async getShelters() {
-    const shelters = await this.sheltersRepository.find({
-      select: [
-        'id',
-        'description',
-        'location',
-        'pets',
-        'shelter_name',
-        'isActive',
-      ],
-    });
+    const shelters = await this.sheltersRepository.find();
 
     if (shelters.length === 0) {
       throw new NotFoundException('no existen usuarios');
@@ -37,7 +29,7 @@ export class ShelterRepository {
     return shelters;
   }
 
-  async updateShelter(id: string) {
+  async updateActiveShelter(id: string) {
     const shelter = await this.sheltersRepository.findOne({ where: { id } });
     if (!shelter) {
       throw new NotFoundException('no existe regugio');
@@ -47,6 +39,11 @@ export class ShelterRepository {
       shelter.email,
       shelter.name,
     );
+
+    if(shelter.role=== Role.user){
+      shelter.role=Role.shelters
+    }
+    
     const UpdateShelter = this.sheltersRepository.save(shelter);
 
     return UpdateShelter;
@@ -68,6 +65,10 @@ export class ShelterRepository {
       throw new NotFoundException(`no se encontro el usuario con id ${id}`);
     }
     deleteshelter.isActive = false;
+    if(deleteshelter.role=== Role.shelters){
+      deleteshelter.role=Role.user
+    }
+
     return this.sheltersRepository.save(deleteshelter);
   }
 

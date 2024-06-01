@@ -67,6 +67,9 @@ export class ShelterEntity {
   })
   isActive: boolean;
   
+  @Column({ default: 'user' })
+  role: string;
+  
   @OneToMany(() => DonationEntity, (donation) => donation.shelter)
   donations: DonationEntity[];
 

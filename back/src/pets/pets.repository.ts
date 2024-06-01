@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable } from "@nestjs/common";
+import { BadRequestException, Injectable, NotFoundException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { CreatePetsDto } from "src/dto/createPets.dto";
 import { PetsEntity } from "src/entidades/pets.entity";
@@ -40,16 +40,29 @@ export class PetsRepository {
         
         return updatePet;
     };
+    async conditionPet( id : string ){
+        const conditionpet= await this.petsRepository.findOne({
+            where:{id}
+        })
+        if(!conditionpet){
+            throw new NotFoundException(`no se encontro el mascota con id ${id}`)
+        }
+        conditionpet.isCondition= true
+        return this.petsRepository.save(conditionpet)
+    }
     
     async deletePet(id: string){
-        const pet = await this.petsRepository.findOneBy({id});
-        if (!pet) {
-            throw new BadRequestException("El animal no existe")
-        };
-        await this.petsRepository.remove(pet);
-        
-        return "La mascota fue eliminada"
-    };
+       
+            const deletePets = await this.petsRepository.findOne({
+                where: { id },
+              });
+              if (!deletePets) {
+                throw new NotFoundException(`no se encontro el mascota con id ${id}`);
+              }
+              deletePets.isActive = false;
+              return this.petsRepository.save(deletePets);
+            
+        }
     
     
     async filterPets(breed?: string, pet_size?: string, age?: number){
