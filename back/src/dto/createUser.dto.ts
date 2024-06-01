@@ -8,7 +8,9 @@ import {
   IsOptional,
   IsString,
   Matches,
+  Validate,
 } from 'class-validator';
+import { MatchPassword } from 'src/decorators/password.decorator';
 
 export class CreateUserDto {
   @IsNotEmpty()
@@ -47,6 +49,7 @@ export class CreateUserDto {
 
   @IsNotEmpty()
   @IsString()
+  @Validate(MatchPassword, ['password'])
   @ApiProperty({
     description: 'Repetir la password',
     example: '...',

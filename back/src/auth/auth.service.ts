@@ -1,5 +1,6 @@
 import {
   BadRequestException,
+  ConflictException,
   Injectable,
   UnauthorizedException,
 } from '@nestjs/common';
@@ -43,6 +44,20 @@ export class AuthService {
     accessToken: string,
     type: 'user' | 'shelter',
   ) {
+    const existingUser = await this.userRepository.findOneBy({ email });
+    const existingShelter = await this.shelterRepository.findOneBy({ email });
+
+    if (existingUser || existingShelter) {
+      throw new ConflictException('Este email ya se encuentra asociado a un usuario');
+    }
+
+    if (type === 'shelter') {
+      const existingShelterDNI = await this.shelterRepository.findOneBy({ dni: (metadata as ShelterEntity).dni });
+      if (existingShelterDNI) {
+        throw new ConflictException('Este DNI ya se encuentra asociado a un refugio');
+      }
+    }
+
     try {
       await axios.post(
         `${process.env.AUTH0_MGMT_API_URL}users`,
