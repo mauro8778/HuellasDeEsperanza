@@ -34,10 +34,13 @@ export class ShelterRepository {
     if (!shelter) {
       throw new NotFoundException('no existe regugio');
     }
+    if(shelter.isActive=== true){
+      throw new NotFoundException('el refugio ya esta activo')
+    }
     shelter.isActive = true;
     await this.mailService.sendShelterActivationMail(
       shelter.email,
-      shelter.name,
+      shelter.shelter_name,
     );
 
     if(shelter.role=== Role.user){
@@ -52,7 +55,7 @@ export class ShelterRepository {
   async getShelterById(id: string) {
     const shelter = await this.sheltersRepository.find({ where: { id } });
     if (!shelter) {
-      throw new NotFoundException('no se encontro el usuario');
+      throw new NotFoundException('no se encontro el refugio');
     }
     return { shelter };
   }
@@ -62,13 +65,16 @@ export class ShelterRepository {
       where: { id },
     });
     if (!deleteshelter) {
-      throw new NotFoundException(`no se encontro el usuario con id ${id}`);
+      throw new NotFoundException(`no se encontro el refugio con id ${id}`);
+    }
+    if(deleteshelter.isActive=== false){
+      throw new NotFoundException('el refugio no esta activo')
     }
     deleteshelter.isActive = false;
     if(deleteshelter.role=== Role.shelters){
       deleteshelter.role=Role.user
     }
-    await this.mailService.deleteshelterMail(deleteshelter.email,deleteshelter.name)
+    await this.mailService.deleteshelterMail(deleteshelter.email,deleteshelter.shelter_name)
     return this.sheltersRepository.save(deleteshelter);
   }
 

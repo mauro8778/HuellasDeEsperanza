@@ -47,6 +47,9 @@ export class PetsRepository {
         if(!conditionpet){
             throw new NotFoundException(`no se encontro el mascota con id ${id}`)
         }
+        if(conditionpet.isCondition===true){
+            throw new NotFoundException('la mascota se encuentra con una condicion activa')
+        }
         conditionpet.isCondition= true
         return this.petsRepository.save(conditionpet)
     }
@@ -58,6 +61,9 @@ export class PetsRepository {
               });
               if (!deletePets) {
                 throw new NotFoundException(`no se encontro el mascota con id ${id}`);
+              }
+              if(deletePets.isActive===false){
+                throw new NotFoundException('la mascota no existe')
               }
               deletePets.isActive = false;
               return this.petsRepository.save(deletePets);

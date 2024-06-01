@@ -94,25 +94,29 @@ export class MailService {
     
     Nos alegra darte la bienvenida a Huellas de Esperanza. Ahora puedes acceder a tu cuenta y disfrutar de nuestros servicios.
     
-    Para iniciar sesión, haz clic en el siguiente enlace: 
+    Para iniciar sesión, haz clic en el siguiente enlace: <span id="enlace">http://example.com/login</span>
     
     Además, te proporcionaremos un instructivo detallado sobre cómo registrar a las mascotas que se encuentran disponibles para la adopción.
     
     ¡Saludos!
-    El equipo de Huellas de Esperanza`
-    
-    const html= `<div style="border: 1px solid black; padding: 20px; background: linear-gradient(to bottom, #ff0066, #ffffff); border-radius: 15px;">
+    El equipo de Huellas de Esperanza`;
+
+    const html = `<div style="position: relative; border: 1px solid black; padding: 20px; border-radius: 15px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); text-align: center;">
     <p>¡Hola, <strong>${shelterName}</strong>!</p>
-    <p>Tu cuenta se encuentra Activada.</p>
+    <p>Tu cuenta ha sido activada correctamente.</p>
     <p>Nos alegra darte la bienvenida a Huellas de Esperanza. Ahora puedes acceder a tu cuenta y disfrutar de nuestros servicios.</p>
-    <p>Para iniciar sesión, haz clic en el siguiente enlace: [Iniciar Sesión]()</p>
+    <p>Para iniciar sesión, haz clic en el siguiente enlace: <span id="enlace"></p>
+    <p><a href="http://example.com/login" style="display: inline-block; padding: 8px 15px; margin-top: 10px; color: white; background: linear-gradient(to bottom, #ff0066, #ffffff); text-decoration: none; border-radius: 5px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); border: 1px solid #000; border-bottom: 4px solid #000;">Iniciar Sesión</a></span></p>
     <p>Además, te proporcionaremos un instructivo detallado sobre cómo registrar a las mascotas que se encuentran disponibles para la adopción.</p>
     <p>¡Saludos!</p>
     <p>El equipo de Huellas de Esperanza</p>
-  </div>`
+</div>`;
+
     this.logger.log(`Enviando correo a ${shelterEmail} con asunto "${subject}" y texto "${text}"`);
-    await this.sendMail(shelterEmail, subject, text,html);
-  }
+    await this.sendMail(shelterEmail, subject, text, html);
+}
+
+
 
   async sendDonationMail(userEmail: string, shelterName: string) {
     const subject = 'Gracias por tu donación';
