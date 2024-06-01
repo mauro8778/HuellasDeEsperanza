@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, ParseUUIDPipe, Put, Req } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseUUIDPipe, Post, Put, Req } from '@nestjs/common';
 import { UserService } from './user.service';
 import { UpdateUserDto } from 'src/dto/updateUser.dto';
 import { ApiTags } from '@nestjs/swagger';
@@ -12,12 +12,7 @@ export class UserController {
     getUsers(){
         return this.usersService.getUsers()
     }
-
-    @Get('profile')
-    getProfile(@Req() request : Request & {user : any}) {
-        return this.usersService.getProfile(request.user.userId)
-    }
-
+    
     @Get(':id')
     getUserById(@Param('id', ParseUUIDPipe) id : string){
         return this.usersService.getUserById(id)
@@ -30,8 +25,12 @@ export class UserController {
         return this.usersService.updatedProfile(id, user)
     }
 
-    @Delete(':id')
+    @Post(':id')
     deleteUser(@Param('id', ParseUUIDPipe) id : string) {
         return this.usersService.deleteUser(id)
+    }
+    @Post('active/:id')
+    activeUsers(@Param('id', ParseUUIDPipe) id : string) {
+        return this.usersService.activeUsers(id)
     }
 }

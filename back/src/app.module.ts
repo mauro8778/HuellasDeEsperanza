@@ -13,9 +13,13 @@ import { databaseConfig } from './config/database.config';
 import { FileUploadModule } from './file_upload/file_upload.module';
 import { Auth0Module } from './auth0/auth0.module';
 import { MailModule } from './mails/mail.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
+      ConfigModule.forRoot({
+        isGlobal: true,
+      }),
     databaseConfig,
     SerchModule,
     UsersModule,

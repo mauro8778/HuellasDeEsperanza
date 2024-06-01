@@ -68,6 +68,18 @@ export class PetsEntity{
     })
     godfather?: string | undefined
 
+    @Column({
+        nullable: true,
+        default: false,
+      })
+      isCondition: boolean;
+
+    @Column({
+        nullable: true,
+        default: true,
+      })
+      isActive: boolean;
+
 
     @ManyToOne(() => ShelterEntity, shelter => shelter.pets)
     shelter: ShelterEntity 

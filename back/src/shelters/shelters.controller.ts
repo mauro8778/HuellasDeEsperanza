@@ -1,30 +1,37 @@
-import { Body, Controller, Delete, Get, Param, ParseUUIDPipe, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  ParseUUIDPipe,
+  Post,
+} from '@nestjs/common';
 import { SheltersService } from './shelters.service';
-import { CreateShelterDto } from 'src/dto/createShelter.dto';
 import { ApiTags } from '@nestjs/swagger';
 
-@ApiTags("Shelters")
+@ApiTags('Shelters')
 @Controller('shelters')
 export class SheltersController {
-    constructor(private readonly sheltersService : SheltersService) {}
+  constructor(private readonly sheltersService: SheltersService) {}
 
-    @Get()
-    getShelters(){
-        return this.sheltersService.getShelters();
-    }
+  @Get()
+  getShelters() {
+    return this.sheltersService.getShelters();
+  }
 
-    @Get(':id')
-    getShelterById(@Param('id', ParseUUIDPipe) id : string){
-        return this.sheltersService.getShelterById(id);
-    }
+  @Get(':id')
+  getShelterById(@Param('id', ParseUUIDPipe) id: string) {
+    return this.sheltersService.getShelterById(id);
+  }
 
-    @Post()
-    addShelter(@Body() shelter : CreateShelterDto) {
-        return this.sheltersService.addShelter(shelter)
-    }
+  @Post('active/:id')
+  updateActiveShelter(id: string) {
+    return this.sheltersService.updateActiveShelter(id);
+  }
 
-    @Delete(':id')
-    deleteShelter(@Param('id', ParseUUIDPipe) id : string){
-        return this.sheltersService.deleteShelter(id);
-    }
+  @Post(':id')
+  deleteShelter(@Param('id', ParseUUIDPipe) id: string) {
+    return this.sheltersService.deleteShelter(id);
+  }
 }

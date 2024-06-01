@@ -20,6 +20,13 @@ export class UserEntity {
   })
   last_name: string;
 
+  @Column({
+    type: 'varchar',
+    unique: true,
+    nullable: false,
+  })
+  email: string;
+
   @Column()
   birthdate: Date;
 
@@ -35,9 +42,20 @@ export class UserEntity {
   })
   location?: string | undefined;
 
+  @Column({
+    nullable: true,
+    default: true,
+  })
+  isActive: boolean;
+  
+  @Column({ default: 'user' })
+  role: string;
+
   @OneToMany(() => DonationEntity, (donation) => donation.user)
   donations: DonationEntity[];
 
   @OneToMany(() => AdoptionEntity, (adoptions) => adoptions.user)
   adoptions: AdoptionEntity[];
+
+
 }
