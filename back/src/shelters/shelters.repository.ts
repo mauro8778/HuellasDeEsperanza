@@ -68,7 +68,7 @@ export class ShelterRepository {
     if(deleteshelter.role=== Role.shelters){
       deleteshelter.role=Role.user
     }
-
+    await this.mailService.deleteshelterMail(deleteshelter.email,deleteshelter.name)
     return this.sheltersRepository.save(deleteshelter);
   }
 

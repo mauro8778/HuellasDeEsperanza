@@ -62,20 +62,56 @@ export class MailService {
   </div>`
     await this.sendMail(userEmail, subject, text,html);
   }
-
-  async sendShelterRegistrationMail(shelterEmail: string, shelterName: string, password: string) {
+  
+  async deleteshelterMail(userEmail: string, username: string) {
     const subject = 'Bienvenido a Huellas de Esperanza';
-    const text = `Hola ${shelterName},\n\nTus credenciales son:\nNombre del Refugio: ${shelterName}\nContraseña: ${password}\n\nGracias por elegirnos, a la brevedad se le enviará un mail de confirmación para empezar a trabajar con nosotros.`;
-    this.logger.log(`Enviando correo a ${shelterEmail} con asunto "${subject}" y texto "${text}"`);
+    const text = `Hola ${username},
+
+    Tu cuenta ha sido cerrada correctamente.
+ 
+    Te informamos que hemos dado cumplimiento a su solicitud de acuerdo con la ley 25.326.
+ 
+    Asimismo, te informamos que la empresa debe dar cumplimiento obligatorio el artículo 328 del Código Civil y Comercial de la Nación que obliga al guardado de información relativa a operaciones financieras.
     
-    await this.sendMail(shelterEmail, subject, text);
+    Saludos,
+    Tu Empresa`;
+    const html= `<div style="border: 1px solid black; padding: 20px; background: linear-gradient(to bottom, #ff0066, #ffffff); border-radius: 15px;">
+    <p>¡Hola, <strong>${username}</strong>!</p>
+    <p>Tu cuenta ha sido cerrada correctamente.</p>
+    <p>Te informamos que hemos dado cumplimiento a su solicitud de acuerdo con la ley 25.326.</p>
+    <p>Asimismo, te informamos que la empresa debe dar cumplimiento obligatorio al artículo 328 del Código Civil y Comercial de la Nación que obliga al guardado de información relativa a operaciones financieras.</p>
+    <p>¡Saludos!</p>
+    <p>El equipo de Huellas de Esperanza</p>
+  </div>`
+    await this.sendMail(userEmail, subject, text,html);
   }
 
   async sendShelterActivationMail(shelterEmail: string, shelterName: string) {
-    const subject = 'Su cuenta ha sido activada';
-    const text = `Hola ${shelterName},\n\nYa puedes subir las fotos de tus perritos. Para subir una foto, llena el formulario para subir un perro nuevo a la página.`;
+    const subject = 'Bienvenido a Huellas de Esperanza';
+    const text = `¡Hola, ${shelterName}!
+
+    Tu cuenta ha sido activada correctamente.
+    
+    Nos alegra darte la bienvenida a Huellas de Esperanza. Ahora puedes acceder a tu cuenta y disfrutar de nuestros servicios.
+    
+    Para iniciar sesión, haz clic en el siguiente enlace: 
+    
+    Además, te proporcionaremos un instructivo detallado sobre cómo registrar a las mascotas que se encuentran disponibles para la adopción.
+    
+    ¡Saludos!
+    El equipo de Huellas de Esperanza`
+    
+    const html= `<div style="border: 1px solid black; padding: 20px; background: linear-gradient(to bottom, #ff0066, #ffffff); border-radius: 15px;">
+    <p>¡Hola, <strong>${shelterName}</strong>!</p>
+    <p>Tu cuenta se encuentra Activada.</p>
+    <p>Nos alegra darte la bienvenida a Huellas de Esperanza. Ahora puedes acceder a tu cuenta y disfrutar de nuestros servicios.</p>
+    <p>Para iniciar sesión, haz clic en el siguiente enlace: [Iniciar Sesión]()</p>
+    <p>Además, te proporcionaremos un instructivo detallado sobre cómo registrar a las mascotas que se encuentran disponibles para la adopción.</p>
+    <p>¡Saludos!</p>
+    <p>El equipo de Huellas de Esperanza</p>
+  </div>`
     this.logger.log(`Enviando correo a ${shelterEmail} con asunto "${subject}" y texto "${text}"`);
-    await this.sendMail(shelterEmail, subject, text);
+    await this.sendMail(shelterEmail, subject, text,html);
   }
 
   async sendDonationMail(userEmail: string, shelterName: string) {
