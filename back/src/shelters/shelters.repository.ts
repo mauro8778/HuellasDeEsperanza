@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable, NotFoundException } from "@nestjs/common";
+import { BadRequestException, Injectable, Logger, NotFoundException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { ShelterEntity } from "src/entidades/shelter.entity";
 import { MailService } from "src/mails/mail.service";
@@ -6,8 +6,10 @@ import { Repository } from "typeorm";
 
 @Injectable()
 export class ShelterRepository {
+    private readonly logger = new Logger(MailService.name)
     constructor(@InjectRepository(ShelterEntity) private readonly sheltersRepository : Repository<ShelterEntity>,
-    private readonly mailService: MailService, )
+    private readonly mailService: MailService,
+    )
      {}
     
     async getShelters(){
@@ -28,9 +30,9 @@ export class ShelterRepository {
             throw new NotFoundException('no existe regugio')
         }
         shelter.isActive=true
-
-        const UpdateShelter= this.sheltersRepository.save(shelter)
         await this.mailService.sendShelterActivationMail(shelter.email, shelter.name);
+        const UpdateShelter= this.sheltersRepository.save(shelter)
+        
 
         return UpdateShelter;
     }
@@ -43,21 +45,29 @@ export class ShelterRepository {
           return {shelter};
     }
     
-    async addShelter(shelter : Partial<ShelterEntity>) {
-        const existE: ShelterEntity = await this.sheltersRepository.findOneBy({email: shelter.email})
+    async addShelter(shelter: Partial<ShelterEntity>) {
+        const existE: ShelterEntity = await this.sheltersRepository.findOneBy({ email: shelter.email });
         if (existE) {
-            throw new BadRequestException(`El mail ya esta registrado`)
+          throw new BadRequestException(`El mail ya está registrado`);
         }
-        
-        const existD: ShelterEntity = await this.sheltersRepository.findOneBy({dni: shelter.dni})
+      
+        const existD: ShelterEntity = await this.sheltersRepository.findOneBy({ dni: shelter.dni });
         if (existD) {
-            throw new BadRequestException(`El DNI ya esta registrado`)
-
+          throw new BadRequestException(`El DNI ya está registrado`);
         }
+      
         const newShelter = this.sheltersRepository.create(shelter);
-
-    return await this.sheltersRepository.save(newShelter);
-    }
+      
+        try {
+          await this.mailService.sendShelterRegistrationMail(newShelter.email, newShelter.name, newShelter.password);
+          this.logger.log(`Mail de registro enviado a ${newShelter.email}`);
+        } catch (error) {
+          this.logger.error(`Error enviando mail de registro a ${newShelter.email}: ${error.message}`);
+        }
+      
+        return await this.sheltersRepository.save(newShelter);
+      }
+      
     
     async deleteShelter(id : string) {
         const deleteshelter = await this.sheltersRepository.findOne({ where: { id } })
