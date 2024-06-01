@@ -20,6 +20,13 @@ export class UserEntity {
   })
   last_name: string;
 
+  @Column({
+    type: 'varchar',
+    unique: true,
+    nullable: false,
+  })
+  email: string;
+
   @Column()
   birthdate: Date;
 

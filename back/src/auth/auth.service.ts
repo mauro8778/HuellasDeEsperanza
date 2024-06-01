@@ -7,12 +7,73 @@ import { UserEntity } from 'src/entidades/user.entity';
 import axios from 'axios';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { MailService } from 'src/mails/mail.service';
+import { ShelterEntity } from 'src/entidades/shelter.entity';
 
 @Injectable()
 export class AuthService {
-  constructor(@InjectRepository(UserEntity) private userRepository:Repository<UserEntity>,
-  private readonly mailService: MailService,){}
+  constructor(
+    @InjectRepository(UserEntity)
+    private userRepository: Repository<UserEntity>,
+    @InjectRepository(ShelterEntity)
+    private shelterRepository: Repository<ShelterEntity>,
+  ) {}
+
+  async RegisterUser(
+    email: string,
+    password: string,
+    metadata: Partial<UserEntity>,
+    accessToken: string,
+  ) {
+    return this.Register(email, password, metadata, accessToken, 'user');
+  }
+
+  async RegisterShelter(
+    email: string,
+    password: string,
+    metadata: Partial<ShelterEntity>,
+    accessToken: string,
+  ) {
+    return this.Register(email, password, metadata, accessToken, 'shelter');
+  }
+
+  async Register(
+    email: string,
+    password: string,
+    metadata: Partial<UserEntity> | Partial<ShelterEntity>,
+    accessToken: string,
+    type: 'user' | 'shelter',
+  ) {
+    try {
+      await axios.post(
+        `${process.env.AUTH0_MGMT_API_URL}users`,
+        {
+          email,
+          password,
+          connection: 'Username-Password-Authentication',
+          user_metadata: metadata,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        },
+      );
+      if (type === 'user') {
+        await this.userRepository.save({
+          ...metadata,
+          email,
+        } as Partial<UserEntity>);
+      } else if (type === 'shelter') {
+        await this.shelterRepository.save({
+          ...metadata,
+          email,
+        } as Partial<ShelterEntity>);
+      }
+      return { succes: 'Usuario registrado correctamente' };
+    } catch (error) {
+      throw new BadRequestException('Error creating user');
+    }
+  }
 
   async Login(email: string, password: string) {
     try {
@@ -34,38 +95,5 @@ export class AuthService {
     } catch (error) {
       throw new UnauthorizedException('Invalid credentials');
     }
-  }
-
-  async Register(
-    email: string,
-    password: string,
-    userData: Partial<UserEntity>,
-    accessToken,
-  ) {
-    try {
-      await axios.post(
-        `${process.env.AUTH0_MGMT_API_URL}users`,
-        {
-          email,
-          password,
-          connection: 'Username-Password-Authentication',
-          user_metadata: userData,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        },
-      );
-      await this.userRepository.save(userData)
-      await this.mailService.sendUserRegistrationMail(userData.name,email,password)
-      return { succes: "Usuario registrado correctamente" }
-    } catch (error) {
-      throw new BadRequestException('Error creating user');
-    }
-  }
-
-  async Logout(credential: any) {
-    return { message: 'Usuario deslogueado correctamente' };
   }
 }
