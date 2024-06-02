@@ -18,7 +18,7 @@ const RefugioDetail = ({ params }: { params: IParams }) => {
         <div className="p-4">
             <h1 className="text-2xl font-bold mb-4">{refugio.name}</h1>
             
-            <div className="flex items-center gap-4 mb-6">
+            <div className="flex items-center gap-4 mb-6 ml-40 mr-40">
                 <Image src={refugio.image} alt={refugio.name} width={300} height={150} className="w-72 h-auto" />
                 <p>{refugio.description}</p>
             </div>

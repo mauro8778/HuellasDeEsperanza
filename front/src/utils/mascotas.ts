@@ -1,3 +1,4 @@
+import { IMascotas } from "@/interface/IMascotas";
 
 const Mascotas= [
     {
@@ -33,7 +34,7 @@ const Mascotas= [
     {
       id: 4,
       name: "Luna",
-      edad: " 5 años",
+      edad: "5 años",
       sexo: "Hembra",
       description: "Perro leal y protector. Necesita un hogar con espacio.",
       image: "/imgs/Luna.jpeg",
@@ -83,7 +84,7 @@ const Mascotas= [
     {
       id: 9,
       name: "Duke",
-      edad: " 1 año",
+      edad: "1 año",
       sexo: "Macho",
       description: "Cachorro curioso y juguetón. Necesita entrenamiento básico.",
       image: "/imgs/Duke.jpeg",
@@ -201,5 +202,9 @@ const Mascotas= [
       refugio: "Hogar de Gatos Felices"
     },
 ]
+export const getMascotaById = (id: string): IMascotas | undefined => {
+  return Mascotas.find(mascota => mascota.id === parseInt(id));
+};
+
 
 export default Mascotas
