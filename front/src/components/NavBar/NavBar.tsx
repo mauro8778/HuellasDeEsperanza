@@ -1,9 +1,9 @@
 "use client";
-import Logo from "./Logo";
+import Logo from "../ui/Logo";
 import Search from "./Search";
 import NavMenu from "./NavMenu";
 import { useState } from "react";
-import { RiLoginCircleLine,RiLogoutCircleLine } from "react-icons/ri";
+// import { RiLoginCircleLine,RiLogoutCircleLine } from "react-icons/ri";
 import Link from "next/link";
 
 const Navbar: React.FC = () => {
@@ -23,13 +23,13 @@ const Navbar: React.FC = () => {
         {isLoggedIn ? (
           <>
             <button onClick={handleLoginLogout} className="text-white mr-3 ">
-              <RiLogoutCircleLine />
+              {/* <RiLogoutCircleLine /> */} Logout
             </button>
           </>
         ) : (
           <button onClick={handleLoginLogout} className="text-white mr-3">
-            <Link href={"/login"}>
-            <RiLoginCircleLine />
+            <Link href={"/AUTH/login"}>
+            {/* <RiLoginCircleLine /> */} Login
             </Link>
           </button>
         )}
