@@ -51,6 +51,9 @@ export class UserRepository {
           if (!deleteUser) {
             throw new NotFoundException(`no se encontro el usuario con id ${id}`);
           }
+          if(deleteUser.isActive=== false){
+            throw new NotFoundException('el usuario ya no existe')
+          }
           deleteUser.isActive = false;
         
           await this.mailService.deleteUserMail(deleteUser.email, deleteUser.name)
@@ -62,6 +65,9 @@ export class UserRepository {
             });
             if (!activeUser) {
               throw new NotFoundException(`no se encontro el usuario con id ${id}`);
+            }
+            if(activeUser.isActive === true){
+              throw new NotFoundException('el usuario ya esta activo')
             }
             activeUser.isActive = true;
 
