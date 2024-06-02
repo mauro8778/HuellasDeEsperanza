@@ -36,7 +36,7 @@ const Form_forgot = () => {
           <button
             type='button'
             onClick={() => router.push('/AUTH/register')}
-            className='font-semibold hover:text-primary transition-colors duration-300'
+            className='font-semibold hover:text-pink-600 transition-colors duration-300'
           >
             Registrate
           </button>
