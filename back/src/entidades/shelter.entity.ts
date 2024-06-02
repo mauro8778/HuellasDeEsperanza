@@ -66,10 +66,7 @@ export class ShelterEntity {
     default: false,
   })
   isActive: boolean;
-  
-  @Column({ default: 'user' })
-  role: string;
-  
+
   @OneToMany(() => DonationEntity, (donation) => donation.shelter)
   donations: DonationEntity[];
 
@@ -78,5 +75,4 @@ export class ShelterEntity {
 
   @OneToMany(() => PetsEntity, (pets) => pets.shelter)
   pets: AdoptionEntity[];
-
 }
