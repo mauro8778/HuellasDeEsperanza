@@ -1,5 +1,4 @@
 import React from 'react';
-import Link from 'next/link'; // Importa Link de next/link
 import { IRefugios } from '@/interface/IRefugios';
 import CardRefuge from './CardRefuge';
 
@@ -11,9 +10,8 @@ const ListaRefugios: React.FC<Props> = ({ refugios }) => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
       {refugios.map(refugio => (
-        <Link href={`/refugios/${refugio.id}`} key={refugio.id}>
-            <CardRefuge refugio={refugio} />
-        </Link>
+            <CardRefuge key={refugio.id} refugio={refugio} />
+        
       ))}
     </div>
   );

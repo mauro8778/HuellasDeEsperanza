@@ -1,14 +1,21 @@
 'use client'
 import { useState } from 'react';
 import ListaRefugios from '@/components/Refugios/ListaRefugios';
-import Modal from '@/components/Filter/Modal';
-import { useFilter } from '@/components/Filter/useFilter';
-import FormularioMascota from '@/components/Refugios/PostMascotas';
-import ModalPost from '@/components/Refugios/ModalPostMascotas';
+import Modal from '@/components/Refugios/FiltroRefugio/Modal';
+import { useFilter } from '@/components/Refugios/FiltroRefugio/useFilter';
+import FormularioMascota from '@/components/Refugios/AñadirMascota/PostMascotas';
+import ModalPost from '@/components/Refugios/AñadirMascota/ModalPostMascotas';
+import { IMascotas } from '@/interface/IMascotas';
+
 
 export default function Refuge() {
   const { isModalOpen, openModal, closeModal, filteredRefugios, handleFilter } = useFilter();
   const [mostrarModal, setMostrarModal] = useState(false);
+  const [mascotas, setMascotas] = useState<IMascotas[]>([]);
+
+  const handleAddMascota = (nuevaMascota: IMascotas) => {
+    setMascotas([...mascotas, nuevaMascota]);
+  };
 
   return (
     <main className="p-4">
@@ -32,12 +39,14 @@ export default function Refuge() {
       </div>
 
       <ListaRefugios refugios={filteredRefugios} />
+
+
       {isModalOpen && (
         <Modal onClose={closeModal} onFilter={handleFilter} />
       )}
 
       <ModalPost isVisible={mostrarModal} onClose={() => setMostrarModal(false)}>
-        <FormularioMascota onClose={() => setMostrarModal(false)} />
+        <FormularioMascota onClose={() => setMostrarModal(false)} onAddMascota={handleAddMascota} />
       </ModalPost>
     </main>
   );

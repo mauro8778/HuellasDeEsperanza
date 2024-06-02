@@ -1,6 +1,5 @@
 import { IRefugios } from "@/interface/IRefugios";
 
-
 const Refugios : IRefugios[] = [
     {
         id: 1,
@@ -50,9 +49,18 @@ const Refugios : IRefugios[] = [
         image: "/imgs/6.jpg",
         description: "Hogar de Gatos Felices es una organización sin fines de lucro que nace el año 2015 con el propósito de dar solución a la problemática de Bienestar Animal y Tenencia Responsable de Mascotas y Animales de Compañía en Zona Oeste. Hoy en día hemos crecido mucho como equipo y nos hemos formado en distintas áreas para hacer del mundo un lugar mejor para los animales.",
     },
+    {
+        id: 7,
+        name: "chupa chichis",
+        provincia: "Buenos Aires",
+        zona: "Zona Oeste",
+        image: "/imgs/6.jpg",
+        description: "Hogar de Gatos Felices es una organización sin fines de lucro que nace el año 2015 con el propósito de dar solución a la problemática de Bienestar Animal y Tenencia Responsable de Mascotas y Animales de Compañía en Zona Oeste. Hoy en día hemos crecido mucho como equipo y nos hemos formado en distintas áreas para hacer del mundo un lugar mejor para los animales.",
+    },
 ]
 export const getRefugioById = (id: string): IRefugios | undefined => {
     return Refugios.find(refugio => refugio.id === parseInt(id));
 };
+
 
 export default Refugios
