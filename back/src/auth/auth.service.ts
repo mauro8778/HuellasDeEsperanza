@@ -91,6 +91,14 @@ export class AuthService {
   }
 
   async Login(email: string, password: string) {
+
+    const existingAccoutUser = await this.userRepository.findOneBy({ email });
+    const existingAccountShelter = await this.shelterRepository.findOneBy({ email });
+
+    if (!existingAccoutUser && !existingAccountShelter) {
+      throw new ConflictException('Correo inexistente en nuestros registros');
+    }
+
     try {
       const response = await axios.post(
         `https://${process.env.AUTH0_DOMAIN}/oauth/token`,
