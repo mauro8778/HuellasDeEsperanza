@@ -57,7 +57,7 @@ const Form: React.FC = () => {
 
     if (nameValid && emailValid && passwordValid && confirmPasswordValid) {
       try {
-        const response = await fetch('URL_DE_TU_BACKEND/api/register', { // Aquí va la URL de tu backend
+        const response = await fetch('https://backpf-prueba.onrender.com/auth/register/user', { 
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

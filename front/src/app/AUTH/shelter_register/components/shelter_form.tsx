@@ -75,7 +75,7 @@ const ShelterForm: React.FC = () => {
 
     if (allValid) {
       try {
-        const response = await fetch('URL_DE_TU_BACKEND/api/shelters', { // Aquí va la URL de tu backend
+        const response = await fetch('https://backpf-prueba.onrender.com/auth/register/shelter', { 
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
