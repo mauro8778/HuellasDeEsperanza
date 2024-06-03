@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { SerchModule } from './serch/serch.module';
@@ -14,6 +14,7 @@ import { FileUploadModule } from './file_upload/file_upload.module';
 import { Auth0Module } from './auth0/auth0.module';
 import { MailModule } from './mails/mail.module';
 import { ConfigModule } from '@nestjs/config';
+import { GlobalMiddleware } from './middleware/global';
 
 @Module({
   imports: [
@@ -36,4 +37,8 @@ import { ConfigModule } from '@nestjs/config';
   controllers: [AppController], 
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(GlobalMiddleware).forRoutes('');
+  }
+}

@@ -75,7 +75,7 @@ export class ShelterRepository {
 
     await this.mailService.sendShelterActivationMail(
       shelter.email,
-      shelter.shelter_name,
+      shelter.shelterName,
     );
 
     const UpdateShelter = this.sheltersRepository.save(shelter);
@@ -159,7 +159,7 @@ export class ShelterRepository {
 
       await this.mailService.deleteshelterMail(
         deleteShelter.email,
-        deleteShelter.shelter_name,
+        deleteShelter.shelterName,
       );
 
       return this.sheltersRepository.save(deleteShelter);
