@@ -2,12 +2,13 @@ import React from 'react';
 import { IParams } from '@/interface/IRefugios';
 import Image from 'next/image';
 import Mascotas, { getMascotaById } from '@/utils/mascotas';
+import Link from 'next/link';
 
 const MascotasDetail = ({ params }: { params: IParams }) => {
     const mascota = getMascotaById(params.id);
 
     if (!mascota) {
-        return <div>Mascota no encontrado</div>;
+        return <div>Mascota no encontrada</div>;
     }
 
     return (
@@ -24,6 +25,11 @@ const MascotasDetail = ({ params }: { params: IParams }) => {
                     <p>Descripción: {mascota.description}</p>
                 </div>
             </div>
+            <Link href={`/formAdopt?name=${encodeURIComponent(mascota.name)}`}>
+                <button className="bg-pink-600 hover:bg-pink-400 hover:text-black text-white font-bold py-2 px-4 rounded">
+                    Postular
+                </button>
+            </Link>
         </div>
     );
 };

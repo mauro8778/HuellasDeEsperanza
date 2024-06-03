@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import React, { useEffect, useState } from 'react';
 import CardRefuge from './CardRefuge';
 import { IRefugios } from '@/interface/IRefugios';
@@ -21,12 +21,6 @@ const RandomRefugiosCards: React.FC<{ refugios: IRefugios[] }> = ({ refugios }) 
       {randomRefugios.map((refugio, index) => (
         <CardRefuge key={index} refugio={refugio} />
       ))}
-      <a href="/refugios">
-        <button type="button" className="text-white bg-gradient-to-br from-pink-500 to-orange-400 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">
-          Ver más
-        </button>
-      </a>
-
     </div>
   );
 };
