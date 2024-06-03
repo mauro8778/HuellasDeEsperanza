@@ -67,7 +67,7 @@ const NavMenu: React.FC = () => {
         </li>
         <li>
           <Link className='hover:text-gray-600' href={{
-            pathname: "/donaciones",
+            pathname: "/donations",
             query: {name: "test"},
           }}>
             Donaciones

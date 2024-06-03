@@ -53,21 +53,25 @@ const Form: React.FC = () => {
 
   const handleRegister = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setError(null); // Reset error message
+    setError(null); 
 
     if (nameValid && emailValid && passwordValid && confirmPasswordValid) {
       try {
-        const response = await fetch('URL_DE_TU_BACKEND/api/register', { // Aquí va la URL de tu backend
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users`, { 
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ name, email, password }),
+          body: JSON.stringify({  email, password }),
         });
 
         if (response.ok) {
           router.push('/AUTH/login');
         } else {
+          // verifico respuesta de error de backend
+          const erorMessage = await response.text();
+          console.error('Error al registrar:', erorMessage);
+
           setError('Registro fallido. Por favor, inténtalo de nuevo.');
         }
       } catch (error) {
