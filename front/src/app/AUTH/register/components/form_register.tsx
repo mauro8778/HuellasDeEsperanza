@@ -57,17 +57,21 @@ const Form: React.FC = () => {
 
     if (nameValid && emailValid && passwordValid && confirmPasswordValid) {
       try {
-        const response = await fetch('https://backpf-prueba.onrender.com/users', { 
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users`, { 
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ name, email, password }),
+          body: JSON.stringify({  email, password }),
         });
 
         if (response.ok) {
           router.push('/AUTH/login');
         } else {
+          // verifico respuesta de error de backend
+          const erorMessage = await response.text();
+          console.error('Error al registrar:', erorMessage);
+
           setError('Registro fallido. Por favor, inténtalo de nuevo.');
         }
       } catch (error) {
