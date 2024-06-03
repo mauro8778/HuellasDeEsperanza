@@ -7,6 +7,7 @@ import { RiGoogleFill, RiCheckFill, RiErrorWarningFill } from 'react-icons/ri';
 import Button from '@/components/ui/button';
 import ButtonIcon from '@/components/ui/button-icon';
 import Input from '@/components/ui/input';
+import axios from 'axios';
 
 const ShelterForm: React.FC = () => {
   const router = useRouter();
@@ -75,15 +76,13 @@ const ShelterForm: React.FC = () => {
 
     if (allValid) {
       try {
-        const response = await fetch('URL_DE_TU_BACKEND/api/shelters', { // Aquí va la URL de tu backend
-          method: 'POST',
+        const response = await axios.post('URL_DE_TU_BACKEND/api/shelters', formData, {
           headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(formData),
+            'Content-Type': 'application/json'
+          }
         });
-
-        if (response.ok) {
+    
+        if (response.status === 200) {
           router.push('/Home');
         } else {
           setError('Error en el registro. Por favor, inténtalo de nuevo.');
@@ -95,6 +94,7 @@ const ShelterForm: React.FC = () => {
     } else {
       setError('Por favor, completa todos los campos correctamente.');
     }
+    
   };
 
   return (
