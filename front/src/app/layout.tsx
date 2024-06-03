@@ -5,6 +5,7 @@ import { ReactNode } from "react";
 
 
 
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -21,9 +22,9 @@ export default function RootLayout({
     <html lang="es">
       <body className={inter.className}>
        
-     
+    
           {children}
-       
+      
 
         </body>
     </html>
