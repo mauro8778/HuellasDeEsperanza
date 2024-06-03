@@ -74,5 +74,10 @@ export class CreatePetsDto{
     
     @IsEmpty()
     godfather?: string | undefined
+
+    @IsEmpty()
+    isActive: boolean
     
+    @IsEmpty()
+    isCondition: boolean
 }

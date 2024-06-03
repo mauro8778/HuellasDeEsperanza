@@ -13,16 +13,14 @@ export class UserService {
     getUserById(id : string) {
         return this.usersRepository.getUserById(id)
     }
-
-    getProfile(id : string){
-        return this.usersRepository.getProfile(id)
-    }
-
     updatedProfile(id : string, user : any){
         return this.usersRepository.updatedProfile(id,user)
     }
 
     deleteUser(id : string) {
         return this.usersRepository.deleteUser(id)
+    }
+    activeUsers(id : string) {
+        return this.usersRepository.activeUsers(id)
     }
 }

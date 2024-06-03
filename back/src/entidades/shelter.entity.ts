@@ -66,7 +66,7 @@ export class ShelterEntity {
     default: false,
   })
   isActive: boolean;
-  
+
   @OneToMany(() => DonationEntity, (donation) => donation.shelter)
   donations: DonationEntity[];
 
@@ -75,5 +75,4 @@ export class ShelterEntity {
 
   @OneToMany(() => PetsEntity, (pets) => pets.shelter)
   pets: AdoptionEntity[];
-
 }

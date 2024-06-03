@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
+import { IsEmpty } from 'class-validator';
 import {
   IsDate,
   IsEmail,
@@ -8,7 +9,9 @@ import {
   IsOptional,
   IsString,
   Matches,
+  Validate,
 } from 'class-validator';
+import { MatchPassword } from 'src/decorators/password.decorator';
 
 export class CreateUserDto {
   @IsNotEmpty()
@@ -47,6 +50,7 @@ export class CreateUserDto {
 
   @IsNotEmpty()
   @IsString()
+  @Validate(MatchPassword, ['password'])
   @ApiProperty({
     description: 'Repetir la password',
     example: '...',
@@ -71,4 +75,7 @@ export class CreateUserDto {
   @IsString()
   @ApiProperty()
   location?: string;
+
+  @IsEmpty()
+  isActive: boolean
 }

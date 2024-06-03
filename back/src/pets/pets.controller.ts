@@ -23,15 +23,18 @@ export class PetsController {
     addPet(@Body() pet : CreatePetsDto){
         return this.petsService.addPet(pet);
     }
-
+    @Post('contition/:id')
+    conditionPet( id : string ){
+        return this.petsService.conditionPet(id)
+    }
+    
+    @Post(':id')
+    deletePet(@Param('id', ParseUUIDPipe) id: string){
+        return this.petsService.deletePet(id);
+    }
     @Put(':id')
     updatedPet(@Param('id', ParseUUIDPipe) id: string ,@Body() dataPet: UpdatePetsDto){
         return this.petsService.updatedPet(id, dataPet);
-    }
-
-    @Delete(':id')
-    deletePet(@Param('id', ParseUUIDPipe) id: string){
-        return this.petsService.deletePet(id);
     }
 
 }

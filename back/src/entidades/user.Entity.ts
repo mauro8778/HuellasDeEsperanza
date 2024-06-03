@@ -42,6 +42,12 @@ export class UserEntity {
   })
   location?: string | undefined;
 
+  @Column({
+    nullable: true,
+    default: true,
+  })
+  isActive: boolean;
+
   @OneToMany(() => DonationEntity, (donation) => donation.user)
   donations: DonationEntity[];
 

@@ -1,5 +1,6 @@
 import {
   BadRequestException,
+  ConflictException,
   Injectable,
   UnauthorizedException,
 } from '@nestjs/common';
@@ -43,6 +44,20 @@ export class AuthService {
     accessToken: string,
     type: 'user' | 'shelter',
   ) {
+    const existingUser = await this.userRepository.findOneBy({ email });
+    const existingShelter = await this.shelterRepository.findOneBy({ email });
+
+    if (existingUser || existingShelter) {
+      throw new ConflictException('Este email ya se encuentra asociado a un usuario');
+    }
+
+    if (type === 'shelter') {
+      const existingShelterDNI = await this.shelterRepository.findOneBy({ dni: (metadata as ShelterEntity).dni });
+      if (existingShelterDNI) {
+        throw new ConflictException('Este DNI ya se encuentra asociado a un refugio');
+      }
+    }
+
     try {
       await axios.post(
         `${process.env.AUTH0_MGMT_API_URL}users`,
@@ -76,6 +91,14 @@ export class AuthService {
   }
 
   async Login(email: string, password: string) {
+
+    const existingAccoutUser = await this.userRepository.findOneBy({ email });
+    const existingAccountShelter = await this.shelterRepository.findOneBy({ email });
+
+    if (!existingAccoutUser && !existingAccountShelter) {
+      throw new ConflictException('Correo inexistente en nuestros registros');
+    }
+
     try {
       const response = await axios.post(
         `https://${process.env.AUTH0_DOMAIN}/oauth/token`,
@@ -86,12 +109,13 @@ export class AuthService {
           grant_type: 'password',
           username: email,
           password: password,
+          scope: 'openid profile email', 
         },
       );
 
-      const token = response.data.access_token;
+      const { access_token, id_token } = response.data;
 
-      return { succes: 'Usuario logueado correctamente', token };
+      return { succes: 'Usuario logueado correctamente', id_token };
     } catch (error) {
       throw new UnauthorizedException('Invalid credentials');
     }
