@@ -1,45 +1,72 @@
 'use client';
-import { FormEvent, ReactNode, useState } from 'react';
+
+import { FormEvent, useState, ChangeEvent } from 'react';
+import { useRouter } from 'next/navigation';
+import { RiGoogleFill, RiCheckFill, RiErrorWarningFill } from 'react-icons/ri';
 import Button from '@/components/ui/button';
 import ButtonIcon from '@/components/ui/button-icon';
 import Input from '@/components/ui/input';
-import { useRouter } from 'next/navigation';
-// import { useAuth0 } from '@auth0/auth0-react';
 
-import { RiGoogleFill } from 'react-icons/ri';
-
-interface FormLoginProps {
-  children?: ReactNode;
-}
-
-const Form_Login: React.FC<FormLoginProps> = ({ children }) => {
-  ;
-
+const Form_Login: React.FC = () => {
   const router = useRouter();
-  // const { loginWithRedirect } = useAuth0();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState<string | null>(null);
+  const [emailValid, setEmailValid] = useState<boolean | null>(null);
+  const [passwordValid, setPasswordValid] = useState<boolean | null>(null);
+
+  const validateEmail = (email: string) => {
+    const re = /\S+@\S+\.\S+/;
+    return re.test(email);
+  };
+
+  const validatePassword = (password: string) => {
+    return password.length >= 6; // Ejemplo: al menos 6 caracteres
+  };
+
+  const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setEmail(value);
+    setEmailValid(validateEmail(value));
+  };
+
+  const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setPassword(value);
+    setPasswordValid(validatePassword(value));
+  };
 
   const handleLogin = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault(); 
+    event.preventDefault();
+    setError(null); 
 
-    try {
-      // Utiliza los valores de email y password del estado
-      const response = await fetch('/api/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email, password }),
-      });
+    if (emailValid && passwordValid) {
+      try {
+        const response = await fetch('URL_DE_TU_BACKEND/api/login', { // Aquí va la URL de tu backend
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ email, password }),
+        });
 
-      if (response.ok) {
-        router.push('/Home');
-      } else {
-        alert('Credenciales incorrectas. Por favor, inténtalo de nuevo.');
+        if (response.ok) {
+          const { token, userType } = await response.json();
+          localStorage.setItem('token', token);
+          if (userType === 'shelter') {
+            router.push('/dashboard-shelter'); 
+          } else {
+            router.push('/Home'); 
+          }
+        } else {
+          setError('Credenciales incorrectas. Por favor, inténtalo de nuevo.');
+        }
+      } catch (error) {
+        console.error('Error al iniciar sesión:', error);
+        setError('Ocurrió un error. Por favor, inténtalo de nuevo.');
       }
-    } catch (error) {
-      console.error('Error al iniciar sesión:', error);
+    } else {
+      setError('Por favor, completa todos los campos correctamente.');
     }
   };
 
@@ -48,13 +75,39 @@ const Form_Login: React.FC<FormLoginProps> = ({ children }) => {
       <div className='mb-5'>
         <h2 className='text-2xl font-semibold'>Bienvenido, ingresa!</h2>
         <p className='text-gray-500 text-sm'>
-          Porfavor ingresa tu mail y contraseña para entrar en la aplicación
-          
+          Por favor, ingresa tu mail y contraseña para entrar en la aplicación
         </p>
       </div>
       <form className='w-full' onSubmit={handleLogin}>
-        <Input type='text' name='email' placeholder='Email' />
-        <Input type='password' name='password' placeholder='Contraseña' />
+        {error && (
+          <div className="mb-4 text-red-500">
+            {error}
+          </div>
+        )}
+        <div className="relative">
+          <Input
+            type='text'
+            name='email'
+            placeholder='Email'
+            value={email}
+            onChange={handleEmailChange}
+            className={`w-full ${emailValid === false ? 'border-red-500' : emailValid === true ? 'border-green-500' : ''}`}
+          />
+          {emailValid === true && <RiCheckFill className="absolute right-2 top-3 text-green-500" />}
+          {emailValid === false && <RiErrorWarningFill className="absolute right-2 top-3 text-red-500" />}
+        </div>
+        <div className="relative mt-4">
+          <Input
+            type='password'
+            name='password'
+            placeholder='Contraseña'
+            value={password}
+            onChange={handlePasswordChange}
+            className={`w-full ${passwordValid === false ? 'border-red-500' : passwordValid === true ? 'border-green-500' : ''}`}
+          />
+          {passwordValid === true && <RiCheckFill className="absolute right-2 top-3 text-green-500" />}
+          {passwordValid === false && <RiErrorWarningFill className="absolute right-2 top-3 text-red-500" />}
+        </div>
         <div className='flex justify-end mb-5'>
           <button
             type='button'
@@ -75,7 +128,7 @@ const Form_Login: React.FC<FormLoginProps> = ({ children }) => {
             Regístrate
           </button>
         </div>
-        <div className='mb-5'>
+        {/* <div className='mb-5'>
           <hr className='border-2' />
           <div className='flex justify-center'>
             <span className='bg-white px-8 -mt-3'>o</span>
@@ -83,8 +136,7 @@ const Form_Login: React.FC<FormLoginProps> = ({ children }) => {
         </div>
         <div className='flex items-center justify-center gap-x-4'>
           <ButtonIcon icon={RiGoogleFill} />
-         
-        </div>
+        </div> */}
       </form>
     </div>
   );

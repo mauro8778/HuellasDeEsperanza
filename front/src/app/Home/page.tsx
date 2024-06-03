@@ -1,34 +1,35 @@
-/* eslint-disable @next/next/no-img-element */
-'use client'
-
-import RandomAnimalCards from "@/components/Card-Animals/RandomAnimalsCards"
-import Footer from "@/components/Footer/Footer"
-import Navbar from "@/components/NavBar/NavBar"
-import RandomRefugiosCards from "@/components/Refugios/RandomRefugiosCards"
-import Mascotas from "@/utils/mascotas"
-import Refugios from "@/utils/refugios"
-
-
+import React from "react";
+import Image from "next/image";
+import RandomAnimalCards from "@/components/Card-Animals/RandomAnimalsCards";
+import Mascotas from "@/utils/mascotas";
+import ListaRefugios from "@/components/Refugios/ListaRefugios";
+import Refugios from "@/utils/refugios";
+import RandomRefugiosCards from "@/components/Refugios/RandomRefugiosCards";
 
 export const Home: React.FC = () => {
   return (
-    <> 
-     <Navbar />
-    <div className="relative w-full min-h-screen overflow-hidden flex justify-center items-center">
-      <div className="absolute top-0 left-0 w-full h-[300px]">
-        <img src="/BannerNav-_1_.webp" alt="Wave Background" className="absolute top-0 left-0 w-full h-full object-cover -z-10 " />
+    <div className="relative w-full min-h-screen overflow-hidden">
+      {/* Banner */}
+      <div className="relative w-full h-96">
+        <Image
+          src="/imgs/bannerNav.png"
+          alt="Wave Background"
+          layout="fill"
+          objectFit="cover"
+          objectPosition="center"
+        />
       </div>
       
-        <RandomAnimalCards mascotas={Mascotas} />
+      <div className="relative z-0 mt-10 ml-10">
+        <RandomAnimalCards mascotas={Mascotas}/>
+      </div>
 
+      <div className="relative z-0 mt-10 ml-10">
         <RandomRefugiosCards refugios={Refugios}/>
-
+      </div>
       
     </div>
-    <Footer />
-    </>
-    
-  )
-}
+  );
+};
 
-export default Home
+export default Home;

@@ -1,50 +1,166 @@
 'use client';
 
+import { useState, FormEvent, ChangeEvent } from 'react';
 import Button from '@/components/ui/button';
 import ButtonIcon from '@/components/ui/button-icon';
 import Input from '@/components/ui/input';
 import { useRouter } from 'next/navigation';
+import { RiGoogleFill, RiCheckFill, RiErrorWarningFill } from 'react-icons/ri';
 
-import { RiGoogleFill } from 'react-icons/ri';
-
-const Form = () => {
+const Form: React.FC = () => {
   const router = useRouter();
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [error, setError] = useState<string | null>(null);
+  const [nameValid, setNameValid] = useState<boolean | null>(null);
+  const [emailValid, setEmailValid] = useState<boolean | null>(null);
+  const [passwordValid, setPasswordValid] = useState<boolean | null>(null);
+  const [confirmPasswordValid, setConfirmPasswordValid] = useState<boolean | null>(null);
+
+  const validateName = (name: string) => name.trim().length > 0;
+
+  const validateEmail = (email: string) => /\S+@\S+\.\S+/.test(email);
+
+  const validatePassword = (password: string) => password.length >= 6;
+
+  const validateConfirmPassword = (confirmPassword: string) => confirmPassword === password;
+
+  const handleNameChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setName(value);
+    setNameValid(validateName(value));
+  };
+
+  const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setEmail(value);
+    setEmailValid(validateEmail(value));
+  };
+
+  const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setPassword(value);
+    setPasswordValid(validatePassword(value));
+  };
+
+  const handleConfirmPasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setConfirmPassword(value);
+    setConfirmPasswordValid(validateConfirmPassword(value));
+  };
+
+  const handleRegister = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setError(null); // Reset error message
+
+    if (nameValid && emailValid && passwordValid && confirmPasswordValid) {
+      try {
+        const response = await fetch('URL_DE_TU_BACKEND/api/register', { // Aquí va la URL de tu backend
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ name, email, password }),
+        });
+
+        if (response.ok) {
+          router.push('/AUTH/login');
+        } else {
+          setError('Registro fallido. Por favor, inténtalo de nuevo.');
+        }
+      } catch (error) {
+        console.error('Error al registrar:', error);
+        setError('Ocurrió un error. Por favor, inténtalo de nuevo.');
+      }
+    } else {
+      setError('Por favor, completa todos los campos correctamente.');
+    }
+  };
 
   return (
     <div className='w-full max-w-md'>
       <div className='mb-5'>
-        <h2 className='text-2xl font-semibold'>Registrate</h2>
+        <h2 className='text-2xl font-semibold'>Regístrate</h2>
         <p className='text-gray-500 text-sm'>
-          Pofavor registrese para poder iniciar sesion y dejar su huellas de esperanza 
-          
+          Por favor, regístrate para poder iniciar sesión y dejar tu huella de esperanza.
         </p>
       </div>
-      <form className='w-full'>
-        <Input type='text' placeholder='Name' />
-        <Input type='text' placeholder='Email' />
-        <Input type='password' placeholder='Password' />
-        <Input type='password' placeholder='Confirm password' />
-        <Button type='submit' label='Create account' />
+      <form className='w-full' onSubmit={handleRegister}>
+        {error && (
+          <div className="mb-4 text-red-500">
+            {error}
+          </div>
+        )}
+        <div className="relative">
+          <Input
+            type='text'
+            name='name'
+            placeholder='Nombre'
+            value={name}
+            onChange={handleNameChange}
+            className={`w-full ${nameValid === false ? 'border-red-500' : nameValid === true ? 'border-green-500' : ''}`}
+          />
+          {nameValid === true && <RiCheckFill className="absolute right-2 top-3 text-green-500" />}
+          {nameValid === false && <RiErrorWarningFill className="absolute right-2 top-3 text-red-500" />}
+        </div>
+        <div className="relative mt-4">
+          <Input
+            type='text'
+            name='email'
+            placeholder='Email'
+            value={email}
+            onChange={handleEmailChange}
+            className={`w-full ${emailValid === false ? 'border-red-500' : emailValid === true ? 'border-green-500' : ''}`}
+          />
+          {emailValid === true && <RiCheckFill className="absolute right-2 top-3 text-green-500" />}
+          {emailValid === false && <RiErrorWarningFill className="absolute right-2 top-3 text-red-500" />}
+        </div>
+        <div className="relative mt-4">
+          <Input
+            type='password'
+            name='password'
+            placeholder='Contraseña'
+            value={password}
+            onChange={handlePasswordChange}
+            className={`w-full ${passwordValid === false ? 'border-red-500' : passwordValid === true ? 'border-green-500' : ''}`}
+          />
+          {passwordValid === true && <RiCheckFill className="absolute right-2 top-3 text-green-500" />}
+          {passwordValid === false && <RiErrorWarningFill className="absolute right-2 top-3 text-red-500" />}
+        </div>
+        <div className="relative mt-4">
+          <Input
+            type='password'
+            name='confirmPassword'
+            placeholder='Confirmar contraseña'
+            value={confirmPassword}
+            onChange={handleConfirmPasswordChange}
+            className={`w-full ${confirmPasswordValid === false ? 'border-red-500' : confirmPasswordValid === true ? 'border-green-500' : ''}`}
+          />
+          {confirmPasswordValid === true && <RiCheckFill className="absolute right-2 top-3 text-green-500" />}
+          {confirmPasswordValid === false && <RiErrorWarningFill className="absolute right-2 top-3 text-red-500" />}
+        </div>
+        <Button type='submit' label='Crear cuenta' />
         <div className='mt-5 mb-10 flex items-center justify-center gap-x-2'>
-          <p className='text-gray-500'>Tenes una cuenta?</p>
+          <p className='text-gray-500'>¿Tienes una cuenta?</p>
           <button
             type='button'
             onClick={() => router.push('/AUTH/login')}
             className='font-semibold hover:text-primary transition-colors duration-300'
           >
-            Login
+            Inicia sesión
           </button>
         </div>
-        <div className='mb-5'>
+        {/* <div className='mb-5'>
           <hr className='border-2' />
           <div className='flex justify-center'>
-            <span className='bg-white px-8 -mt-3'>or</span>
+            <span className='bg-white px-8 -mt-3'>o</span>
           </div>
         </div>
         <div className='flex items-center justify-center gap-x-4'>
           <ButtonIcon icon={RiGoogleFill} />
-          
-        </div>
+        </div> */}
       </form>
     </div>
   );
