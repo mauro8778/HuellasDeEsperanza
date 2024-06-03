@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import Logo from '@/components/ui/Logo';
-import Form from './components/form_reister';
+import Form from './components/form_register';
 
 export const metadata: Metadata = {
   title: 'Register | Auth',
