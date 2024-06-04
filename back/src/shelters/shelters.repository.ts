@@ -8,7 +8,6 @@ import { InjectRepository } from '@nestjs/typeorm';
 import axios from 'axios';
 import { ShelterEntity } from 'src/entidades/shelter.entity';
 import { MailService } from 'src/mails/mail.service';
-import { Role } from 'src/users/user.enum';
 import { Repository } from 'typeorm';
 
 @Injectable()
@@ -30,7 +29,7 @@ export class ShelterRepository {
     return shelters;
   }
 
-  async updateActiveShelter(id: string, accessToken) {
+  async ActiveShelter(id: string, accessToken) {
     const shelter = await this.sheltersRepository.findOne({ where: { id } });
 
     if (!shelter) {
@@ -168,6 +167,17 @@ export class ShelterRepository {
       throw new Error('Failed to delete shelter and update user roles');
     }
   }
+  async updatedProfile(id : string, shelter : Partial<ShelterEntity>){
+    const updateShelter= await this.sheltersRepository.findOne({ where: { id } });
+if (!updateShelter) {
+
+  throw new NotFoundException(`no se encontro el usuario con id ${id}`);
+}
+await this.sheltersRepository.merge(updateShelter, shelter);
+await this.sheltersRepository.save(updateShelter);
+
+return ` el usuario con id ${id}  y nombre ${updateShelter.name} se ah actualizado con exito`;
+}
 
   async filterShelters(exotic_animals?: string, location?: string) {
     const conditions: any = {isActive: true};

@@ -32,10 +32,10 @@ export class ShelterEntity {
   dni: number;
 
   @Column({
-    type: 'bigint',
+    type: 'int',
     nullable: true,
   })
-  phone?: number | undefined;
+  phone?: number
 
   @Column({
     type: 'varchar',
@@ -48,6 +48,12 @@ export class ShelterEntity {
     nullable: false,
   })
   location: string;
+
+  @Column({
+    type: 'varchar',
+    nullable: false,
+  })
+  zona: string;
 
   @Column({
     type: 'varchar',
