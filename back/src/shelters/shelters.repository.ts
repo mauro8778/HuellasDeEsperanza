@@ -170,13 +170,13 @@ export class ShelterRepository {
   }
 
   async filterShelters(exotic_animals?: string, location?: string) {
-    const conditions: any = {};
+    const conditions: any = {isActive: true};
 
     if (exotic_animals) {
-      conditions.breed = exotic_animals;
+      conditions.exotic_animals = exotic_animals;
     }
     if (location) {
-      conditions.pet_size = location;
+      conditions.location = location;
     }
 
     return await this.sheltersRepository.find({ where: conditions });

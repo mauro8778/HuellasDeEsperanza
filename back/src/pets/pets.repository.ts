@@ -72,7 +72,7 @@ export class PetsRepository {
     
     
     async filterPets(breed?: string, pet_size?: string, age?: number){
-        const conditions: any = {};
+        const conditions: any = {isActive: true};
 
         if (breed) {
             conditions.breed = breed;

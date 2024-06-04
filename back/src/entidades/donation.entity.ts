@@ -18,11 +18,11 @@ export class DonationEntity{
         scale: 2,
         nullable: false   
     })
-    donation_amount: number
+    amount: number
 
 
     @Column({
-        nullable: false,
+        nullable: true,
     })
     date: Date
 

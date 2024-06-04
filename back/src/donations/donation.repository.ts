@@ -3,18 +3,20 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { DonationEntity } from "src/entidades/donation.entity";
 import { ShelterEntity } from "src/entidades/shelter.entity";
 import { UserEntity } from "src/entidades/user.entity";
+import { MercadoPagoService } from "src/mercado-pago/mercado-pago.service";
 import { Repository } from "typeorm";
 
 @Injectable()
 export class DonationRepository {
 
     constructor(
+        private mercadoPagoService: MercadoPagoService,
         @InjectRepository(UserEntity)
         private readonly userrepository : Repository<UserEntity>,
         @InjectRepository(ShelterEntity)
         private readonly shelterepository : Repository<ShelterEntity>,
         @InjectRepository(DonationEntity)
-        private readonly donationrepository: Repository<DonationEntity>
+        private readonly donationrepository: Repository<DonationEntity>,
     ){}
 
     async donation (){
@@ -59,9 +61,22 @@ export class DonationRepository {
           return shelter.donations;
     }
 
-    async newDonation(donation:DonationEntity){
-        const newDonation = this.donationrepository.create(donation);
-        return await this.donationrepository.save(newDonation);
+    async newDonation(donation: Partial<DonationEntity>){
+      const ndate = new Date()
+
+        const newDonation: Partial<DonationEntity> = {
+          id: donation.id,
+          amount: donation.amount,
+          date: ndate
+        };
+
+        const cdonation = this.donationrepository.create(newDonation)
+
+        const sdonation = this.donationrepository.save(cdonation)
+
+        // const preference = await this.mercadoPagoService.createPreference(donation.amount, donation.shelter);
+        
+        // return { donation: sdonation, preference };
     }
 
     async confirmDonation(donation:DonationEntity){

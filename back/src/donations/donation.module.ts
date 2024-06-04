@@ -6,10 +6,11 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { DonationEntity } from '../entidades/donation.entity';
 import { UserEntity } from 'src/entidades/user.entity';
 import { ShelterEntity } from 'src/entidades/shelter.entity';
+import { MercadoPagoService} from 'src/mercado-pago/mercado-pago.service';
 
 @Module({
   imports:[TypeOrmModule.forFeature([DonationEntity,UserEntity, ShelterEntity])],
-  providers: [DonationService,DonationRepository],
+  providers: [DonationService,DonationRepository, MercadoPagoService],
   controllers: [DonationController] 
 })
 export class DonationModule {}
