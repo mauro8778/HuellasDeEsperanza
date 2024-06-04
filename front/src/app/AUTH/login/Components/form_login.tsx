@@ -42,7 +42,7 @@ const Form_Login: React.FC = () => {
 
     if (emailValid && passwordValid) {
       try {
-        const response = await fetch('https://backpf-prueba.onrender.com/users', { // Aquí va la URL de tu backend
+        const response = await fetch('https://backpf-prueba.onrender.com/auth/login', { 
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

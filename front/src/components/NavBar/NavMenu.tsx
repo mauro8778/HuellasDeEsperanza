@@ -37,8 +37,8 @@ const NavMenu: React.FC = () => {
                 </Link>
               </li>
               <li>
-                <Link href="/mascotas">
-                  <p className="block px-4 py-2 text-gray-800 hover:bg-gray-200">Mascotas</p>
+                <Link href="/adopta">
+                  <p className="block px-4 py-2 text-gray-800 hover:bg-gray-200">Adopta</p>
                 </Link>
               </li>
             </ul>

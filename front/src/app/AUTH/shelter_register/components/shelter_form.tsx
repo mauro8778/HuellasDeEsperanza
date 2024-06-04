@@ -76,16 +76,18 @@ const ShelterForm: React.FC = () => {
 
     if (allValid) {
       try {
-        const response = await axios.post('URL_DE_TU_BACKEND/api/shelters', formData, {
+        const response = await fetch('https://backpf-prueba.onrender.com/auth/register/shelter', {
+          method: 'POST',
           headers: {
             'Content-Type': 'application/json'
-          }
+          },
+          body: JSON.stringify(formData)
         });
     
-        if (response.status === 200) {
-          router.push('/Home');
+        router.push('/AUTH/login');
+        if (response.ok) {
         } else {
-          setError('Error en el registro. Por favor, inténtalo de nuevo.');
+          // setError('Error en el registro. Por favor, inténtalo de nuevo.');
         }
       } catch (error) {
         console.error('Error en el registro:', error);
@@ -94,6 +96,7 @@ const ShelterForm: React.FC = () => {
     } else {
       setError('Por favor, completa todos los campos correctamente.');
     }
+    
     
   };
 
