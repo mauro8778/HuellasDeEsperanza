@@ -1,92 +1,302 @@
 [
-    {
-      "name": "Oscar",
-      "sexo": "macho",
-      "breed": "Perro",
-      "age": 2,
-      "pet_size": "mediano",
-      "imgUrl": "img.jpg",
-      "description": "Un perro juguetón y amigable."
-    },
-    {
+  {
+    "name": "Cooper",
+    "sexo": "macho",
+    "breed": "Poodle",
+    "age": 3,
+    "pet_size": "pequeño",
+    "imgUrl": "img.jpg",
+    "description": "Un perro inteligente y cariñoso.",
+    "refugio": "Refugio de Animales Palermo"
+},
+{
+  "name": "Rocky",
+  "sexo": "macho",
+  "breed": "Labrador Retriever",
+  "age": 4,
+  "pet_size": "grande",
+  "imgUrl": "img.jpg",
+  "description": "Un perro leal y juguetón.",
+  "refugio": "Refugio de Animales Palermo"
+},
+{
+  "name": "Mia",
+  "sexo": "hembra",
+  "breed": "Siamés",
+  "age": 2,
+  "pet_size": "pequeño",
+  "imgUrl": "img.jpg",
+  "description": "Una gata elegante y tranquila.",
+  "refugio": "Refugio de Animales Palermo"
+},
+  {
       "name": "Luna",
       "sexo": "hembra",
-      "breed": "Gato",
+      "breed": "Labrador Retriever",
+      "age": 2,
+      "pet_size": "grande",
+      "imgUrl": "img.jpg",
+      "description": "Una perra cariñosa y activa.",
+      "refugio": "Centro de Rescate Belgrano"
+  },
+  {
+      "name": "Simón",
+      "sexo": "macho",
+      "breed": "Maine Coon",
       "age": 3,
-      "pet_size": "pequeño",
-      "imgUrl": "luna.jpg",
-      "description": "Una gata curiosa y cariñosa."
-    },
-    {
+      "pet_size": "grande",
+      "imgUrl": "img.jpg",
+      "description": "Un gato tranquilo y amigable.",
+      "refugio": "Centro de Rescate Belgrano"
+  },
+  {
       "name": "Max",
       "sexo": "macho",
-      "breed": "Perro",
+      "breed": "Golden Retriever",
       "age": 4,
       "pet_size": "grande",
-      "imgUrl": "max.jpg",
-      "description": "Un perro leal y protector."
-    },
-    {
-      "name": "Bella",
-      "sexo": "hembra",
-      "breed": "Gato",
-      "age": 2,
-      "pet_size": "pequeño",
-      "imgUrl": "bella.jpg",
-      "description": "Una gata elegante y juguetona."
-    },
-    {
-      "name": "Rocky",
-      "sexo": "macho",
-      "breed": "Perro",
-      "age": 6,
-      "pet_size": "mediano",
-      "imgUrl": "rocky.jpg",
-      "description": "Un perro activo y amigable."
-    },
-    {
-      "name": "Mia",
-      "sexo": "hembra",
-      "breed": "Gato",
-      "age": 1,
-      "pet_size": "pequeño",
-      "imgUrl": "mia.jpg",
-      "description": "Una gata curiosa y traviesa."
-    },
-    {
-      "name": "Simba",
-      "sexo": "macho",
-      "breed": "Perro",
-      "age": 3,
-      "pet_size": "grande",
-      "imgUrl": "simba.jpg",
-      "description": "Un perro valiente y leal."
-    },
-    {
-      "name": "Nina",
-      "sexo": "hembra",
-      "breed": "Gato",
-      "age": 4,
-      "pet_size": "mediano",
-      "imgUrl": "nina.jpg",
-      "description": "Una gata cariñosa y tranquila."
-    },
-    {
-      "name": "Bruno",
-      "sexo": "macho",
-      "breed": "Perro",
-      "age": 5,
-      "pet_size": "grande",
-      "imgUrl": "bruno.jpg",
-      "description": "Un perro juguetón y enérgico."
-    },
-    {
-      "name": "Lola",
-      "sexo": "hembra",
-      "breed": "Gato",
-      "age": 2,
-      "pet_size": "pequeño",
-      "imgUrl": "lola.jpg",
-      "description": "Una gata misteriosa y cariñosa."
-    }
+      "imgUrl": "img.jpg",
+      "description": "Un perro juguetón y leal.",
+      "refugio": "Centro de Rescate Belgrano"
+  },
+  {
+    "name": "Nala",
+    "sexo": "hembra",
+    "breed": "Bulldog Francés",
+    "age": 2,
+    "pet_size": "pequeño",
+    "imgUrl": "img.jpg",
+    "description": "Una perra dulce y juguetona.",
+    "refugio": "Santuario de Animales Barracas"
+},
+{
+    "name": "Simón",
+    "sexo": "macho",
+    "breed": "Siamés",
+    "age": 3,
+    "pet_size": "pequeño",
+    "imgUrl": "img.jpg",
+    "description": "Un gato tranquilo y cariñoso.",
+    "refugio": "Santuario de Animales Barracas"
+},
+{
+    "name": "Rocky",
+    "sexo": "macho",
+    "breed": "Labrador Retriever",
+    "age": 4,
+    "pet_size": "grande",
+    "imgUrl": "img.jpg",
+    "description": "Un perro leal y juguetón.",
+    "refugio": "Santuario de Animales Barracas"
+},
+{
+  "name": "Bella",
+  "sexo": "hembra",
+  "breed": "Golden Retriever",
+  "age": 2,
+  "pet_size": "grande",
+  "imgUrl": "img.jpg",
+  "description": "Una perra cariñosa y obediente.",
+  "refugio": "Refugio de Mascotas Lomas de Zamora"
+},
+{
+  "name": "Toby",
+  "sexo": "macho",
+  "breed": "Maine Coon",
+  "age": 3,
+  "pet_size": "grande",
+  "imgUrl": "img.jpg",
+  "description": "Un gato independiente y sociable.",
+  "refugio": "Refugio de Mascotas Lomas de Zamora"
+},
+{
+  "name": "Max",
+  "sexo": "macho",
+  "breed": "Labrador Retriever",
+  "age": 4,
+  "pet_size": "grande",
+  "imgUrl": "img.jpg",
+  "description": "Un perro leal y juguetón.",
+  "refugio": "Refugio de Mascotas Lomas de Zamora"
+},
+{
+  "name": "Lola",
+  "sexo": "hembra",
+  "breed": "Bulldog Francés",
+  "age": 2,
+  "pet_size": "pequeño",
+  "imgUrl": "img.jpg",
+  "description": "Una perra juguetona y amigable.",
+  "refugio": "Refugio Canino de Morón"
+},
+{
+  "name": "Simón",
+  "sexo": "macho",
+  "breed": "Siamés",
+  "age": 3,
+  "pet_size": "pequeño",
+  "imgUrl": "img.jpg",
+  "description": "Un gato tranquilo y cariñoso.",
+  "refugio": "Refugio Canino de Morón"
+},
+{
+  "name": "Rocky",
+  "sexo": "macho",
+  "breed": "Labrador Retriever",
+  "age": 4,
+  "pet_size": "grande",
+  "imgUrl": "img.jpg",
+  "description": "Un perro leal y juguetón.",
+  "refugio": "Refugio Canino de Morón"
+},
+{
+  "name": "Luna",
+  "sexo": "hembra",
+  "breed": "Persa",
+  "age": 2,
+  "pet_size": "mediano",
+  "imgUrl": "img.jpg",
+  "description": "Una gata elegante y cariñosa.",
+  "refugio": "Hogar de Gatos de Ituzaingó"
+},
+{
+  "name": "Max",
+  "sexo": "macho",
+  "breed": "Siamés",
+  "age": 3,
+  "pet_size": "mediano",
+  "imgUrl": "img.jpg",
+  "description": "Un gato tranquilo y sociable.",
+  "refugio": "Hogar de Gatos de Ituzaingó"
+},
+{
+  "name": "Bella",
+  "sexo": "hembra",
+  "breed": "Sphynx",
+  "age": 4,
+  "pet_size": "pequeño",
+  "imgUrl": "img.jpg",
+  "description": "Una gata sin pelo muy afectuosa.",
+  "refugio": "Hogar de Gatos de Ituzaingó"
+},
+{
+  "name": "Toby",
+  "sexo": "macho",
+  "breed": "Labrador Retriever",
+  "age": 2,
+  "pet_size": "grande",
+  "imgUrl": "img.jpg",
+  "description": "Un perro amigable y enérgico.",
+  "refugio": "Refugio Canino de San Isidro"
+},
+{
+  "name": "Luna",
+  "sexo": "hembra",
+  "breed": "Persa",
+  "age": 3,
+  "pet_size": "mediano",
+  "imgUrl": "img.jpg",
+  "description": "Una gata cariñosa y curiosa.",
+  "refugio": "Refugio Canino de San Isidro"
+},
+{
+  "name": "Max",
+  "sexo": "macho",
+  "breed": "Golden Retriever",
+  "age": 4,
+  "pet_size": "grande",
+  "imgUrl": "img.jpg",
+  "description": "Un perro leal y juguetón.",
+  "refugio": "Refugio Canino de San Isidro"
+},
+{
+  "name": "Lola",
+  "sexo": "hembra",
+  "breed": "Siamés",
+  "age": 2,
+  "pet_size": "pequeño",
+  "imgUrl": "img.jpg",
+  "description": "Una gata cariñosa y juguetona.",
+  "refugio": "Hogar de Gatos de Vicente López"
+},
+{
+  "name": "Simón",
+  "sexo": "macho",
+  "breed": "Maine Coon",
+  "age": 3,
+  "pet_size": "grande",
+  "imgUrl": "img.jpg",
+  "description": "Un gato tranquilo y sociable.",
+  "refugio": "Hogar de Gatos de Vicente López"
+},
+{
+  "name": "Rocky",
+  "sexo": "macho",
+  "breed": "Persa",
+  "age": 4,
+  "pet_size": "mediano",
+  "imgUrl": "img.jpg",
+  "description": "Un gato cariñoso y enérgico.",
+  "refugio": "Hogar de Gatos de Vicente López"
+},
+{
+  "name": "Max",
+  "sexo": "macho",
+  "breed": "Labrador Retriever",
+  "age": 2,
+  "pet_size": "grande",
+  "imgUrl": "img.jpg",
+  "description": "Un perro cariñoso y juguetón.",
+  "refugio": "Refugio de Animales de Tandil"
+},
+{
+  "name": "Luna",
+  "sexo": "hembra",
+  "breed": "Siamés",
+  "age": 3,
+  "pet_size": "mediano",
+  "imgUrl": "img.jpg",
+  "description": "Una gata tranquila y afectuosa.",
+  "refugio": "Refugio de Animales de Tandil"
+},
+{
+  "name": "Toby",
+  "sexo": "macho",
+  "breed": "Golden Retriever",
+  "age": 4,
+  "pet_size": "grande",
+  "imgUrl": "img.jpg",
+  "description": "Un perro leal y amigable.",
+  "refugio": "Refugio de Animales de Tandil"
+},
+{
+  "name": "Bella",
+  "sexo": "hembra",
+  "breed": "Labrador Retriever",
+  "age": 2,
+  "pet_size": "grande",
+  "imgUrl": "img.jpg",
+  "description": "Una perra cariñosa y juguetona.",
+  "refugio": "Hogar de Mascotas de Junín"
+},
+{
+  "name": "Simón",
+  "sexo": "macho",
+  "breed": "Maine Coon",
+  "age": 3,
+  "pet_size": "grande",
+  "imgUrl": "img.jpg",
+  "description": "Un gato tranquilo y sociable.",
+  "refugio": "Hogar de Mascotas de Junín"
+},
+{
+  "name": "Luna",
+  "sexo": "hembra",
+  "breed": "Persa",
+  "age": 4,
+  "pet_size": "mediano",
+  "imgUrl": "img.jpg",
+  "description": "Una gata cariñosa y afectuosa.",
+  "refugio": "Hogar de Mascotas de Junín"
+}
 ]

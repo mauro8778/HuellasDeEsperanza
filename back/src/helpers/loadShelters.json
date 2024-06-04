@@ -1,5 +1,6 @@
 
-    [{
+[
+    {
         "name": "Oscar",
         "email": "oscar@example.com",
         "password": "P@ssw0rd1",
@@ -12,19 +13,7 @@
         "exotic_animals": false,
         "isActive": true
     },
-    {
-        "name": "Maria",
-        "email": "maria@example.com",
-        "password": "P@ssw0rd2",
-        "dni": 23456789,
-        "phone": 1123456790,
-        "shelter_name": "Refugio de Animales Recoleta",
-        "location": "Recoleta",
-        "zona": "CABA",
-        "description": "Refugio dedicado a la recuperación de perros y gatos abandonados",
-        "exotic_animals": false,
-        "isActive": true
-    },
+  
     {
         "name": "Juan",
         "email": "juan@example.com",
@@ -35,32 +24,6 @@
         "location": "Belgrano",
         "zona": "CABA",
         "description": "Espacio de acogida para animales callejeros en Belgrano",
-        "exotic_animals": false,
-        "isActive": true
-    },
-    {
-        "name": "Lucia",
-        "email": "lucia@example.com",
-        "password": "P@ssw0rd4",
-        "dni": 45678901,
-        "phone": 1123456792,
-        "shelter_name": "Ayuda Animal Villa Urquiza",
-        "location": "Villa Urquiza",
-        "zona": "CABA",
-        "description": "Refugio que trabaja en la rehabilitación de animales heridos",
-        "exotic_animals": false,
-        "isActive": true
-    },
-    {
-        "name": "Carlos",
-        "email": "carlos@example.com",
-        "password": "P@ssw0rd5",
-        "dni": 56789012,
-        "phone": 1123456793,
-        "shelter_name": "Santuario de Mascotas Caballito",
-        "location": "Caballito",
-        "zona": "CABA",
-        "description": "Refugio especializado en la adopción de mascotas rescatadas",
         "exotic_animals": false,
         "isActive": true
     },
@@ -91,19 +54,6 @@
         "isActive": true
     },
     {
-        "name": "Valeria",
-        "email": "valeria@example.com",
-        "password": "P@ssw0rd12",
-        "dni": 34567891,
-        "phone": 1123456800,
-        "shelter_name": "Centro de Rescate Quilmes",
-        "location": "Quilmes",
-        "zona": "Zona Sur",
-        "description": "Refugio de acogida y rehabilitación de mascotas en Quilmes",
-        "exotic_animals": false,
-        "isActive": true
-    },
-    {
         "name": "Refugio Canino de Morón",
         "email": "info@refugiocaninomoron.com",
         "password": "P@ssw0rd1",
@@ -126,19 +76,6 @@
         "location": "Ituzaingó",
         "zona": "Zona Oeste",
         "description": "Refugio que acoge y busca hogar para gatos abandonados en Ituzaingó",
-        "exotic_animals": false,
-        "isActive": true
-    },
-    {
-        "name": "Refugio de Mascotas de Haedo",
-        "email": "refugiomascotashaedo@hotmail.com",
-        "password": "P@ssw0rd3",
-        "dni": 34567890,
-        "phone": 1123456791,
-        "shelter_name": "Refugio de Mascotas de Haedo",
-        "location": "Haedo",
-        "zona": "Zona Oeste",
-        "description": "Refugio comprometido con la protección y adopción de mascotas en Haedo",
         "exotic_animals": false,
         "isActive": true
     },
@@ -169,19 +106,6 @@
         "isActive": true
     },
     {
-        "name": "Refugio de Mascotas de Tigre",
-        "email": "refugiomascotastigre@hotmail.com",
-        "password": "P@ssw0rd3",
-        "dni": 34567890,
-        "phone": 1123456791,
-        "shelter_name": "Refugio de Mascotas de Tigre",
-        "location": "Tigre",
-        "zona": "Zona Norte",
-        "description": "Refugio comprometido con la protección y adopción de mascotas en Tigre",
-        "exotic_animals": false,
-        "isActive": true
-    },
-    {
         "name": "Refugio de Animales de Tandil",
         "email": "info@refugiodeanimalestandil.com",
         "password": "P@ssw0rd1",
@@ -206,19 +130,6 @@
         "description": "Refugio que acoge y busca hogar para mascotas abandonadas en Junín",
         "exotic_animals": false,
         "isActive": true
-    },
-    {
-        "name": "Refugio Canino de Azul",
-        "email": "refugiocaninoazul@hotmail.com",
-        "password": "P@ssw0rd3",
-        "dni": 34567890,
-        "phone": 1123456791,
-        "shelter_name": "Refugio Canino de Azul",
-        "location": "Azul",
-        "zona": "Interior de la Provincia",
-        "description": "Refugio comprometido con la protección y adopción de perros en Azul",
-        "exotic_animals": false,
-        "isActive": true
     }
-    ]
+]
     

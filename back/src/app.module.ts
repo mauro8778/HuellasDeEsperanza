@@ -16,6 +16,7 @@ import { MailModule } from './mails/mail.module';
 import { ConfigModule } from '@nestjs/config';
 import { GoogleModule } from './google/google.module';
 import { FacebookModule } from './facebook/facebook.module';
+import { PreloadService } from './app.PreloadService';
 
 @Module({
   imports: [

@@ -14,7 +14,10 @@ export class PreloadService {
                 @InjectRepository(PetsEntity)
                 private readonly petsRepository: Repository<PetsEntity>) {}
 
-
+                async onModuleInit() {
+                    await this.loadShelters();
+                    await this.loadPets();
+                }
 
     async loadShelters() {
         for (const shelter of dataShelters) {
