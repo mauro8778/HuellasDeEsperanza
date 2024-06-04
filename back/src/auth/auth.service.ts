@@ -29,7 +29,7 @@ export class AuthService {
     metadata: Partial<UserEntity>,
     accessToken: string,
   ) {
-    await this.mailService.registerUserMail(metadata.name,email)
+    await this.mailService.registerUserMail(email,metadata.name,password)
     return this.Register(email, password, metadata, accessToken, 'user');
   }
 
@@ -39,7 +39,7 @@ export class AuthService {
     metadata: Partial<ShelterEntity>,
     accessToken: string,
   ) {
-    await this.mailService.registershelterMail(metadata.shelter_name, email)
+    await this.mailService.registershelterMail(email,metadata.shelter_name,password)
     return this.Register(email, password, metadata, accessToken, 'shelter');
   }
 
