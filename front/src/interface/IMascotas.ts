@@ -8,7 +8,7 @@ export interface IMascotas  {
     category?: string;
     refugio?: string;
     breed?: string
-    age?:number
+    age:string
     pet_size?: string
     imgUrl?: string | undefined;
   }
