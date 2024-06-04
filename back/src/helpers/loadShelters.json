@@ -1,0 +1,102 @@
+[
+    {
+        "name": "Oscar",
+        "email": "example1@gmail.com",
+        "password": "P@ssw0rd!",
+        "dni": 44654301,
+        "shelter_name": "Refugio 1",
+        "location": "Ubicacion 1",
+        "description": "Descripción del refugio 1"
+        
+    },
+    {
+        "name": "Oscar",
+        "email": "example2@gmail.com",
+        "password": "P@ssw0rd!",
+        "dni": 44654302,
+        "shelter_name": "Refugio 2",
+        "location": "Ubicacion 2",
+        "description": "Descripción del refugio 2"
+        
+    },
+    {
+        "name": "Oscar",
+        "email": "example3@gmail.com",
+        "password": "P@ssw0rd!",
+        "dni": 44654303,
+        "shelter_name": "Refugio 3",
+        "location": "Ubicacion 3",
+        "description": "Descripción del refugio 3"
+        
+    },
+    {
+        "name": "Oscar",
+        "email": "example4@gmail.com",
+        "password": "P@ssw0rd!",
+        "dni": 44654304,
+        "shelter_name": "Refugio 4",
+        "location": "Ubicacion 4",
+        "description": "Descripción del refugio 4"
+        
+    },
+    {
+        "name": "Oscar",
+        "email": "example5@gmail.com",
+        "password": "P@ssw0rd!",
+        "dni": 44654305,
+        "shelter_name": "Refugio 5",
+        "location": "Ubicacion 5",
+        "description": "Descripción del refugio 5"
+        
+    },
+    {
+        "name": "Oscar",
+        "email": "example6@gmail.com",
+        "password": "P@ssw0rd!",
+        "dni": 44654306,
+        "shelter_name": "Refugio 6",
+        "location": "Ubicacion 6",
+        "description": "Descripción del refugio 6"
+        
+    },
+    {
+        "name": "Oscar",
+        "email": "example7@gmail.com",
+        "password": "P@ssw0rd!",
+        "dni": 44654307,
+        "shelter_name": "Refugio 7",
+        "location": "Ubicacion 7",
+        "description": "Descripción del refugio 7"
+        
+    },
+    {
+        "name": "Oscar",
+        "email": "example8@gmail.com",
+        "password": "P@ssw0rd!",
+        "dni": 44654308,
+        "shelter_name": "Refugio 8",
+        "location": "Ubicacion 8",
+        "description": "Descripción del refugio 8"
+        
+    },
+    {
+        "name": "Oscar",
+        "email": "example9@gmail.com",
+        "password": "P@ssw0rd!",
+        "dni": 44654309,
+        "shelter_name": "Refugio 9",
+        "location": "Ubicacion 9",
+        "description": "Descripción del refugio 9"
+        
+    },
+    {
+        "name": "Oscar",
+        "email": "example10@gmail.com",
+        "password": "P@ssw0rd!",
+        "dni": 44654310,
+        "shelter_name": "Refugio 10",
+        "location": "Ubicacion 10",
+        "description": "Descripción del refugio 10"
+        
+    }
+]
