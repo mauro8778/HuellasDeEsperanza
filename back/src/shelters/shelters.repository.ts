@@ -8,7 +8,6 @@ import { InjectRepository } from '@nestjs/typeorm';
 import axios from 'axios';
 import { ShelterEntity } from 'src/entidades/shelter.entity';
 import { MailService } from 'src/mails/mail.service';
-import { Role } from 'src/users/user.enum';
 import { Repository } from 'typeorm';
 
 @Injectable()

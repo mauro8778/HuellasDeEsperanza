@@ -1,102 +1,125 @@
-[
-    {
-        "name": "Oscar",
-        "email": "example1@gmail.com",
-        "password": "P@ssw0rd!",
-        "dni": 44654301,
-        "shelter_name": "Refugio 1",
-        "location": "Ubicacion 1",
-        "description": "Descripción del refugio 1"
-        
-    },
-    {
-        "name": "Oscar",
-        "email": "example2@gmail.com",
-        "password": "P@ssw0rd!",
-        "dni": 44654302,
-        "shelter_name": "Refugio 2",
-        "location": "Ubicacion 2",
-        "description": "Descripción del refugio 2"
-        
-    },
-    {
-        "name": "Oscar",
-        "email": "example3@gmail.com",
-        "password": "P@ssw0rd!",
-        "dni": 44654303,
-        "shelter_name": "Refugio 3",
-        "location": "Ubicacion 3",
-        "description": "Descripción del refugio 3"
-        
-    },
-    {
-        "name": "Oscar",
-        "email": "example4@gmail.com",
-        "password": "P@ssw0rd!",
-        "dni": 44654304,
-        "shelter_name": "Refugio 4",
-        "location": "Ubicacion 4",
-        "description": "Descripción del refugio 4"
-        
-    },
-    {
-        "name": "Oscar",
-        "email": "example5@gmail.com",
-        "password": "P@ssw0rd!",
-        "dni": 44654305,
-        "shelter_name": "Refugio 5",
-        "location": "Ubicacion 5",
-        "description": "Descripción del refugio 5"
-        
-    },
-    {
-        "name": "Oscar",
-        "email": "example6@gmail.com",
-        "password": "P@ssw0rd!",
-        "dni": 44654306,
-        "shelter_name": "Refugio 6",
-        "location": "Ubicacion 6",
-        "description": "Descripción del refugio 6"
-        
-    },
-    {
-        "name": "Oscar",
-        "email": "example7@gmail.com",
-        "password": "P@ssw0rd!",
-        "dni": 44654307,
-        "shelter_name": "Refugio 7",
-        "location": "Ubicacion 7",
-        "description": "Descripción del refugio 7"
-        
-    },
-    {
-        "name": "Oscar",
-        "email": "example8@gmail.com",
-        "password": "P@ssw0rd!",
-        "dni": 44654308,
-        "shelter_name": "Refugio 8",
-        "location": "Ubicacion 8",
-        "description": "Descripción del refugio 8"
-        
-    },
-    {
-        "name": "Oscar",
-        "email": "example9@gmail.com",
-        "password": "P@ssw0rd!",
-        "dni": 44654309,
-        "shelter_name": "Refugio 9",
-        "location": "Ubicacion 9",
-        "description": "Descripción del refugio 9"
-        
-    },
-    {
-        "name": "Oscar",
-        "email": "example10@gmail.com",
-        "password": "P@ssw0rd!",
-        "dni": 44654310,
-        "shelter_name": "Refugio 10",
-        "location": "Ubicacion 10",
-        "description": "Descripción del refugio 10"
-        
-    }
-]
+{
+    "refugios": [
+      {
+        "nombre": "Refugio Animalia",
+        "email": "animalia.refugio@gmail.com",
+        "password": "Animalia123!",
+        "dni": 12345678,
+        "ubicacion": "Lomas de Zamora",
+        "descripcion": "Refugio dedicado a cuidar y proteger animales abandonados en la zona de Lomas de Zamora."
+      },
+      {
+        "nombre": "Patitas en Adopción",
+        "email": "patitas.adopcion@gmail.com",
+        "password": "Adopcion2021!",
+        "dni": 87654321,
+        "ubicacion": "Quilmes",
+        "descripcion": "Refugio comprometido con la rehabilitación y adopción de perros y gatos en la ciudad de Quilmes."
+      },
+      {
+        "nombre": "Amor Peludo",
+        "email": "amorpeludo@gmail.com",
+        "password": "PeludoLove!",
+        "dni": 54321098,
+        "ubicacion": "Tigre",
+        "descripcion": "Refugio que brinda amor y cuidado a animales en situación de calle en la localidad de Tigre."
+      },
+      {
+        "nombre": "Hogar Sin Fronteras",
+        "email": "hogarsinfronteras@gmail.com",
+        "password": "SinFronteras55!",
+        "dni": 34567891,
+        "ubicacion": "San Miguel",
+        "descripcion": "Refugio comprometido con ayudar a animales en situación de abandono en San Miguel y sus alrededores."
+      },
+      {
+        "nombre": "Patas Solidarias",
+        "email": "patassolidarias@gmail.com",
+        "password": "Solidarias123!",
+        "dni": 98765432,
+        "ubicacion": "Pilar",
+        "descripcion": "Refugio que promueve la adopción responsable de perros y gatos en la ciudad de Pilar."
+      },
+      {
+        "nombre": "Refugio Esperanza Animal",
+        "email": "esperanzaanimal@gmail.com",
+        "password": "Esperanza2022!",
+        "dni": 65432109,
+        "ubicacion": "Escobar",
+        "descripcion": "Refugio que brinda esperanza y cuidado a animales en situación de vulnerabilidad en Escobar."
+      },
+      {
+        "nombre": "Adopta un Amigo",
+        "email": "adopcionamigo@gmail.com",
+        "password": "AmigoAdopta1!",
+        "dni": 21098765,
+        "ubicacion": "San Isidro",
+        "descripcion": "Refugio que busca encontrar hogar para animales en San Isidro que han sido abandonados."
+      },
+      {
+        "nombre": "Mascotas sin hogar",
+        "email": "mascotassinhogar@gmail.com",
+        "password": "SinHogar2021!",
+        "dni": 76543210,
+        "ubicacion": "Olivos",
+        "descripcion": "Refugio comprometido con rescatar y cuidar animales sin hogar en Olivos y alrededores."
+      },
+      {
+        "nombre": "Jaulas Vacías",
+        "email": "jaulasvacias@gmail.com",
+        "password": "Vacias2023!",
+        "dni": 43210987,
+        "ubicacion": "Vicente López",
+        "descripcion": "Refugio que lucha por dejar las jaulas vacías rescatando y dando refugio a animales en Vicente López."
+      },
+      {
+        "nombre": "Amigos de Cuatro Patas",
+        "email": "amigos4patas@gmail.com",
+        "password": "4PatasLove!",
+        "dni": 10987654,
+        "ubicacion": "Tigre",
+        "descripcion": "Refugio dedicado a cuidar y proteger animales en situación de calle en el partido de Tigre."
+      },
+      {
+        "nombre": "Rescate Animal Libertad",
+        "email": "rescatealibertad@gmail.com",
+        "password": "LibertadRescate1!",
+        "dni": 87654301,
+        "ubicacion": "San Fernando",
+        "descripcion": "Refugio comprometido con rescatar animales en situación de maltrato en San Fernando y sus alrededores."
+      },
+      {
+        "nombre": "Esperanza Perruna",
+        "email": "esperanzaperruna@gmail.com",
+        "password": "Perruna2020!",
+        "dni": 98701234,
+        "ubicacion": "Berazategui",
+        "descripcion": "Refugio que brinda esperanza y cuidado a perros en situación de abandono en Berazategui."
+      },
+      {
+        "nombre": "Refugio Gatitos Felices",
+        "email": "gatitosfelices@gmail.com",
+        "password": "GatitosHappy!",
+        "dni": 12345098,
+        "ubicacion": "Quilmes",
+        "descripcion": "Refugio dedicado a la protección y adopción de gatitos en la ciudad de Quilmes."
+      },
+      {
+        "nombre": "Refugio Amanecer Animal",
+        "email": "amaneceranimal@gmail.com",
+        "password": "Amanecer2025!",
+        "dni": 90123456,
+        "ubicacion": "San Miguel",
+        "descripcion": "Refugio comprometido con el amanecer de una nueva vida para animales en situación de calle en San Miguel."
+      },
+      {
+        "nombre": "Uniendo Patitas",
+        "email": "uniendopatitas@gmail.com",
+        "password": "PatitasUnidas!",
+        "dni": 54321098,
+        "ubicacion": "La Plata",
+        "descripcion": "Refugio que une esfuerzos para proteger y cuidar a animales en La Plata y sus alrededores."
+      }
+    ]
+  }
+  
