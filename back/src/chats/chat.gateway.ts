@@ -1,38 +1,46 @@
-import { MessageBody, SubscribeMessage, WebSocketGateway, WebSocketServer, WsResponse, ConnectedSocket, OnGatewayDisconnect, OnGatewayConnection, OnGatewayInit } from '@nestjs/websockets';
-  import { Server, Socket } from 'socket.io';
-  
-  @WebSocketGateway({
-    cors: {
-      origin: '*',
-    },
-  })
-  export class ChatsGateway implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect{
-    @WebSocketServer()
-    server: Server;
+import { Logger } from '@nestjs/common';
+import {
+  MessageBody,
+  SubscribeMessage,
+  WebSocketGateway,
+  WebSocketServer,
+  ConnectedSocket,
+  OnGatewayInit,
+  OnGatewayConnection,
+  OnGatewayDisconnect,
+} from '@nestjs/websockets';
+import { Server, Socket } from 'socket.io';
 
-    afterInit(server: Server) {
-        console.log('WebSocket server inicializado');
-      }
-    
-      handleDisconnect(user: Socket) {
-        console.log(`Usuario desconectado: ${user.id}`);
-      }
-    
-      handleConnection(user: Socket, ...args: any[]) {
-        console.log(`Usuario conectado: ${user.id}`);
-      }
-  
-    @SubscribeMessage('message')
-    handlePrivateMessage(
-      @MessageBody() message: { sender: string, recipient: string, text: string },
-      @ConnectedSocket() client: Socket,
-    ): void {
+@WebSocketGateway({
+  cors: {
+    origin: '*',
+  },
+})
+export class ChatGateway implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect{
+  @WebSocketServer()
+  server: Server;
 
-      const recipientSocketId = this.server.sockets.adapter.rooms.get(message.recipient);
+  private logger: Logger = new Logger('ChatGateway');
 
-      if (recipientSocketId) {
-        client.to(recipientSocketId).emit('message', message);
-      }
-    }
+  afterInit(server: Server) {
+    this.logger.log('WebSocket server inicializado');
   }
-  
+
+  handleDisconnect(client: Socket) {
+    this.logger.log(`Cliente desconectado: ${client.id}`);
+
+  }
+
+  handleConnection(client: Socket, ...args: any[]) {
+    this.logger.log(`Cliente conectado: ${client.id}`);
+  }
+
+
+  @SubscribeMessage('messageToServer')
+  handleMessage(@MessageBody() message: { user: string; text: string }, client: Socket): void {
+    console.log(`Mensaje de ${message.user}: ${message.text}`);
+    this.server.emit('messageToServer', message); 
+  }
+
+}
+ 
