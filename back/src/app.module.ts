@@ -14,7 +14,6 @@ import { FileUploadModule } from './file_upload/file_upload.module';
 import { Auth0Module } from './auth0/auth0.module';
 import { MailModule } from './mails/mail.module';
 import { ConfigModule } from '@nestjs/config';
-import { MercadoPagoModule } from './mercado-pago/mercado-pago.module';
 
 @Module({
   imports: [
@@ -33,7 +32,6 @@ import { MercadoPagoModule } from './mercado-pago/mercado-pago.module';
     FileUploadModule,
     Auth0Module,
     MailModule,
-    MercadoPagoModule,
   ],
   controllers: [AppController], 
   providers: [AppService],

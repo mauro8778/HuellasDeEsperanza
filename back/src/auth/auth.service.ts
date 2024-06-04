@@ -91,6 +91,14 @@ export class AuthService {
   }
 
   async Login(email: string, password: string) {
+
+    const existingAccoutUser = await this.userRepository.findOneBy({ email });
+    const existingAccountShelter = await this.shelterRepository.findOneBy({ email });
+
+    if (!existingAccoutUser && !existingAccountShelter) {
+      throw new ConflictException('Correo inexistente en nuestros registros');
+    }
+
     try {
       const response = await axios.post(
         `https://${process.env.AUTH0_DOMAIN}/oauth/token`,
@@ -101,12 +109,13 @@ export class AuthService {
           grant_type: 'password',
           username: email,
           password: password,
+          scope: 'openid profile email', 
         },
       );
 
-      const token = response.data.access_token;
+      const { access_token, id_token } = response.data;
 
-      return { succes: 'Usuario logueado correctamente', token };
+      return { succes: 'Usuario logueado correctamente', id_token };
     } catch (error) {
       throw new UnauthorizedException('Invalid credentials');
     }

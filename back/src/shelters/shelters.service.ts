@@ -13,11 +13,11 @@ export class SheltersService {
     return this.sheltersRepository.getShelterById(id);
   }
 
-  deleteShelter(id: string) {
-    return this.sheltersRepository.deleteShelter(id);
+  deleteShelter(id: string, accessToken) {
+    return this.sheltersRepository.deleteShelter(id, accessToken);
   }
 
-  updateActiveShelter(id: string) {
-    return this.sheltersRepository.updateActiveShelter(id);
+  updateActiveShelter(id: string, accessToken) {
+    return this.sheltersRepository.updateActiveShelter(id, accessToken);
   }
 }
