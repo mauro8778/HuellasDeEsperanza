@@ -2,7 +2,6 @@ import React from "react";
 import Image from "next/image";
 import RandomAnimalCards from "@/components/Card-Animals/RandomAnimalsCards";
 import Mascotas from "@/utils/mascotas";
-import ListaRefugios from "@/components/Refugios/ListaRefugios";
 import Refugios from "@/utils/refugios";
 import RandomRefugiosCards from "@/components/Refugios/RandomRefugiosCards";
 

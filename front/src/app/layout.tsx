@@ -2,7 +2,8 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { ReactNode } from "react";
 import metadata from "./metadata"
-import ClientWrapper from "./ClientWrapper";
+import HiddenNavBar from "@/components/hidden_navbar/HiddenNavBar";
+import  Navbar  from "@/components/NavBar/NavBar";
 
 
 const inter = Inter({ subsets: ["latin"] });
@@ -17,9 +18,13 @@ export default function RootLayout({
   return (
     <html lang="es">
       <body className={inter.className}>
-        <ClientWrapper>
+       
+        <HiddenNavBar> 
+          <Navbar/>
+        </HiddenNavBar>
           {children}
-        </ClientWrapper>
+        
+       
       </body>
     </html>
   );

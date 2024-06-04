@@ -16,6 +16,6 @@ export const syncopate = Syncopate({
     weight:['400', '700']
 })
 
-export const nunito = Nunito_Sans({
-    subsets: ['latin']
-})
+// export const nunito = Nunito_Sans({
+//     subsets: ['latin']
+// })
