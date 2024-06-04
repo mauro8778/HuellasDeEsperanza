@@ -2,6 +2,7 @@ import {
   BadRequestException,
   ConflictException,
   Injectable,
+  Logger,
   UnauthorizedException,
 } from '@nestjs/common';
 import { UserEntity } from 'src/entidades/user.entity';
@@ -9,14 +10,17 @@ import axios from 'axios';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { ShelterEntity } from 'src/entidades/shelter.entity';
+import { MailService } from 'src/mails/mail.service';
 
 @Injectable()
 export class AuthService {
+  private readonly logger = new Logger(MailService.name);
   constructor(
     @InjectRepository(UserEntity)
     private userRepository: Repository<UserEntity>,
     @InjectRepository(ShelterEntity)
     private shelterRepository: Repository<ShelterEntity>,
+    private readonly mailService: MailService,
   ) {}
 
   async RegisterUser(
@@ -25,6 +29,7 @@ export class AuthService {
     metadata: Partial<UserEntity>,
     accessToken: string,
   ) {
+    await this.mailService.registerUserMail(metadata.name,email)
     return this.Register(email, password, metadata, accessToken, 'user');
   }
 
@@ -34,6 +39,7 @@ export class AuthService {
     metadata: Partial<ShelterEntity>,
     accessToken: string,
   ) {
+    await this.mailService.registershelterMail(metadata.shelter_name, email)
     return this.Register(email, password, metadata, accessToken, 'shelter');
   }
 

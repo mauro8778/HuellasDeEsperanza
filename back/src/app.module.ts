@@ -19,6 +19,7 @@ import { PreloadService } from './app.PreloadService';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ShelterEntity } from './entidades/shelter.entity';
 import { PetsEntity } from './entidades/pets.entity';
+import { GoogleModule } from './google/google.module';
 
 @Module({
   imports: [
@@ -35,6 +36,7 @@ import { PetsEntity } from './entidades/pets.entity';
       PetsModule,
       ChatModule,
       FileUploadModule,
+      GoogleModule,
     Auth0Module,
     MailModule,
     MercadoPagoModule,

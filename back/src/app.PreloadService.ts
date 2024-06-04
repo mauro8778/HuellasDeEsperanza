@@ -22,6 +22,7 @@ export class PreloadService {
                 where: {
                     name: shelter.name,
                     email: shelter.email,
+                    phone:shelter.phone,
                     dni: shelter.dni,
                     shelter_name: shelter.shelter_name,
                     location: shelter.location,

@@ -62,7 +62,7 @@ export class MailService {
         <p>¡Saludos!</p>
         <p>El equipo de Huellas de Esperanza</p>
     </div>`;
-
+    this.logger.log(`Enviando correo a ${userEmail} con asunto "${subject}" y texto "${text}"`);
     await this.sendMail(userEmail, subject, text, html);
 }
 async cambioPasswordMail(userEmail: string, username: string) {
@@ -90,7 +90,7 @@ async cambioPasswordMail(userEmail: string, username: string) {
       <p>¡Saludos!</p>
       <p>El equipo de Huellas de Esperanza</p>
   </div>`;
-
+  this.logger.log(`Enviando correo a ${userEmail} con asunto "${subject}" y texto "${text}"`);
   await this.sendMail(userEmail, subject, text, html);
 }
 async registershelterMail(userEmail: string, username: string) {
@@ -115,7 +115,7 @@ async registershelterMail(userEmail: string, username: string) {
       <p>¡Saludos!</p>
       <p>El equipo de Huellas de Esperanza</p>
   </div>`;
-
+  this.logger.log(`Enviando correo a ${userEmail} con asunto "${subject}" y texto "${text}"`);
   await this.sendMail(userEmail, subject, text, html);
 }
   async deleteUserMail(userEmail: string, username: string) {
@@ -138,6 +138,7 @@ async registershelterMail(userEmail: string, username: string) {
     <p>¡Saludos!</p>
     <p>El equipo de Huellas de Esperanza</p>
   </div>`
+  this.logger.log(`Enviando correo a ${userEmail} con asunto "${subject}" y texto "${text}"`);
     await this.sendMail(userEmail, subject, text,html);
 }
   async deleteshelterMail(userEmail: string, username: string) {
@@ -165,7 +166,7 @@ async registershelterMail(userEmail: string, username: string) {
         <p>¡Saludos!</p>
         <p>El equipo de Huellas de Esperanza</p>
     </div>`;
-
+    this.logger.log(`Enviando correo a ${userEmail} con asunto "${subject}" y texto "${text}"`);
     await this.sendMail(userEmail, subject, text, html);
 }
   async sendShelterActivationMail(shelterEmail: string, shelterName: string) {
