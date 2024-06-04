@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import Refugios from '@/utils/refugios';
 
 interface ModalProps {
   onClose: () => void;
@@ -74,18 +73,6 @@ const Modal: React.FC<ModalProps> = ({ onClose, onFilter }) => {
             <option value="">Todas</option>
             <option value="Perro">Perro</option>
             <option value="Gato">Gato</option>
-          </select>
-        </div>
-        <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-700 mb-2">Refugio</label>
-          <select
-            value={refugio}
-            onChange={(e) => setRefugio(e.target.value)}
-            className="w-full p-2 border border-gray-300 rounded">
-            <option value="">Todas</option>
-            {Refugios.map((refugio) => (
-              <option key={refugio.id} value={refugio.id}>{refugio.name}</option>
-            ))}
           </select>
         </div>
         <div className="flex justify-end space-x-2">

@@ -1,30 +1,73 @@
-'use client';
-import { useFilter } from "@/components/Card-Animals/FiltroMascotas/useFilter";
-import ListaMascotas from "@/components/Card-Animals/ListaMascotas";
+// 'use client'
+// import React, { useState, useEffect } from 'react';
+// import ListaMascotas from '@/components/Card-Animals/ListaMascotas';
+// import { IMascotas } from '@/interface/IMascotas';
+
+// export default function Adopta() {
+//   const [mascotas, setMascotas] = useState<IMascotas[]>([]);
+
+//   useEffect(() => {
+//     const fetchMascotas = async () => {
+//       try {
+//         const response = await fetch('https://backpf-prueba.onrender.com/pets');
+//         if (!response.ok) {
+//           throw new Error('Error al obtener los datos de las mascotas');
+//         }
+//         const data: IMascotas[] = await response.json();
+//         setMascotas(data);
+//       } catch (error) {
+//         console.error(error);
+//       }
+//     };
+
+//     fetchMascotas();
+//   }, []);
+
+//   return (
+//     <main>
+//       <h1>Nuestras Mascotas</h1>
+//       <ListaMascotas mascotas={mascotas} />
+//     </main>
+//   );
+// }
+'use client'
+import React, { useState, useEffect } from 'react';
+import ListaMascotas from '@/components/Card-Animals/ListaMascotas';
+import { IMascotas } from '@/interface/IMascotas';
+import { useFilter } from '@/components/Card-Animals/FiltroMascotas/useFilter';
 import Modal from '@/components/Card-Animals/FiltroMascotas/Modal';
 
 export default function Adopta() {
-  const { isModalOpen, openModal, closeModal, handleFilter, filteredMascotas } = useFilter();
+  const { filteredMascotas, isModalOpen, openModal, closeModal, handleFilter, setMascotas } = useFilter();
+  const [mascotasState, setMascotasState] = useState<IMascotas[]>([]);
+
+  useEffect(() => {
+    const fetchMascotas = async () => {
+      try {
+        const response = await fetch('https://backpf-prueba.onrender.com/pets');
+        if (!response.ok) {
+          throw new Error('Error al obtener los datos de las mascotas');
+        }
+        const data: IMascotas[] = await response.json();
+        setMascotasState(data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchMascotas();
+  }, []);
 
   return (
     <main>
-      <h1 className="text-3xl font-bold text-center mt-8">Nuestras Mascotas</h1>
-      <div className="relative flex justify-center mt-4">
-        <div className="relative">
-          <button 
-            onClick={openModal} 
-            className="relative inline-flex items-center justify-center p-0.5 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-pink-500 to-orange-400 group-hover:from-pink-500 group-hover:to-orange-400 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800">
-            <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
-              Filtrar Mascotas
-            </span>
-          </button>
-        </div>
-      </div>
-      <div className="mt-2"> 
-        <ListaMascotas mascotas={filteredMascotas} />
-      </div>
+      <h1>Nuestras Mascotas</h1>
+      <button onClick={openModal}>Filtrar</button>
+      <ListaMascotas mascotas={isModalOpen ? filteredMascotas : mascotasState} />
       {isModalOpen && (
-        <Modal onClose={closeModal} onFilter={handleFilter} />
+        <Modal
+          onClose={closeModal}
+          onFilter={handleFilter}
+        />
       )}
     </main>
   );
