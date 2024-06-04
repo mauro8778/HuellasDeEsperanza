@@ -57,12 +57,12 @@ const Form: React.FC = () => {
 
     if (nameValid && emailValid && passwordValid && confirmPasswordValid) {
       try {
-        const response = await fetch(`http://localhost:3001/auth/register/user`, { 
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users`, { 
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({  name, email, password }),
+          body: JSON.stringify({  email, password }),
         });
 
         if (response.ok) {

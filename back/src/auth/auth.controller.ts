@@ -15,7 +15,7 @@ export class AuthController {
   @Post('/register/user')
   Register(@Body() register: CreateUserDto, @Req() req) {
     const accessToken = req.auth0Token;
-    const { email, password, ...metadata } = register;
+    const { email, password, confirm_password, ...metadata } = register;
     return this.authService.RegisterUser(
       email,
       password,

@@ -17,10 +17,30 @@ export class UserEntity {
 
   @Column({
     type: 'varchar',
+  })
+  last_name: string;
+
+  @Column({
+    type: 'varchar',
     unique: true,
     nullable: false,
   })
   email: string;
+
+  @Column()
+  birthdate: Date;
+
+  @Column({
+    type: 'bigint',
+    nullable: true,
+  })
+  phone?: number | undefined;
+
+  @Column({
+    type: 'varchar',
+    nullable: true,
+  })
+  location?: string | undefined;
 
   @Column({
     nullable: true,

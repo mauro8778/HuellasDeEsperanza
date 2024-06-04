@@ -25,29 +25,29 @@ export class ShelterEntity {
   email: string;
 
   @Column({
-    type: 'varchar',
+    type: 'int',
     unique: true,
     nullable: false,
   })
-  dni: string;
+  dni: number;
 
   @Column({
-    type: 'varchar',
+    type: 'bigint',
     nullable: true,
   })
-  phone?: string
+  phone?: number | undefined;
 
   @Column({
     type: 'varchar',
     nullable: false,
   })
-  shelterName: string;
+  shelter_name: string;
 
   @Column({
     type: 'varchar',
     nullable: false,
   })
-  locality: string;
+  location: string;
 
   @Column({
     type: 'varchar',
