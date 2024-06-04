@@ -15,6 +15,7 @@ import { Auth0Module } from './auth0/auth0.module';
 import { MailModule } from './mails/mail.module';
 import { ConfigModule } from '@nestjs/config';
 import { GoogleModule } from './google/google.module';
+import { FacebookModule } from './facebook/facebook.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { GoogleModule } from './google/google.module';
         isGlobal: true,
       }),
     databaseConfig,
+    FacebookModule,
     SerchModule,
     UsersModule,
     SheltersModule,
