@@ -60,6 +60,12 @@ export class ShelterEntity {
     nullable: false,
   })
   description: string;
+  @Column({
+    type: "text",
+    default: "https://upload.wikimedia.org/wikipedia/commons/a/a3/Image-not-found.png"
+})
+imgUrl: string
+
 
   @Column({
     nullable: true,
@@ -80,5 +86,5 @@ export class ShelterEntity {
   adoptions: AdoptionEntity[];
 
   @OneToMany(() => PetsEntity, (pets) => pets.shelter)
-  pets: AdoptionEntity[];
+  pets: PetsEntity[];
 }

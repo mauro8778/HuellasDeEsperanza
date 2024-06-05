@@ -7,7 +7,7 @@
     "pet_size": "pequeño",
     "imgUrl": "img.jpg",
     "description": "Un perro inteligente y cariñoso.",
-    "refugio": "Refugio de Animales Palermo"
+    "shelter": "Refugio de Animales Palermo"
 },
 {
   "name": "Rocky",
@@ -17,7 +17,7 @@
   "pet_size": "grande",
   "imgUrl": "img.jpg",
   "description": "Un perro leal y juguetón.",
-  "refugio": "Refugio de Animales Palermo"
+  "shelter": "Refugio de Animales Palermo"
 },
 {
   "name": "Mia",
@@ -27,7 +27,7 @@
   "pet_size": "pequeño",
   "imgUrl": "img.jpg",
   "description": "Una gata elegante y tranquila.",
-  "refugio": "Refugio de Animales Palermo"
+  "shelter": "Refugio de Animales Palermo"
 },
   {
       "name": "Luna",
@@ -37,7 +37,7 @@
       "pet_size": "grande",
       "imgUrl": "img.jpg",
       "description": "Una perra cariñosa y activa.",
-      "refugio": "Centro de Rescate Belgrano"
+      "shelter": "Centro de Rescate Belgrano"
   },
   {
       "name": "Simón",
@@ -47,7 +47,7 @@
       "pet_size": "grande",
       "imgUrl": "img.jpg",
       "description": "Un gato tranquilo y amigable.",
-      "refugio": "Centro de Rescate Belgrano"
+      "shelter": "Centro de Rescate Belgrano"
   },
   {
       "name": "Max",
@@ -57,7 +57,7 @@
       "pet_size": "grande",
       "imgUrl": "img.jpg",
       "description": "Un perro juguetón y leal.",
-      "refugio": "Centro de Rescate Belgrano"
+      "shelter": "Centro de Rescate Belgrano"
   },
   {
     "name": "Nala",
@@ -67,7 +67,7 @@
     "pet_size": "pequeño",
     "imgUrl": "img.jpg",
     "description": "Una perra dulce y juguetona.",
-    "refugio": "Santuario de Animales Barracas"
+    "shelter": "Santuario de Animales Barracas"
 },
 {
     "name": "Simón",
@@ -77,7 +77,7 @@
     "pet_size": "pequeño",
     "imgUrl": "img.jpg",
     "description": "Un gato tranquilo y cariñoso.",
-    "refugio": "Santuario de Animales Barracas"
+    "shelter": "Santuario de Animales Barracas"
 },
 {
     "name": "Rocky",
@@ -87,7 +87,7 @@
     "pet_size": "grande",
     "imgUrl": "img.jpg",
     "description": "Un perro leal y juguetón.",
-    "refugio": "Santuario de Animales Barracas"
+    "shelter": "Santuario de Animales Barracas"
 },
 {
   "name": "Bella",
@@ -97,7 +97,7 @@
   "pet_size": "grande",
   "imgUrl": "img.jpg",
   "description": "Una perra cariñosa y obediente.",
-  "refugio": "Refugio de Mascotas Lomas de Zamora"
+  "shelter": "Refugio de Mascotas Lomas de Zamora"
 },
 {
   "name": "Toby",
@@ -107,7 +107,7 @@
   "pet_size": "grande",
   "imgUrl": "img.jpg",
   "description": "Un gato independiente y sociable.",
-  "refugio": "Refugio de Mascotas Lomas de Zamora"
+  "shelter": "Refugio de Mascotas Lomas de Zamora"
 },
 {
   "name": "Max",
@@ -117,7 +117,7 @@
   "pet_size": "grande",
   "imgUrl": "img.jpg",
   "description": "Un perro leal y juguetón.",
-  "refugio": "Refugio de Mascotas Lomas de Zamora"
+  "shelter": "Refugio de Mascotas Lomas de Zamora"
 },
 {
   "name": "Lola",
@@ -127,7 +127,7 @@
   "pet_size": "pequeño",
   "imgUrl": "img.jpg",
   "description": "Una perra juguetona y amigable.",
-  "refugio": "Refugio Canino de Morón"
+  "shelter": "Refugio Canino de Morón"
 },
 {
   "name": "Simón",
@@ -137,7 +137,7 @@
   "pet_size": "pequeño",
   "imgUrl": "img.jpg",
   "description": "Un gato tranquilo y cariñoso.",
-  "refugio": "Refugio Canino de Morón"
+  "shelter": "Refugio Canino de Morón"
 },
 {
   "name": "Rocky",
@@ -147,7 +147,7 @@
   "pet_size": "grande",
   "imgUrl": "img.jpg",
   "description": "Un perro leal y juguetón.",
-  "refugio": "Refugio Canino de Morón"
+  "shelter": "Refugio Canino de Morón"
 },
 {
   "name": "Luna",
@@ -157,7 +157,7 @@
   "pet_size": "mediano",
   "imgUrl": "img.jpg",
   "description": "Una gata elegante y cariñosa.",
-  "refugio": "Hogar de Gatos de Ituzaingó"
+  "shelter": "Hogar de Gatos de Ituzaingó"
 },
 {
   "name": "Max",
@@ -167,7 +167,7 @@
   "pet_size": "mediano",
   "imgUrl": "img.jpg",
   "description": "Un gato tranquilo y sociable.",
-  "refugio": "Hogar de Gatos de Ituzaingó"
+  "shelter": "Hogar de Gatos de Ituzaingó"
 },
 {
   "name": "Bella",
@@ -177,7 +177,7 @@
   "pet_size": "pequeño",
   "imgUrl": "img.jpg",
   "description": "Una gata sin pelo muy afectuosa.",
-  "refugio": "Hogar de Gatos de Ituzaingó"
+  "shelter": "Hogar de Gatos de Ituzaingó"
 },
 {
   "name": "Toby",
@@ -187,7 +187,7 @@
   "pet_size": "grande",
   "imgUrl": "img.jpg",
   "description": "Un perro amigable y enérgico.",
-  "refugio": "Refugio Canino de San Isidro"
+  "shelter": "Refugio Canino de San Isidro"
 },
 {
   "name": "Luna",
@@ -197,7 +197,7 @@
   "pet_size": "mediano",
   "imgUrl": "img.jpg",
   "description": "Una gata cariñosa y curiosa.",
-  "refugio": "Refugio Canino de San Isidro"
+  "shelter": "Refugio Canino de San Isidro"
 },
 {
   "name": "Max",
@@ -207,7 +207,7 @@
   "pet_size": "grande",
   "imgUrl": "img.jpg",
   "description": "Un perro leal y juguetón.",
-  "refugio": "Refugio Canino de San Isidro"
+  "shelter": "Refugio Canino de San Isidro"
 },
 {
   "name": "Lola",
@@ -217,7 +217,7 @@
   "pet_size": "pequeño",
   "imgUrl": "img.jpg",
   "description": "Una gata cariñosa y juguetona.",
-  "refugio": "Hogar de Gatos de Vicente López"
+  "shelter": "Hogar de Gatos de Vicente López"
 },
 {
   "name": "Simón",
@@ -227,7 +227,7 @@
   "pet_size": "grande",
   "imgUrl": "img.jpg",
   "description": "Un gato tranquilo y sociable.",
-  "refugio": "Hogar de Gatos de Vicente López"
+  "shelter": "Hogar de Gatos de Vicente López"
 },
 {
   "name": "Rocky",
@@ -237,7 +237,7 @@
   "pet_size": "mediano",
   "imgUrl": "img.jpg",
   "description": "Un gato cariñoso y enérgico.",
-  "refugio": "Hogar de Gatos de Vicente López"
+  "shelter": "Hogar de Gatos de Vicente López"
 },
 {
   "name": "Max",
@@ -247,7 +247,7 @@
   "pet_size": "grande",
   "imgUrl": "img.jpg",
   "description": "Un perro cariñoso y juguetón.",
-  "refugio": "Refugio de Animales de Tandil"
+  "shelter": "Refugio de Animales de Tandil"
 },
 {
   "name": "Luna",
@@ -257,7 +257,7 @@
   "pet_size": "mediano",
   "imgUrl": "img.jpg",
   "description": "Una gata tranquila y afectuosa.",
-  "refugio": "Refugio de Animales de Tandil"
+  "shelter": "Refugio de Animales de Tandil"
 },
 {
   "name": "Toby",
@@ -267,7 +267,7 @@
   "pet_size": "grande",
   "imgUrl": "img.jpg",
   "description": "Un perro leal y amigable.",
-  "refugio": "Refugio de Animales de Tandil"
+  "shelter": "Refugio de Animales de Tandil"
 },
 {
   "name": "Bella",
@@ -277,7 +277,7 @@
   "pet_size": "grande",
   "imgUrl": "img.jpg",
   "description": "Una perra cariñosa y juguetona.",
-  "refugio": "Hogar de Mascotas de Junín"
+  "shelter": "Hogar de Mascotas de Junín"
 },
 {
   "name": "Simón",
@@ -287,7 +287,7 @@
   "pet_size": "grande",
   "imgUrl": "img.jpg",
   "description": "Un gato tranquilo y sociable.",
-  "refugio": "Hogar de Mascotas de Junín"
+  "shelter": "Hogar de Mascotas de Junín"
 },
 {
   "name": "Luna",
@@ -297,6 +297,6 @@
   "pet_size": "mediano",
   "imgUrl": "img.jpg",
   "description": "Una gata cariñosa y afectuosa.",
-  "refugio": "Hogar de Mascotas de Junín"
+  "shelter": "Hogar de Mascotas de Junín"
 }
 ]

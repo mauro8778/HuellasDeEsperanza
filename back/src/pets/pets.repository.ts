@@ -10,13 +10,16 @@ export class PetsRepository {
     private petsRepository: Repository<PetsEntity>){}
     
     async getPets(){
-        const Pets: PetsEntity[] = await this.petsRepository.find();
-        
+        const Pets = await this.petsRepository.find();
+
+        if (!Pets) {
+            throw new BadRequestException("El animal no existe");
+        };
         return Pets;
     };
     
     async getPetById(id : string){
-        const pet = await this.petsRepository.findOneBy({id})
+        const pet = await this.petsRepository.find({where:{id}})
         if (!pet) {
             throw new BadRequestException("El animal no existe");
         };
@@ -25,6 +28,7 @@ export class PetsRepository {
     };
     
     addPet(pet: CreatePetsDto){
+
         this.petsRepository.save(pet);
         
         return "Mascota agregada correctamente";

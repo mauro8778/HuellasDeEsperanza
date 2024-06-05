@@ -20,7 +20,9 @@ export class ShelterRepository {
   ) {}
 
   async getShelters() {
-    const shelters = await this.sheltersRepository.find();
+    const shelters = await this.sheltersRepository.find({
+    relations:['pets']
+  });
 
     if (shelters.length === 0) {
       throw new NotFoundException('no existen usuarios');

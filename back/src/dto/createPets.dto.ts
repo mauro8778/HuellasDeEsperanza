@@ -71,7 +71,6 @@ export class CreatePetsDto{
     description?: string
     
     
-    
     @IsEmpty()
     godfather?: string | undefined
 
