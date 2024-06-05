@@ -20,6 +20,7 @@ import { PreloadService } from './app.PreloadService';
 import { ShelterEntity } from './entidades/shelter.entity';
 import { PetsEntity } from './entidades/pets.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { MercadoPagoModule } from './mercado-pago/mercado-pago.module';
 
 @Module({
   imports: [
@@ -40,7 +41,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
     FileUploadModule,
     Auth0Module,
     MailModule,
-    GoogleModule
+    GoogleModule,
+    MercadoPagoModule
   ],
   controllers: [AppController], 
   providers: [AppService,PreloadService],
