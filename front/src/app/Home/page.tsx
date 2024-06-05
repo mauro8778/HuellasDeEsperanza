@@ -1,7 +1,5 @@
 import React from "react";
 import Image from "next/image";
-import RandomAnimalCards from "@/components/Card-Animals/RandomAnimalsCards";
-import Mascotas from "@/utils/mascotas";
 import ListaRefugios from "@/components/Refugios/ListaRefugios";
 import Refugios from "@/utils/refugios";
 import RandomRefugiosCards from "@/components/Refugios/RandomRefugiosCards";
@@ -20,9 +18,6 @@ export const Home: React.FC = () => {
         />
       </div>
       
-      <div className="relative z-0 mt-10 ml-10">
-        <RandomAnimalCards mascotas={Mascotas}/>
-      </div>
 
       <div className="relative z-0 mt-10 ml-10">
         <RandomRefugiosCards refugios={Refugios}/>
