@@ -3,19 +3,14 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import clsx from "clsx";
 import { FaHome } from "react-icons/fa";
-import { MdOutlinePets,MdDashboardCustomize } from "react-icons/md";
-import { BiSolidDonateHeart } from "react-icons/bi"
-
+import { MdOutlinePets, MdDashboardCustomize } from "react-icons/md";
+import { BiSolidDonateHeart } from "react-icons/bi";
 
 const links = [
   { name: "Home", href: "/Home", icon: FaHome },
-
-  { name: "Dashboard", href: "/dashboard", icon: MdDashboardCustomize},
-  {
-    name: "Donaciones",href: "/dashboard/yourdonations",icon: BiSolidDonateHeart,},
-
+  { name: "Dashboard", href: "/dashboard", icon: MdDashboardCustomize },
+  { name: "Donaciones", href: "/dashboard/yourdonations", icon: BiSolidDonateHeart },
   { name: "Mascotas adoptadas", href: "/dashboard/adopted", icon: MdOutlinePets },
-  
   { name: "Mascotas perdidas", href: "/dashboard/petslost", icon: MdOutlinePets },
 ];
 
@@ -29,7 +24,6 @@ export default function NavLinks() {
           <Link
             key={link.name}
             href={link.href}
-            // Metodo para el hoverde los links activos.
             className={clsx(
               "flex h-[48px] grow items-center justify-center gap-2 rounded-md bg-gray-200 p-3 text-sm font-medium hover:bg-pink-200 hover:text-pink-600 md:flex-none md:justify-start md:p-2 md:px-3",
               {
