@@ -1,7 +1,5 @@
 import { Injectable, Logger, NotFoundException, OnModuleInit } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
-import { NotFoundError } from "rxjs";
-import { UpdateUserDto } from "src/dto/updateUser.dto";
 import { UserEntity } from "src/entidades/user.entity";
 import { MailService } from "src/mails/mail.service";
 import { Repository } from "typeorm";
@@ -77,7 +75,7 @@ export class UserRepository implements OnModuleInit {
             return this.usersRepository.save(activeUser);
           }
           async scheduleEmails() {
-            cron.schedule('*/2 * * * *', async () => {
+            cron.schedule('0 0 */60 * *', async () => {
               const users = await this.usersRepository.find();
               const subject = 'Nuevas oportunidades de adopción';
               const text = 'Huellas de esperanza tiene nuevas oportunidades de animalitos peludos para adoptar.';
