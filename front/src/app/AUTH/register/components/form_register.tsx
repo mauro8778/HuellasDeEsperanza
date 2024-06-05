@@ -1,11 +1,10 @@
 'use client';
 
 import { useState, FormEvent, ChangeEvent } from 'react';
-import Button from '@/components/ui/button';
-import ButtonIcon from '@/components/ui/button-icon';
-import Input from '@/components/ui/input';
 import { useRouter } from 'next/navigation';
-import { RiGoogleFill, RiCheckFill, RiErrorWarningFill } from 'react-icons/ri';
+import { RiCheckFill, RiErrorWarningFill } from 'react-icons/ri';
+import Button from '@/components/ui/button';
+import Input from '@/components/ui/input';
 
 const Form: React.FC = () => {
   const router = useRouter();
@@ -20,11 +19,8 @@ const Form: React.FC = () => {
   const [confirmPasswordValid, setConfirmPasswordValid] = useState<boolean | null>(null);
 
   const validateName = (name: string) => name.trim().length > 0;
-
   const validateEmail = (email: string) => /\S+@\S+\.\S+/.test(email);
-
   const validatePassword = (password: string) => password.length >= 6;
-
   const validateConfirmPassword = (confirmPassword: string) => confirmPassword === password;
 
   const handleNameChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -53,25 +49,30 @@ const Form: React.FC = () => {
 
   const handleRegister = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setError(null); 
+    setError(null);
 
     if (nameValid && emailValid && passwordValid && confirmPasswordValid) {
       try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users`, { 
+        const response = await fetch('https://backpf-prueba.onrender.com/auth/register/user', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({  email, password }),
+          body: JSON.stringify({ name, email, password }),
         });
 
         if (response.ok) {
+          const data = await response.json();
+          const token = data.access_token;
+
+          
+          localStorage.setItem('token', token);
+
+          
           router.push('/AUTH/login');
         } else {
-          // verifico respuesta de error de backend
-          const erorMessage = await response.text();
-          console.error('Error al registrar:', erorMessage);
-
+          const errorMessage = await response.text();
+          console.error('Error al registrar:', errorMessage);
           setError('Registro fallido. Por favor, inténtalo de nuevo.');
         }
       } catch (error) {
@@ -150,21 +151,12 @@ const Form: React.FC = () => {
           <p className='text-gray-500'>¿Tienes una cuenta?</p>
           <button
             type='button'
-            onClick={() => router.push('/AUTH/login')}
+            onClick={() => router.push('/auth/login')}
             className='font-semibold hover:text-primary transition-colors duration-300'
           >
             Inicia sesión
           </button>
         </div>
-        {/* <div className='mb-5'>
-          <hr className='border-2' />
-          <div className='flex justify-center'>
-            <span className='bg-white px-8 -mt-3'>o</span>
-          </div>
-        </div>
-        <div className='flex items-center justify-center gap-x-4'>
-          <ButtonIcon icon={RiGoogleFill} />
-        </div> */}
       </form>
     </div>
   );

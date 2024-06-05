@@ -7,6 +7,7 @@ import { RiGoogleFill, RiCheckFill, RiErrorWarningFill } from 'react-icons/ri';
 import Button from '@/components/ui/button';
 import ButtonIcon from '@/components/ui/button-icon';
 import Input from '@/components/ui/input';
+import axios from 'axios';
 
 const ShelterForm: React.FC = () => {
   const router = useRouter();
@@ -75,18 +76,18 @@ const ShelterForm: React.FC = () => {
 
     if (allValid) {
       try {
-        const response = await fetch('URL_DE_TU_BACKEND/api/shelters', { // Aquí va la URL de tu backend
+        const response = await fetch('https://backpf-prueba.onrender.com/auth/register/shelter', {
           method: 'POST',
           headers: {
-            'Content-Type': 'application/json',
+            'Content-Type': 'application/json'
           },
-          body: JSON.stringify(formData),
+          body: JSON.stringify(formData)
         });
-
+    
+        router.push('/AUTH/login');
         if (response.ok) {
-          router.push('/Home');
         } else {
-          setError('Error en el registro. Por favor, inténtalo de nuevo.');
+          // setError('Error en el registro. Por favor, inténtalo de nuevo.');
         }
       } catch (error) {
         console.error('Error en el registro:', error);
@@ -95,6 +96,8 @@ const ShelterForm: React.FC = () => {
     } else {
       setError('Por favor, completa todos los campos correctamente.');
     }
+    
+    
   };
 
   return (
