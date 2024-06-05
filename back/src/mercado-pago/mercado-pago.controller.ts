@@ -10,6 +10,6 @@ export class MercadoPagoController {
 
     @Post()
     createPreference(@Body() orderData: mercadoDto){
-        this.mercadoServicios.createPreference(orderData)
+        return this.mercadoServicios.createPreference(orderData)
     }
 }
