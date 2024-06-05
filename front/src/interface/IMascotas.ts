@@ -1,15 +1,13 @@
 export interface IMascotas  {
-    id?: number;
+    id?: string;
     name?: string;
-    edad?: string;
     sexo?: string;
     description?: string;
-    image?: string;
-    category?: string;
-    refugio?: string;
-    breed?: string
-    age:string
+    shelter?: string;
+    breed?: string;
+    age?:number
+    month?:number
     pet_size?: string
-    imgUrl?: string | undefined;
+    imgUrl?: string 
   }
 

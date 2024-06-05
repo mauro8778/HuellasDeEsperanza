@@ -4,6 +4,7 @@ import Link from 'next/link';
 import NavLinks from './nav_links';
 import { FaPowerOff } from 'react-icons/fa';
 import ImageLogo from '@/components/ui/imageLogo';
+import Image from 'next/image';
 
 const SideNav: React.FC = () => {
   const [userData, setUserData] = useState<any>('');
@@ -39,7 +40,7 @@ const SideNav: React.FC = () => {
           {isLoggedIn && (
             <>
               <div className="flex items-center justify-center mb-4">
-                <img
+                <Image
                   className="rounded-full w-1/3 h-auto"
                   alt="Avatar de usuario"
                   src={isGoogleAuthenticated ? userData.googleProfileImageUrl : `/avatar-placeholder.png`}

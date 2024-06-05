@@ -1,17 +1,25 @@
 import React from 'react';
-import { IRefugios } from '@/interface/IRefugios';
-import CardRefuge from './CardRefuge';
+import { IMascotas } from '@/interface/IMascotas';
 
-interface Props {
-  refugios: IRefugios[];
+interface ListaRefugiosProps {
+  refugios: IMascotas[];
 }
 
-const ListaRefugios: React.FC<Props> = ({ refugios }) => {
+const ListaRefugios: React.FC<ListaRefugiosProps> = ({ refugios }) => {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-      {refugios.map((refugio) => (
-            <CardRefuge key={refugio.id} refugio={refugio} />
-        
+    <div>
+      {refugios.map((mascota, index) => (
+        <div key={index} className="mb-4 p-4 border rounded shadow">
+          <h2 className="text-2xl font-bold">{mascota.name}</h2>
+          <p>Sexo: {mascota.sexo}</p>
+          <p>Raza: {mascota.breed}</p>
+          <p>Edad: {mascota.age}</p>
+          <p>Tamaño: {mascota.pet_size}</p>
+          <p>Descripción: {mascota.description}</p>
+          {mascota.imgUrl && (
+            <img src={mascota.imageUrl} alt={mascota.name} className="mt-4 w-full h-auto rounded-lg" />
+          )}
+        </div>
       ))}
     </div>
   );
