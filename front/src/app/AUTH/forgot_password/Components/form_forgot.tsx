@@ -35,7 +35,7 @@ const Form_forgot = () => {
           <p className='text-gray-500'>No tenes una cuenta?</p>
           <button
             type='button'
-            onClick={() => router.push('/AUTH/register')}
+            onClick={() => router.push('/option_register')}
             className='font-semibold hover:text-pink-600 transition-colors duration-300'
           >
             Registrate

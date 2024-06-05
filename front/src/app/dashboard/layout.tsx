@@ -1,20 +1,14 @@
-import DashboardUi from '@/components/Dashboard_ui/Dashboard_ui';
-import { FC, ReactNode } from 'react';
+import SideNav from '@/app/dashboard/sidenav';
 
-interface DashboardLayoutProps {
-  children: ReactNode;
-  hideNav?: boolean;
-}
-
-const DashboardLayout: FC<DashboardLayoutProps> = ({ children, hideNav = false }) => {
+export default function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="flex">
-      {!hideNav && <DashboardUi />}
-      <main className={hideNav ? 'w-full p-5' : 'flex-grow ml-64 p-5'}>
+    <div className="flex h-screen flex-col md:flex-row md:overflow-hidden">
+      <div className="w-full flex-none md:w-64">
+        <SideNav />
+      </div>
+      <div className="flex-grow p-6 md:overflow-y-auto md:p-12">
         {children}
-      </main>
+      </div>
     </div>
   );
-};
-
-export default DashboardLayout;
+}

@@ -11,12 +11,19 @@ const HiddenNavBar: React.FC<HiddenNavBarProps> = ({ children }) => {
   const pathname = usePathname();
   const hiddenPaths = [ 
     '/',
-    '/login', 
-    '/register', 
-    '/Dashboard', 
-    '/dashboard/admin_dashboard', 
-    '/dashboard/user_dashboard',
-    '/dashboard/shelter_dashboard',
+    '/AUTH/forgot_password', 
+    '/AUTH/register', 
+    '/dashboard', 
+    '/dashboard/admin', 
+    '/dashboard/user',
+    '/dashboard/shelter',
+    '/dashboard/yourdonations',
+    '/dashboard/petslost',
+    '/dashboard/adopted',
+    '/AUTH/login',
+    '/option_register',
+    '/AUTH/shelter_register'
+
 ];
   const isHidden = hiddenPaths.includes(pathname);
 

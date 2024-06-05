@@ -151,7 +151,7 @@ const Form: React.FC = () => {
           <p className='text-gray-500'>¿Tienes una cuenta?</p>
           <button
             type='button'
-            onClick={() => router.push('/auth/login')}
+            onClick={() => router.push('/AUTH/login')}
             className='font-semibold hover:text-primary transition-colors duration-300'
           >
             Inicia sesión
