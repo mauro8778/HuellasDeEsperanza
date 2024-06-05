@@ -10,6 +10,7 @@ import {
   OnGatewayDisconnect,
 } from '@nestjs/websockets';
 import { Server, Socket } from 'socket.io';
+import { ChatRepository } from './chatRepository';
 
 @WebSocketGateway({
   cors: {
@@ -17,6 +18,9 @@ import { Server, Socket } from 'socket.io';
   },
 })
 export class ChatGateway implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect{
+
+  constructor(private readonly chatRepository : ChatRepository){}
+
   @WebSocketServer()
   server: Server;
 
@@ -33,20 +37,29 @@ export class ChatGateway implements OnGatewayInit, OnGatewayConnection, OnGatewa
     this.usuariosLogueados.delete(client.id)
   }
 
-  handleConnection(client: Socket, ...args: any[]) {
+  async handleConnection(client: Socket, ...args: any[]) {
     this.logger.log(`Cliente conectado: ${client.id}`);
-    this.usuariosLogueados.add(client.id)
 
+    
+    if(!client.recovered){
+      const messages = await this.chatRepository.getMessageByDate(client.handshake.auth.server)
+
+      messages.forEach(message => {
+        this.server.emit('msgToCommunity', message.content, message.createdAt)
+      })
+    }
+    
   }
 
 
   @SubscribeMessage('msgToCommunity')
-  handleMessageCommunity(@ConnectedSocket() client: Socket, @MessageBody() data: string): void {
-    this.usuariosLogueados.forEach((usuario) => {
-      client.broadcast.to(usuario).emit('msgToCommunity',data);
-    })
-     
+  async handleMessageCommunity(@ConnectedSocket() client: Socket, @MessageBody() data: string) {
+    const message = await this.chatRepository.newMessage(data)  
+    client.broadcast.emit('msgToCommunity',data, message.createdAt); 
+
   }
+
+
 
 }
  
