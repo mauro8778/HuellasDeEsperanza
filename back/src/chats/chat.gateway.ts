@@ -20,6 +20,8 @@ export class ChatGateway implements OnGatewayInit, OnGatewayConnection, OnGatewa
   @WebSocketServer()
   server: Server;
 
+  private usuariosLogueados = new Set('string');
+
   private logger: Logger = new Logger('ChatGateway');
 
   afterInit(server: Server) {
@@ -28,18 +30,22 @@ export class ChatGateway implements OnGatewayInit, OnGatewayConnection, OnGatewa
 
   handleDisconnect(client: Socket) {
     this.logger.log(`Cliente desconectado: ${client.id}`);
-
+    this.usuariosLogueados.delete(client.id)
   }
 
   handleConnection(client: Socket, ...args: any[]) {
     this.logger.log(`Cliente conectado: ${client.id}`);
+    this.usuariosLogueados.add(client.id)
+
   }
 
 
-  @SubscribeMessage('messageToServer')
-  handleMessage(@MessageBody() message: { user: string; text: string }, client: Socket): void {
-    console.log(`Mensaje de ${message.user}: ${message.text}`);
-    this.server.emit('messageToServer', message); 
+  @SubscribeMessage('msgToCommunity')
+  handleMessageCommunity(@ConnectedSocket() client: Socket, @MessageBody() data: string): void {
+    this.usuariosLogueados.forEach((usuario) => {
+      client.broadcast.to(usuario).emit('msgToCommunity',data);
+    })
+     
   }
 
 }
