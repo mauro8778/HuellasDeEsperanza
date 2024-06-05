@@ -75,7 +75,7 @@ export class UserRepository implements OnModuleInit {
             return this.usersRepository.save(activeUser);
           }
           async scheduleEmails() {
-            cron.schedule('0 0 */60 * *', async () => {
+            cron.schedule('0 0 1 */3 *', async () => {
               const users = await this.usersRepository.find();
               const subject = 'Nuevas oportunidades de adopción';
               const text = 'Huellas de esperanza tiene nuevas oportunidades de animalitos peludos para adoptar.';
