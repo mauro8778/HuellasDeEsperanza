@@ -2,15 +2,18 @@ import { BadRequestException, Injectable, NotFoundException } from "@nestjs/comm
 import { InjectRepository } from "@nestjs/typeorm";
 import { CreatePetsDto } from "src/dto/createPets.dto";
 import { PetsEntity } from "src/entidades/pets.entity";
+import { ShelterEntity } from "src/entidades/shelter.entity";
 import { Repository } from "typeorm";
 
 @Injectable()
 export class PetsRepository {
     constructor(@InjectRepository(PetsEntity) 
-    private petsRepository: Repository<PetsEntity>){}
+    private petsRepository: Repository<PetsEntity>,
+@InjectRepository(ShelterEntity)
+private shelterrepository: Repository<ShelterEntity>){}
     
     async getPets(){
-        const Pets = await this.petsRepository.find();
+        const Pets = await this.petsRepository.find({relations:['shelter']});
 
         if (!Pets) {
             throw new BadRequestException("El animal no existe");
@@ -27,12 +30,24 @@ export class PetsRepository {
         return pet;
     };
     
-    addPet(pet: CreatePetsDto){
+    async addPet(petDto: CreatePetsDto) {
+        const shelter = await this.shelterrepository.findOne({
+            where: { shelter_name: petDto.shelter },
+        });
 
-        this.petsRepository.save(pet);
-        
+        if (!shelter) {
+            throw new Error('El refugio no existe');
+        }
+
+        const pet = this.petsRepository.create({
+            ...petDto,
+            shelter: shelter,
+        });
+
+        await this.petsRepository.save(pet);
+
         return "Mascota agregada correctamente";
-    };
+    }
     
     async updatedPet(id: string, upet: Partial<PetsEntity>){
         const pet = await this.petsRepository.findOneBy({id});

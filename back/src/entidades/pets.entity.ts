@@ -39,6 +39,11 @@ export class PetsEntity{
     })
     age: number
 
+    @Column({
+        nullable: false
+    })
+    month: number
+
 
     @Column({
         type:"varchar",

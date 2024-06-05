@@ -57,6 +57,7 @@ export class PreloadService implements OnModuleInit {
                         breed: pet.breed,
                         sexo: pet.sexo,
                         age: pet.age,
+                        month:pet.month,
                         pet_size: pet.pet_size,
                         imgUrl: pet.imgUrl,
                         description: pet.description,

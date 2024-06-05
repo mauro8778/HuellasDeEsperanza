@@ -1,5 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger"
-import { IsEmpty, IsNotEmpty, IsNumber, IsOptional, IsString } from "class-validator"
+import { IsEmpty, IsNotEmpty, IsNumber, IsOptional, IsString, isNotEmpty } from "class-validator"
 import { petSize } from "./helpers/pet_size.enum"
 import { petGender } from "src/entidades/helpers/petGender.enum"
 
@@ -41,6 +41,13 @@ export class CreatePetsDto{
     })
     age: number
 
+    @IsNotEmpty()
+    @IsNumber()
+    @ApiProperty({
+        example: "2"
+    })
+    month: number
+
 
     
     @IsNotEmpty()
@@ -69,14 +76,23 @@ export class CreatePetsDto{
         example: "..."
     })
     description?: string
+
+    @IsNotEmpty()
+    @IsString()
+    @ApiProperty({
+        description:"nombre del refugio",
+        example:"patitas sagradas"
+    })
+    shelter:string
     
+
     
     @IsEmpty()
     godfather?: string | undefined
 
-    @IsEmpty()
+    @IsOptional()
     isActive: boolean
     
-    @IsEmpty()
+    @IsOptional()
     isCondition: boolean
 }
