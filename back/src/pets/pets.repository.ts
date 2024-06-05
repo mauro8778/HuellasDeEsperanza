@@ -90,7 +90,7 @@ private shelterrepository: Repository<ShelterEntity>){}
         }
     
     
-    async filterPets(breed?: string, pet_size?: string, age?: number){
+    async filterPets(breed?: string, pet_size?: string, age?: number,sexo?:string){
         const conditions: any = {isActive: true};
 
         if (breed) {
@@ -101,6 +101,9 @@ private shelterrepository: Repository<ShelterEntity>){}
         }
         if (age) {
             conditions.age = age;
+        }
+        if (sexo) {
+            conditions.sexo = sexo;
         }
     
         return await this.petsRepository.find({ where: conditions });

@@ -9,7 +9,7 @@
         "shelter_name": "Refugio de Animales Palermo",
         "location": "Palermo",
         "zona": "CABA",
-        "imgUrl":"",
+        "imgUrl":"https://res.cloudinary.com/dd1yaduhv/image/upload/v1717562786/snybeab8jfw77xysuogr.jpg",
         "description": "Refugio para animales rescatados en la zona de Palermo",
         "exotic_animals": false,
         "isActive": true
@@ -25,7 +25,7 @@
         "location": "Belgrano",
         "zona": "CABA",
         "description": "Espacio de acogida para animales callejeros en Belgrano",
-        "imgUrl":"",
+        "imgUrl":"https://res.cloudinary.com/dd1yaduhv/image/upload/v1717562804/qta6uqn1srususb8osln.jpg",
         "exotic_animals": false,
         "isActive": true
     },
@@ -39,7 +39,7 @@
         "location": "Barracas",
         "zona": "Zona Sur",
         "description": "Centro de rescate animal en la zona de Barracas",
-        "imgUrl":"",
+        "imgUrl":"https://res.cloudinary.com/dd1yaduhv/image/upload/v1717562843/ob8lijw1i868mk83p1c8.jpg",
         "exotic_animals": false,
         "isActive": true
     },
@@ -53,7 +53,7 @@
         "location": "Lomas de Zamora",
         "zona": "Zona Sur",
         "description": "Refugio especializado en la protección y adopción de animales",
-        "imgUrl":"",
+        "imgUrl":"https://res.cloudinary.com/dd1yaduhv/image/upload/v1717562863/f5qtlrolikpsuaoubxhh.jpg",
         "exotic_animals": false,
         "isActive": true
     },
@@ -67,7 +67,7 @@
         "location": "Morón",
         "zona": "Zona Oeste",
         "description": "Refugio dedicado al rescate y rehabilitación de perros en situación de calle",
-        "imgUrl":"",
+        "imgUrl":"https://res.cloudinary.com/dd1yaduhv/image/upload/v1717562912/negk9rrstgznj8k7fgbp.jpg",
         "exotic_animals": false,
         "isActive": true
     },
@@ -81,7 +81,7 @@
         "location": "Ituzaingó",
         "zona": "Zona Oeste",
         "description": "Refugio que acoge y busca hogar para gatos abandonados en Ituzaingó",
-        "imgUrl":"",
+        "imgUrl":"https://res.cloudinary.com/dd1yaduhv/image/upload/v1717562904/ckwnpa6hy0rtnfafuavf.jpg",
         "exotic_animals": false,
         "isActive": true
     },
@@ -95,7 +95,7 @@
         "location": "San Isidro",
         "zona": "Zona Norte",
         "description": "Refugio dedicado al rescate y rehabilitación de perros abandonados en San Isidro",
-        "imgUrl":"",
+        "imgUrl":"https://res.cloudinary.com/dd1yaduhv/image/upload/v1717562955/dmpgxuzsh1j62lmsl5yu.jpg",
         "exotic_animals": false,
         "isActive": true
     },
@@ -109,7 +109,7 @@
         "location": "Vicente López",
         "zona": "Zona Norte",
         "description": "Refugio que acoge y busca hogar para gatos abandonados en Vicente López",
-        "imgUrl":"",
+        "imgUrl":"https://res.cloudinary.com/dd1yaduhv/image/upload/v1717562946/emindgj6kmfua6fliyrz.jpg",
         "exotic_animals": false,
         "isActive": true
     },
@@ -123,7 +123,7 @@
         "location": "Tandil",
         "zona": "Interior de la Provincia",
         "description": "Refugio dedicado al rescate y rehabilitación de animales en Tandil",
-        "imgUrl":"",
+        "imgUrl":"https://res.cloudinary.com/dd1yaduhv/image/upload/v1717562998/gtz4yxpvzu4y3ky1xf2q.jpg",
         "exotic_animals": false,
         "isActive": true
     },
@@ -137,7 +137,7 @@
         "location": "Junín",
         "zona": "Interior de la Provincia",
         "description": "Refugio que acoge y busca hogar para mascotas abandonadas en Junín",
-        "imgUrl":"",
+        "imgUrl":"https://res.cloudinary.com/dd1yaduhv/image/upload/v1717563008/j5zatpgmimcldp598tah.jpg",
         "exotic_animals": false,
         "isActive": true
     }

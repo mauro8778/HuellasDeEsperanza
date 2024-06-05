@@ -6,7 +6,7 @@
     "age": 3,
     "month":1,
     "pet_size": "pequeño",
-    "imgUrl": "img.jpg",
+    "imgUrl": "https://res.cloudinary.com/dd1yaduhv/image/upload/v1717561471/zwpl6aalthsjhgagwn9n.jpg",
     "description": "Un perro inteligente y cariñoso.",
     "shelter": "Refugio de Animales Palermo"
 },
@@ -17,7 +17,7 @@
   "age": 4,
   "month":5,
   "pet_size": "grande",
-  "imgUrl": "img.jpg",
+  "imgUrl": "https://res.cloudinary.com/dd1yaduhv/image/upload/v1717561238/rrqcfaj1nxm5j9ydazd5.jpg",
   "description": "Un perro leal y juguetón.",
   "shelter": "Refugio de Animales Palermo"
 },
@@ -28,7 +28,7 @@
   "age": 2,
   "month":1,
   "pet_size": "pequeño",
-  "imgUrl": "img.jpg",
+  "imgUrl": "https://res.cloudinary.com/dd1yaduhv/image/upload/v1717561503/jiksvegidfx0fwlaz1mx.jpg",
   "description": "Una gata elegante y tranquila.",
   "shelter": "Refugio de Animales Palermo"
 },
@@ -39,7 +39,7 @@
       "age": 2,
       "month":8,
       "pet_size": "grande",
-      "imgUrl": "img.jpg",
+      "imgUrl": "https://res.cloudinary.com/dd1yaduhv/image/upload/v1717561314/w45vxuo3o7lgr3rx0rwl.jpg",
       "description": "Una perra cariñosa y activa.",
       "shelter": "Centro de Rescate Belgrano"
   },
@@ -50,7 +50,7 @@
       "age": 3,
       "month":10,
       "pet_size": "grande",
-      "imgUrl": "img.jpg",
+      "imgUrl": "https://res.cloudinary.com/dd1yaduhv/image/upload/v1717561528/t83bwwegzzuq3gdg5y6a.jpg",
       "description": "Un gato tranquilo y amigable.",
       "shelter": "Centro de Rescate Belgrano"
   },
@@ -61,7 +61,7 @@
       "age": 4,
       "month":11,
       "pet_size": "grande",
-      "imgUrl": "img.jpg",
+      "imgUrl": "https://res.cloudinary.com/dd1yaduhv/image/upload/v1717561552/iw5oj0drtzkzbzeybi03.jpg",
       "description": "Un perro juguetón y leal.",
       "shelter": "Centro de Rescate Belgrano"
   },
@@ -72,7 +72,7 @@
     "age": 2,
     "month":6,
     "pet_size": "pequeño",
-    "imgUrl": "img.jpg",
+    "imgUrl": "https://res.cloudinary.com/dd1yaduhv/image/upload/v1717561575/pgbucicnbai0dicomhf1.jpg",
     "description": "Una perra dulce y juguetona.",
     "shelter": "Santuario de Animales Barracas"
 },
@@ -83,7 +83,7 @@
     "age": 3,
     "month":1,
     "pet_size": "pequeño",
-    "imgUrl": "img.jpg",
+    "imgUrl": "https://res.cloudinary.com/dd1yaduhv/image/upload/v1717561604/s1jd62xizafid8k1ksvb.jpg",
     "description": "Un gato tranquilo y cariñoso.",
     "shelter": "Santuario de Animales Barracas"
 },
@@ -94,7 +94,7 @@
     "age": 4,
     "month":5,
     "pet_size": "grande",
-    "imgUrl": "img.jpg",
+    "imgUrl": "https://res.cloudinary.com/dd1yaduhv/image/upload/v1717561625/mj5dzu0z3n2wsuwtoazx.jpg",
     "description": "Un perro leal y juguetón.",
     "shelter": "Santuario de Animales Barracas"
 },
@@ -105,7 +105,7 @@
   "age": 2,
   "month":11,
   "pet_size": "grande",
-  "imgUrl": "img.jpg",
+  "imgUrl": "https://res.cloudinary.com/dd1yaduhv/image/upload/v1717561642/h8rg6sic3juyrcgu4mdx.jpg",
   "description": "Una perra cariñosa y obediente.",
   "shelter": "Refugio de Mascotas Lomas de Zamora"
 },
@@ -116,7 +116,7 @@
   "age": 3,
   "month":9,
   "pet_size": "grande",
-  "imgUrl": "img.jpg",
+  "imgUrl": "https://res.cloudinary.com/dd1yaduhv/image/upload/v1717561670/poilhemrhbonka2zqxkp.jpg",
   "description": "Un gato independiente y sociable.",
   "shelter": "Refugio de Mascotas Lomas de Zamora"
 },
@@ -127,7 +127,7 @@
   "age": 4,
   "month":8,
   "pet_size": "grande",
-  "imgUrl": "img.jpg",
+  "imgUrl": "https://res.cloudinary.com/dd1yaduhv/image/upload/v1717561697/dfofsbytxyond4mi1xma.jpg",
   "description": "Un perro leal y juguetón.",
   "shelter": "Refugio de Mascotas Lomas de Zamora"
 },
@@ -138,7 +138,7 @@
   "age": 0,
   "month":6,
   "pet_size": "pequeño",
-  "imgUrl": "img.jpg",
+  "imgUrl": "https://res.cloudinary.com/dd1yaduhv/image/upload/v1717561717/ae2zxoe4ktkwwcldxbpq.jpg",
   "description": "Una perra juguetona y amigable.",
   "shelter": "Refugio Canino de Morón"
 },
@@ -149,7 +149,7 @@
   "age": 0,
   "month":5,
   "pet_size": "pequeño",
-  "imgUrl": "img.jpg",
+  "imgUrl": "https://res.cloudinary.com/dd1yaduhv/image/upload/v1717561760/npsznd6mowlexn5qzs1z.jpg",
   "description": "Un gato tranquilo y cariñoso.",
   "shelter": "Refugio Canino de Morón"
 },
@@ -160,7 +160,7 @@
   "age": 0,
   "month":3,
   "pet_size": "grande",
-  "imgUrl": "img.jpg",
+  "imgUrl": "https://res.cloudinary.com/dd1yaduhv/image/upload/v1717561790/idi2lbq0qmswr7tcjh1e.jpg",
   "description": "Un perro leal y juguetón.",
   "shelter": "Refugio Canino de Morón"
 },
@@ -171,7 +171,7 @@
   "age": 0,
   "month":10,
   "pet_size": "mediano",
-  "imgUrl": "img.jpg",
+  "imgUrl": "https://res.cloudinary.com/dd1yaduhv/image/upload/v1717561818/koncc7ms4dtpxhctkspf.jpg",
   "description": "Una gata elegante y cariñosa.",
   "shelter": "Hogar de Gatos de Ituzaingó"
 },
@@ -193,7 +193,7 @@
   "age": 4,
   "month":1,
   "pet_size": "pequeño",
-  "imgUrl": "img.jpg",
+  "imgUrl": "https://res.cloudinary.com/dd1yaduhv/image/upload/v1717561847/crzvdmvyuyrfa3odkbi7.jpg",
   "description": "Una gata sin pelo muy afectuosa.",
   "shelter": "Hogar de Gatos de Ituzaingó"
 },
@@ -204,7 +204,7 @@
   "age": 0,
   "month":7,
   "pet_size": "grande",
-  "imgUrl": "img.jpg",
+  "imgUrl": "https://res.cloudinary.com/dd1yaduhv/image/upload/v1717561873/seoxfehldpc8qetltkge.jpg",
   "description": "Un perro amigable y enérgico.",
   "shelter": "Refugio Canino de San Isidro"
 },
@@ -215,7 +215,7 @@
   "age": 3,
   "month":9,
   "pet_size": "mediano",
-  "imgUrl": "img.jpg",
+  "imgUrl": "https://res.cloudinary.com/dd1yaduhv/image/upload/v1717561915/yovagnsk7hzis4hvox0g.jpg",
   "description": "Una gata cariñosa y curiosa.",
   "shelter": "Refugio Canino de San Isidro"
 },
@@ -226,7 +226,7 @@
   "age": 4,
   "month":4,
   "pet_size": "grande",
-  "imgUrl": "img.jpg",
+  "imgUrl": "https://res.cloudinary.com/dd1yaduhv/image/upload/v1717561937/inpudqogabnt6iecvwad.jpg",
   "description": "Un perro leal y juguetón.",
   "shelter": "Refugio Canino de San Isidro"
 },
@@ -237,7 +237,7 @@
   "age": 0,
   "month":7,
   "pet_size": "pequeño",
-  "imgUrl": "img.jpg",
+  "imgUrl": "https://res.cloudinary.com/dd1yaduhv/image/upload/v1717561965/ybwgzcec5fwd35bw1oh8.jpg",
   "description": "Una gata cariñosa y juguetona.",
   "shelter": "Hogar de Gatos de Vicente López"
 },
@@ -248,18 +248,18 @@
   "age": 3,
   "month":1,
   "pet_size": "grande",
-  "imgUrl": "img.jpg",
+  "imgUrl": "https://res.cloudinary.com/dd1yaduhv/image/upload/v1717562005/c4ur3aywxqhvi14fwyfg.jpg",
   "description": "Un gato tranquilo y sociable.",
   "shelter": "Hogar de Gatos de Vicente López"
 },
 {
   "name": "Rocky",
   "sexo": "macho",
-  "breed": "Persa",
+  "breed": "mestizo",
   "age": 4,
   "month":1,
   "pet_size": "mediano",
-  "imgUrl": "img.jpg",
+  "imgUrl": "https://res.cloudinary.com/dd1yaduhv/image/upload/v1717562359/h09y4kfddpaer0wjjbew.jpg",
   "description": "Un gato cariñoso y enérgico.",
   "shelter": "Hogar de Gatos de Vicente López"
 },
@@ -270,7 +270,7 @@
   "age": 0,
   "month":9,
   "pet_size": "grande",
-  "imgUrl": "img.jpg",
+  "imgUrl": "https://res.cloudinary.com/dd1yaduhv/image/upload/v1717562060/hn0ekwse1uasu3uqhzoj.jpg",
   "description": "Un perro cariñoso y juguetón.",
   "shelter": "Refugio de Animales de Tandil"
 },
@@ -281,7 +281,7 @@
   "age": 3,
   "month":1,
   "pet_size": "mediano",
-  "imgUrl": "img.jpg",
+  "imgUrl": "https://res.cloudinary.com/dd1yaduhv/image/upload/v1717562091/ifmtuyoeu2iwpsgmtmqi.jpg",
   "description": "Una gata tranquila y afectuosa.",
   "shelter": "Refugio de Animales de Tandil"
 },
@@ -292,40 +292,40 @@
   "age": 4,
   "month":7,
   "pet_size": "grande",
-  "imgUrl": "img.jpg",
+  "imgUrl": "https://res.cloudinary.com/dd1yaduhv/image/upload/v1717562117/e65abwbuow41tox806zt.jpg",
   "description": "Un perro leal y amigable.",
   "shelter": "Refugio de Animales de Tandil"
 },
 {
   "name": "Bella",
   "sexo": "hembra",
-  "breed": "Labrador Retriever",
+  "breed": "dogo",
   "age": 0,
   "month":10,
   "pet_size": "grande",
-  "imgUrl": "img.jpg",
+  "imgUrl": "https://res.cloudinary.com/dd1yaduhv/image/upload/v1717562421/tbnei0jigwmmptek4b0i.jpg",
   "description": "Una perra cariñosa y juguetona.",
   "shelter": "Hogar de Mascotas de Junín"
 },
 {
   "name": "Simón",
   "sexo": "macho",
-  "breed": "Maine Coon",
+  "breed": "mestizo",
   "age": 3,
   "month":1,
   "pet_size": "grande",
-  "imgUrl": "img.jpg",
+  "imgUrl": "https://res.cloudinary.com/dd1yaduhv/image/upload/v1717562403/a06jprucj5qdynrpnc10.jpg",
   "description": "Un gato tranquilo y sociable.",
   "shelter": "Hogar de Mascotas de Junín"
 },
 {
   "name": "Luna",
   "sexo": "hembra",
-  "breed": "Persa",
+  "breed": "mestizo",
   "age": 0,
   "month":11,
   "pet_size": "mediano",
-  "imgUrl": "img.jpg",
+  "imgUrl": "https://res.cloudinary.com/dd1yaduhv/image/upload/v1717562557/eveulf59ovdntexjerv5.jpg",
   "description": "Una gata cariñosa y afectuosa.",
   "shelter": "Hogar de Mascotas de Junín"
 }

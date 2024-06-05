@@ -181,7 +181,7 @@ await this.sheltersRepository.save(updateShelter);
 return ` el usuario con id ${id}  y nombre ${updateShelter.name} se ah actualizado con exito`;
 }
 
-  async filterShelters(exotic_animals?: string, location?: string) {
+  async filterShelters(exotic_animals?: string, location?: string,zona?:string) {
     const conditions: any = {isActive: true};
 
     if (exotic_animals) {
@@ -189,6 +189,9 @@ return ` el usuario con id ${id}  y nombre ${updateShelter.name} se ah actualiza
     }
     if (location) {
       conditions.location = location;
+    }
+    if (zona) {
+      conditions.zona = zona;
     }
 
     return await this.sheltersRepository.find({ where: conditions });

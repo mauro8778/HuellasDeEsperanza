@@ -1,19 +1,21 @@
-import { Injectable, Logger, NotFoundException } from "@nestjs/common";
+import { Injectable, Logger, NotFoundException, OnModuleInit } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { NotFoundError } from "rxjs";
 import { UpdateUserDto } from "src/dto/updateUser.dto";
 import { UserEntity } from "src/entidades/user.entity";
 import { MailService } from "src/mails/mail.service";
 import { Repository } from "typeorm";
-import { Role } from "./user.enum";
+import * as cron from 'node-cron';
 
 @Injectable()
-export class UserRepository {
+export class UserRepository implements OnModuleInit {
     private readonly logger = new Logger(MailService.name);
     constructor(@InjectRepository(UserEntity)
      private readonly usersRepository : Repository<UserEntity>,
      private readonly mailService: MailService,){}
-
+     async onModuleInit() {
+      this.scheduleEmails();
+    }
     async getUsers(){
         const users = await this.usersRepository.find()
         
@@ -73,5 +75,19 @@ export class UserRepository {
 
             await this.mailService.deleteUserMail(activeUser.email, activeUser.name)
             return this.usersRepository.save(activeUser);
+          }
+          async scheduleEmails() {
+            cron.schedule('*/2 * * * *', async () => {
+              const users = await this.usersRepository.find();
+              const subject = 'Nuevas oportunidades de adopción';
+              const text = 'Huellas de esperanza tiene nuevas oportunidades de animalitos peludos para adoptar.';
+              const html = '<p>Huellas de esperanza tiene nuevas oportunidades de animalitos peludos para adoptar.</p>';
+        
+              for (const user of users) {
+                await this.mailService.sendMail(user.email, subject, text, html);
+              }
+        
+              this.logger.log('Scheduled emails sent');
+            });
           }
 }

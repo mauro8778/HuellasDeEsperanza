@@ -39,6 +39,16 @@ export class AuthService {
     metadata: Partial<ShelterEntity>,
     accessToken: string,
   ) {
+    const existingShelter = await this.shelterRepository.findOne({
+      where: {
+        shelter_name: metadata.shelter_name,
+        zona: metadata.zona,
+      },
+    });
+  
+    if (existingShelter) {
+      throw new ConflictException('A shelter with the same name already exists in this zone.');
+    }
     await this.mailService.registershelterMail(email,metadata.shelter_name,password)
     return this.Register(email, password, metadata, accessToken, 'shelter');
   }
