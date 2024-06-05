@@ -76,13 +76,7 @@ export class CreatePetsDto{
         example: "..."
     })
     description?: string
-
-    @IsNotEmpty()
-    @IsString()
-    @ApiProperty({
-        description:"nombre del refugio",
-        example:"patitas sagradas"
-    })
+@IsOptional()
     shelter:string
     
 
