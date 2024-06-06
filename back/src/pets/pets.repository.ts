@@ -33,6 +33,8 @@ private shelterrepository: Repository<ShelterEntity>){}
     
     async addPet(pet: Partial<PetsEntity>,shelterId:string){
         const shelter = await this.shelterrepository.findOne({ where: { id: shelterId } });
+
+        console.log(shelter)
             if (!shelter) {
                 throw new Error('Shelter not found');
             }
@@ -43,8 +45,8 @@ private shelterrepository: Repository<ShelterEntity>){}
             ...pet,
             shelter:shelter
         });
-
-        await this.petsRepository.save(pet);
+       
+        await this.petsRepository.save(Pets);
 
         return "Mascota agregada correctamente";
     }

@@ -4,6 +4,7 @@ import { CreatePetsDto } from 'src/dto/createPets.dto';
 import { UpdatePetsDto } from 'src/dto/updatePets.dto';
 import { ApiTags } from '@nestjs/swagger';
 import { Auth0Guard } from 'src/guards/auth0.guard';
+import { AuthGuard } from 'src/guards/auth.guard';
 
 @ApiTags("Pets")
 @Controller('pets')
@@ -20,10 +21,11 @@ export class PetsController {
         return this.petsService.getPetById(id);
     }
 
-    @UseGuards(Auth0Guard)
+    @UseGuards(AuthGuard)
     @Post()
     addPet(@Body() pet : CreatePetsDto, @Req() request){
         const shelterId = request.user['https://huellasdesperanza.com/userID'];
+        console.log(shelterId)
         if (!shelterId) {
             throw new Error("Shelter ID is required");
         }
