@@ -1,5 +1,6 @@
 import { BadRequestException, Injectable, NotFoundException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
+import { Auth0Service } from "src/auth0/auth0.service";
 import { CreatePetsDto } from "src/dto/createPets.dto";
 import { PetsEntity } from "src/entidades/pets.entity";
 import { ShelterEntity } from "src/entidades/shelter.entity";

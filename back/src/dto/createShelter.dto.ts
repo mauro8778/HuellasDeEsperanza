@@ -81,6 +81,14 @@ export class CreateShelterDto {
     description: string
 
 
+    @IsOptional()
+    @IsString()
+    @ApiProperty({
+        example: "colocar url de la imagen"
+    })
+    imgUrl: string
+
+
     @IsEmpty()
     exotic_animals: boolean
 
