@@ -26,6 +26,7 @@ export class SearchController {
     @ApiQuery({ name: 'breed', required: false }) 
     @ApiQuery({ name: 'pet_size', required: false }) 
     @ApiQuery({ name: 'age', required: false }) 
+    @ApiQuery({ name: 'sexo', required: false }) 
     filterPets(@Query("breed") breed, @Query("pet_size") pet_size, @Query("age") age, @Query("sexo") sexo,){
 
         return this.searchService.filterPets(breed, pet_size,Number(age),sexo);

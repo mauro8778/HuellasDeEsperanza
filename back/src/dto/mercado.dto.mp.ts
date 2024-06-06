@@ -9,7 +9,6 @@ export class mercadoDto{
     title: string;
     
     @IsEmpty()
-    @IsNumber()
     quanty: number;
     
     @IsNotEmpty()
