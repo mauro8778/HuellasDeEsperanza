@@ -1,7 +1,8 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, JoinColumn, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { v4 as uuid } from 'uuid';
-import { DonationEntity } from './donation.entity';
+// import { DonationEntity } from './donation.entity';
 import { AdoptionEntity } from './adoption.entity';
+import { OrdersEntity } from './orders.entity';
 
 @Entity({
   name: 'users',
@@ -48,9 +49,13 @@ export class UserEntity {
   })
   isActive: boolean;
 
-  @OneToMany(() => DonationEntity, (donation) => donation.user)
-  donations: DonationEntity[];
+  // @OneToMany(() => DonationEntity, (donation) => donation.user)
+  // donations: DonationEntity[];
 
   @OneToMany(() => AdoptionEntity, (adoptions) => adoptions.user)
   adoptions: AdoptionEntity[];
+
+  @OneToMany(() => OrdersEntity, (orders) => orders.user)
+    @JoinColumn({ name: "order_id" })
+    orders: OrdersEntity[]
 }

@@ -48,6 +48,7 @@ export class SearchRepository {
         if (age) {
             pconditions.age = age;
         }
+        
 
 
         const pets: PetsEntity[] = await this.petsRepository.find({ where: pconditions })

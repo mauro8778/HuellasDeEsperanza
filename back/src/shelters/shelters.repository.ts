@@ -20,7 +20,9 @@ export class ShelterRepository {
   ) {}
 
   async getShelters() {
-    const shelters = await this.sheltersRepository.find();
+    const shelters = await this.sheltersRepository.find({
+    relations:['pets']
+  });
 
     if (shelters.length === 0) {
       throw new NotFoundException('no existen usuarios');
@@ -83,7 +85,7 @@ export class ShelterRepository {
   }
 
   async getShelterById(id: string) {
-    const shelter = await this.sheltersRepository.find({ where: { id } });
+    const shelter = await this.sheltersRepository.findOne({ where: { id },relations:['pets'] });
     if (!shelter) {
       throw new NotFoundException('no se encontro el refugio');
     }
@@ -179,7 +181,7 @@ await this.sheltersRepository.save(updateShelter);
 return ` el usuario con id ${id}  y nombre ${updateShelter.name} se ah actualizado con exito`;
 }
 
-  async filterShelters(exotic_animals?: string, location?: string) {
+  async filterShelters(exotic_animals?: string, location?: string,zona?:string) {
     const conditions: any = {isActive: true};
 
     if (exotic_animals) {
@@ -187,6 +189,9 @@ return ` el usuario con id ${id}  y nombre ${updateShelter.name} se ah actualiza
     }
     if (location) {
       conditions.location = location;
+    }
+    if (zona) {
+      conditions.zona = zona;
     }
 
     return await this.sheltersRepository.find({ where: conditions });

@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { log } from 'console';
 import MercadoPagoConfig, { Preference } from 'mercadopago';
 import { mercadoDto } from 'src/dto/mercado.dto.mp';
 import { v4 as uuid } from "uuid"
@@ -13,13 +12,13 @@ export class MercadoPagoService {
 
 
   async createPreference(orderData: mercadoDto) {
-    try {
+    
       const body = {
         items: [
           {
             id: uuid(),
-            title: orderData.title ,
-            quantity: orderData.quanty,
+            title: orderData.title,
+            quantity: 1,
             unit_price: orderData.price,
           },
         ],
@@ -39,9 +38,6 @@ export class MercadoPagoService {
       
       return result.id
       
-
-    } catch (error) {
-      throw Error(`Error al crear la preferencia de MercadoPago: ${error.message}`);
-    }
   }
+
 }

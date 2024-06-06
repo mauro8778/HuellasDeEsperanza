@@ -1,5 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger"
-import { IsBoolean, IsEmail, IsEmpty, IsNotEmpty, IsNumber, IsOptional, IsString, Matches } from "class-validator"
+import { IsBoolean, IsEmail, IsEmpty, IsNotEmpty, IsNumber, IsOptional, IsString, Matches, isNotEmpty } from "class-validator"
 
 
 export class CreateShelterDto {
@@ -42,14 +42,13 @@ export class CreateShelterDto {
     dni: number
 
 
-    @IsOptional()
+    @IsNotEmpty()
     @IsNumber()
     @ApiProperty({
         description: "Debe ser un numero de telefono",
         example: "1133445566"
     })    
-    phone?: number | undefined
-
+    phone: number
 
     @IsNotEmpty()
     @IsString()
@@ -65,6 +64,13 @@ export class CreateShelterDto {
         example: "Ubicacion"
     })
     location: string
+    
+    @IsNotEmpty()
+    @IsString()
+    @ApiProperty({
+        example: "Ubicacion"
+    })
+    zona: string
 
 
     @IsNotEmpty()
@@ -73,6 +79,14 @@ export class CreateShelterDto {
         example: "..."
     })
     description: string
+
+
+    @IsOptional()
+    @IsString()
+    @ApiProperty({
+        example: "colocar url de la imagen"
+    })
+    imgUrl: string
 
 
     @IsEmpty()

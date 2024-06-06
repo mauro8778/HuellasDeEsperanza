@@ -15,7 +15,7 @@ export class SearchController {
     @ApiQuery({ name: 'pet_size', required: false })  
     @ApiQuery({ name: 'age', required: false })  
     searchGeneral(@Query("exotic_animals") exotic_animals?, @Query("location") location?, @Query("shelter_name") shelter_name?
-    , @Query("breed") breed?, @Query("pet_size") pet_size?, @Query("age") age?){
+    , @Query("breed") breed?, @Query("pet_size") pet_size?, @Query("age") age?,){
 
         return this.searchService.searchGeneral(exotic_animals, location, shelter_name, breed, pet_size, Number(age));
     }
@@ -26,16 +26,16 @@ export class SearchController {
     @ApiQuery({ name: 'breed', required: false }) 
     @ApiQuery({ name: 'pet_size', required: false }) 
     @ApiQuery({ name: 'age', required: false }) 
-    filterPets(@Query("breed") breed, @Query("pet_size") pet_size, @Query("age") age){
+    filterPets(@Query("breed") breed, @Query("pet_size") pet_size, @Query("age") age, @Query("sexo") sexo,){
 
-        return this.searchService.filterPets(breed, pet_size,Number(age));
+        return this.searchService.filterPets(breed, pet_size,Number(age),sexo);
     };
 
     @Get('shelters')
     @ApiQuery({ name: 'exotic_animals', required: false }) 
     @ApiQuery({ name: 'location', required: false }) 
-    filterShelters(@Query("exotic_animals") exotic_animals, @Query("location") location){
+    filterShelters(@Query("exotic_animals") exotic_animals, @Query("location") location,@Query("zona") zona){
 
-        return this.searchService.filterShelters(exotic_animals, location);
+        return this.searchService.filterShelters(exotic_animals, location,zona);
     };
 }

@@ -1,22 +1,29 @@
 import { BadRequestException, Injectable, NotFoundException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
+import { Auth0Service } from "src/auth0/auth0.service";
 import { CreatePetsDto } from "src/dto/createPets.dto";
 import { PetsEntity } from "src/entidades/pets.entity";
+import { ShelterEntity } from "src/entidades/shelter.entity";
 import { Repository } from "typeorm";
 
 @Injectable()
 export class PetsRepository {
     constructor(@InjectRepository(PetsEntity) 
-    private petsRepository: Repository<PetsEntity>){}
+    private petsRepository: Repository<PetsEntity>,
+@InjectRepository(ShelterEntity)
+private shelterrepository: Repository<ShelterEntity>){}
     
     async getPets(){
-        const Pets: PetsEntity[] = await this.petsRepository.find();
-        
+        const Pets = await this.petsRepository.find({relations:['shelter']});
+
+        if (!Pets) {
+            throw new BadRequestException("El animal no existe");
+        };
         return Pets;
     };
     
     async getPetById(id : string){
-        const pet = await this.petsRepository.findOneBy({id})
+        const pet = await this.petsRepository.find({where:{id}})
         if (!pet) {
             throw new BadRequestException("El animal no existe");
         };
@@ -24,11 +31,25 @@ export class PetsRepository {
         return pet;
     };
     
-    addPet(pet: CreatePetsDto){
-        this.petsRepository.save(pet);
-        
+    async addPet(pet: Partial<PetsEntity>,shelterId:string){
+        const shelter = await this.shelterrepository.findOne({ where: { id: shelterId } });
+
+        console.log(shelter)
+            if (!shelter) {
+                throw new Error('Shelter not found');
+            }
+        if (!shelterId) {
+            throw new Error("Shelter ID is required");
+        }
+        const Pets = this.petsRepository.create({
+            ...pet,
+            shelter:shelter
+        });
+       
+        await this.petsRepository.save(Pets);
+
         return "Mascota agregada correctamente";
-    };
+    }
     
     async updatedPet(id: string, upet: Partial<PetsEntity>){
         const pet = await this.petsRepository.findOneBy({id});
@@ -71,7 +92,7 @@ export class PetsRepository {
         }
     
     
-    async filterPets(breed?: string, pet_size?: string, age?: number){
+    async filterPets(breed?: string, pet_size?: string, age?: number,sexo?:string){
         const conditions: any = {isActive: true};
 
         if (breed) {
@@ -82,6 +103,9 @@ export class PetsRepository {
         }
         if (age) {
             conditions.age = age;
+        }
+        if (sexo) {
+            conditions.sexo = sexo;
         }
     
         return await this.petsRepository.find({ where: conditions });

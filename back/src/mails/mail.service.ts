@@ -1,13 +1,14 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable, Logger, OnModuleInit } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import * as nodemailer from 'nodemailer';
 
+
 @Injectable()
-export class MailService {
+export class MailService  {
   private transporter: nodemailer.Transporter;
   private readonly logger = new Logger(MailService.name);
 
-  constructor(private configService: ConfigService) {
+  constructor(private configService: ConfigService,){
     this.transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
@@ -16,6 +17,7 @@ export class MailService {
       },
     });
   }
+
 
   async sendMail(to: string, subject: string, text: string, html?: string) {
     if (!to) {
@@ -39,6 +41,7 @@ export class MailService {
       throw new Error('Error sending email');
     }
   }
+
 
   async registerUserMail(userEmail: string, username: string,password: string) {
     const subject = 'Bienvenido a Huellas de Esperanza';

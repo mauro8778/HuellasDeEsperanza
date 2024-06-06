@@ -13,12 +13,12 @@ export class SerchService {
     ) { }
 
 
-    filterPets(breed?: string, pet_size?: string, age?: number) {
-        return this.petsRepository.filterPets(breed, pet_size, age);
+    filterPets(breed?: string, pet_size?: string, age?: number,sexo?:string) {
+        return this.petsRepository.filterPets(breed, pet_size, age,sexo);
     };
 
-    filterShelters(exotic_animals?: string, location?: string) {
-        return this.sheltersRepository.filterShelters(exotic_animals, location);
+    filterShelters(exotic_animals?: string, location?: string,zona?:string) {
+        return this.sheltersRepository.filterShelters(exotic_animals, location,zona);
     };
 
 
