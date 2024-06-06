@@ -2,7 +2,7 @@
 
 import { FC, useState } from 'react';
 import { cn } from '@/libs/utils';
-import { RiLockLine, RiLockUnlockLine } from 'react-icons/ri';
+import { RiLockLine, RiLockUnlockLine, RiCheckFill, RiErrorWarningFill } from 'react-icons/ri';
 
 interface InputProps {
   type: 'text' | 'password';
@@ -39,11 +39,13 @@ const Input: FC<InputProps> = ({
         value={value}
         onChange={onChange}
       />
+      {isValid === true && <RiCheckFill className="absolute right-4 top-1/2 transform -translate-y-1/2 text-green-500" />}
+      {isValid === false && <RiErrorWarningFill className="absolute right-4 top-1/2 transform -translate-y-1/2 text-red-500" />}
       {type === 'password' && (
         <button
           type="button"
           onClick={() => setShowPassword(!showPassword)}
-          className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500"
+          className="absolute right-10 top-1/2 transform -translate-y-1/2 text-gray-500"
         >
           {showPassword ? <RiLockUnlockLine /> : <RiLockLine />}
         </button>
@@ -53,3 +55,4 @@ const Input: FC<InputProps> = ({
 };
 
 export default Input;
+

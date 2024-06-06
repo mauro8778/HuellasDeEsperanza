@@ -6,7 +6,7 @@ import { RiCheckFill, RiErrorWarningFill } from 'react-icons/ri';
 import Button from '@/components/ui/button';
 import Input from '@/components/ui/input';
 
-const Form: React.FC = () => {
+const Form_Register: React.FC = () => {
   const router = useRouter();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -39,6 +39,7 @@ const Form: React.FC = () => {
     const value = e.target.value;
     setPassword(value);
     setPasswordValid(validatePassword(value));
+    setConfirmPasswordValid(validateConfirmPassword(confirmPassword));
   };
 
   const handleConfirmPasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -50,39 +51,46 @@ const Form: React.FC = () => {
   const handleRegister = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setError(null);
-
-    if (nameValid && emailValid && passwordValid && confirmPasswordValid) {
-      try {
-        const response = await fetch('https://backpf-prueba.onrender.com/auth/register/user', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ name, email, password }),
-        });
-
-        if (response.ok) {
-          const data = await response.json();
-          const token = data.access_token;
-
-          
-          localStorage.setItem('token', token);
-
-          
-          router.push('/AUTH/login');
-        } else {
-          const errorMessage = await response.text();
-          console.error('Error al registrar:', errorMessage);
-          setError('Registro fallido. Por favor, inténtalo de nuevo.');
-        }
-      } catch (error) {
-        console.error('Error al registrar:', error);
-        setError('Ocurrió un error. Por favor, inténtalo de nuevo.');
-      }
-    } else {
+  
+    // Verifica que todos los campos sean válidos
+    if (!nameValid || !emailValid || !passwordValid || !confirmPasswordValid) {
       setError('Por favor, completa todos los campos correctamente.');
+      alert('Por favor, completa todos los campos correctamente.');
+      return;
+    }
+  
+    try {
+      const response = await fetch('https://backpf-prueba.onrender.com/auth/register/user', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ name, email, password }),
+      });
+  
+      // Maneja la respuesta de la petición
+      if (!response.ok) {
+        const errorMessage = await response.text();
+        console.error('Error al registrar:', errorMessage);
+        setError('Registro fallido. Por favor, inténtalo de nuevo.');
+        alert('Registro fallido. Por favor, inténtalo de nuevo.');
+        return;
+      }
+  
+      const data = await response.json();
+      const token = data.access_token;
+  
+      // Guarda el token en el local storage y redirige
+      localStorage.setItem('token', token);
+      router.push('/AUTH/login');
+  
+    } catch (error) {
+      console.error('Error al registrar:', error);
+      setError('Ocurrió un error. Por favor, inténtalo de nuevo.');
+      alert('Ocurrió un error. Por favor, inténtalo de nuevo.');
     }
   };
+  
 
   return (
     <div className='w-full max-w-md'>
@@ -105,10 +113,9 @@ const Form: React.FC = () => {
             placeholder='Nombre'
             value={name}
             onChange={handleNameChange}
-            className={`w-full ${nameValid === false ? 'border-red-500' : nameValid === true ? 'border-green-500' : ''}`}
+            isValid={nameValid}
           />
-          {nameValid === true && <RiCheckFill className="absolute right-2 top-3 text-green-500" />}
-          {nameValid === false && <RiErrorWarningFill className="absolute right-2 top-3 text-red-500" />}
+          {nameValid === false && <p className="text-red-500 text-xs">El nombre no puede estar vacío.</p>}
         </div>
         <div className="relative mt-4">
           <Input
@@ -117,10 +124,9 @@ const Form: React.FC = () => {
             placeholder='Email'
             value={email}
             onChange={handleEmailChange}
-            className={`w-full ${emailValid === false ? 'border-red-500' : emailValid === true ? 'border-green-500' : ''}`}
+            isValid={emailValid}
           />
-          {emailValid === true && <RiCheckFill className="absolute right-2 top-3 text-green-500" />}
-          {emailValid === false && <RiErrorWarningFill className="absolute right-2 top-3 text-red-500" />}
+          {emailValid === false && <p className="text-red-500 text-xs">Ingrese un correo electrónico válido.</p>}
         </div>
         <div className="relative mt-4">
           <Input
@@ -129,10 +135,9 @@ const Form: React.FC = () => {
             placeholder='Contraseña'
             value={password}
             onChange={handlePasswordChange}
-            className={`w-full ${passwordValid === false ? 'border-red-500' : passwordValid === true ? 'border-green-500' : ''}`}
+            isValid={passwordValid}
           />
-          {passwordValid === true && <RiCheckFill className="absolute right-2 top-3 text-green-500" />}
-          {passwordValid === false && <RiErrorWarningFill className="absolute right-2 top-3 text-red-500" />}
+          {passwordValid === false && <p className="text-red-500 text-xs">La contraseña debe tener al menos 6 caracteres.</p>}
         </div>
         <div className="relative mt-4">
           <Input
@@ -141,10 +146,9 @@ const Form: React.FC = () => {
             placeholder='Confirmar contraseña'
             value={confirmPassword}
             onChange={handleConfirmPasswordChange}
-            className={`w-full ${confirmPasswordValid === false ? 'border-red-500' : confirmPasswordValid === true ? 'border-green-500' : ''}`}
+            isValid={confirmPasswordValid}
           />
-          {confirmPasswordValid === true && <RiCheckFill className="absolute right-2 top-3 text-green-500" />}
-          {confirmPasswordValid === false && <RiErrorWarningFill className="absolute right-2 top-3 text-red-500" />}
+          {confirmPasswordValid === false && <p className="text-red-500 text-xs">Las contraseñas no coinciden.</p>}
         </div>
         <Button type='submit' label='Crear cuenta' />
         <div className='mt-5 mb-10 flex items-center justify-center gap-x-2'>
@@ -162,4 +166,4 @@ const Form: React.FC = () => {
   );
 };
 
-export default Form;
+export default Form_Register;

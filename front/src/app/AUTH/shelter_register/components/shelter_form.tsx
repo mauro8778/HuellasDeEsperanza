@@ -3,11 +3,9 @@
 
 import { useState, FormEvent, ChangeEvent } from 'react';
 import { useRouter } from 'next/navigation';
-import { RiGoogleFill, RiCheckFill, RiErrorWarningFill } from 'react-icons/ri';
 import Button from '@/components/ui/button';
-import ButtonIcon from '@/components/ui/button-icon';
 import Input from '@/components/ui/input';
-import axios from 'axios';
+
 
 const ShelterForm: React.FC = () => {
   const router = useRouter();
@@ -25,7 +23,7 @@ const ShelterForm: React.FC = () => {
   const [validations, setValidations] = useState({
     nameValid: null as boolean | null,
     emailValid: null as boolean | null,
-    passwordValid: null as boolean | null,
+    passwordValid: { valid: null as boolean | null, strength: '' },
     dniValid: null as boolean | null,
     phoneValid: null as boolean | null,
     shelterNameValid: null as boolean | null,
@@ -40,9 +38,24 @@ const ShelterForm: React.FC = () => {
     return re.test(email);
   };
 
-  const validatePassword = (password: string) => {
-    return password.length >= 6; // Ejemplo: al menos 6 caracteres
-  };
+ const validatePassword = (password: string) => {
+    const hasMinLength = password.length >= 8;
+    const hasAlphabeticChar = /[a-zA-Z]/.test(password);
+    const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+
+    let strength = "Débil";
+    if (hasMinLength && hasAlphabeticChar && hasSpecialChar) {
+        strength = "Fuerte";
+    } else if (hasMinLength && hasAlphabeticChar) {
+        strength = "Medio";
+    }
+
+    return {
+        valid: hasMinLength && hasAlphabeticChar && hasSpecialChar,
+        strength: strength
+    };
+}
+;
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -79,15 +92,15 @@ const ShelterForm: React.FC = () => {
         const response = await fetch('https://backpf-prueba.onrender.com/auth/register/shelter', {
           method: 'POST',
           headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
           },
-          body: JSON.stringify(formData)
+          body: JSON.stringify(formData),
         });
-    
-        router.push('/AUTH/login');
+
         if (response.ok) {
+          router.push('/AUTH/login');
         } else {
-          // setError('Error en el registro. Por favor, inténtalo de nuevo.');
+          setError('Error en el registro. Por favor, inténtalo de nuevo.');
         }
       } catch (error) {
         console.error('Error en el registro:', error);
@@ -96,8 +109,6 @@ const ShelterForm: React.FC = () => {
     } else {
       setError('Por favor, completa todos los campos correctamente.');
     }
-    
-    
   };
 
   return (
@@ -120,8 +131,7 @@ const ShelterForm: React.FC = () => {
               onChange={handleChange}
               isValid={validations.nameValid}
             />
-            {validations.nameValid === true && <RiCheckFill className="absolute right-2 top-3 text-green-500" />}
-            {validations.nameValid === false && <RiErrorWarningFill className="absolute right-2 top-3 text-red-500" />}
+            {validations.nameValid === false && <p className="text-red-500 text-xs">El nombre no puede estar vacío.</p>}
           </div>
           <div className="relative">
             <Input
@@ -132,21 +142,21 @@ const ShelterForm: React.FC = () => {
               onChange={handleChange}
               isValid={validations.emailValid}
             />
-            {validations.emailValid === true && <RiCheckFill className="absolute right-2 top-3 text-green-500" />}
-            {validations.emailValid === false && <RiErrorWarningFill className="absolute right-2 top-3 text-red-500" />}
+            {validations.emailValid === false && <p className="text-red-500 text-xs">Ingrese un correo electrónico válido.</p>}
           </div>
           <div className="relative">
-            <Input
-              type="password"
-              name="password"
-              placeholder="Contraseña"
-              value={formData.password}
-              onChange={handleChange}
-              isValid={validations.passwordValid}
-            />
-            {validations.passwordValid === true && <RiCheckFill className="absolute right-2 top-3 text-green-500" />}
-            {validations.passwordValid === false && <RiErrorWarningFill className="absolute right-2 top-3 text-red-500" />}
-          </div>
+  <Input
+    type="password"
+    name="password"
+    placeholder="Contraseña"
+    value={formData.password}
+    onChange={handleChange}
+    isValid={validations.passwordValid.valid}
+  />
+  {validations.passwordValid.valid === false && <p className="text-red-500 text-xs">La contraseña debe tener al menos 8 caracteres.</p>}
+  {validations.passwordValid.valid === true && <p className="text-green-500 text-xs">Fortaleza de la contraseña: {validations.passwordValid.strength}</p>}
+</div>
+
           <div className="relative">
             <Input
               type="text"
@@ -156,8 +166,7 @@ const ShelterForm: React.FC = () => {
               onChange={handleChange}
               isValid={validations.dniValid}
             />
-            {validations.dniValid === true && <RiCheckFill className="absolute right-2 top-3 text-green-500" />}
-            {validations.dniValid === false && <RiErrorWarningFill className="absolute right-2 top-3 text-red-500" />}
+            {validations.dniValid === false && <p className="text-red-500 text-xs">El DNI no puede estar vacío.</p>}
           </div>
           <div className="relative">
             <Input
@@ -168,8 +177,7 @@ const ShelterForm: React.FC = () => {
               onChange={handleChange}
               isValid={validations.phoneValid}
             />
-            {validations.phoneValid === true && <RiCheckFill className="absolute right-2 top-3 text-green-500" />}
-            {validations.phoneValid === false && <RiErrorWarningFill className="absolute right-2 top-3 text-red-500" />}
+            {validations.phoneValid === false && <p className="text-red-500 text-xs">El teléfono no puede estar vacío.</p>}
           </div>
           <div className="relative">
             <Input
@@ -180,8 +188,7 @@ const ShelterForm: React.FC = () => {
               onChange={handleChange}
               isValid={validations.shelterNameValid}
             />
-            {validations.shelterNameValid === true && <RiCheckFill className="absolute right-2 top-3 text-green-500" />}
-            {validations.shelterNameValid === false && <RiErrorWarningFill className="absolute right-2 top-3 text-red-500" />}
+            {validations.shelterNameValid === false && <p className="text-red-500 text-xs">El nombre del refugio no puede estar vacío.</p>}
           </div>
           <div className="relative">
             <Input
@@ -192,8 +199,7 @@ const ShelterForm: React.FC = () => {
               onChange={handleChange}
               isValid={validations.localityValid}
             />
-            {validations.localityValid === true && <RiCheckFill className="absolute right-2 top-3 text-green-500" />}
-            {validations.localityValid === false && <RiErrorWarningFill className="absolute right-2 top-3 text-red-500" />}
+            {validations.localityValid === false && <p className="text-red-500 text-xs">La localidad no puede estar vacía.</p>}
           </div>
           <div className="relative">
             <Input
@@ -204,8 +210,7 @@ const ShelterForm: React.FC = () => {
               onChange={handleChange}
               isValid={validations.descriptionValid}
             />
-            {validations.descriptionValid === true && <RiCheckFill className="absolute right-2 top-3 text-green-500" />}
-            {validations.descriptionValid === false && <RiErrorWarningFill className="absolute right-2 top-3 text-red-500" />}
+            {validations.descriptionValid === false && <p className="text-red-500 text-xs">La descripción no puede estar vacía.</p>}
           </div>
         </div>
         <Button type="submit" label="Crear cuenta" className="w-full mt-4" />
@@ -219,15 +224,6 @@ const ShelterForm: React.FC = () => {
             Iniciar sesión
           </button>
         </div>
-        {/* <div className="mb-5">
-          <hr className="border-2" />
-          <div className="flex justify-center">
-            <span className="bg-white px-8 -mt-3">o</span>
-          </div>
-        </div>
-        <div className="flex items-center justify-center gap-x-4">
-          <ButtonIcon icon={RiGoogleFill} />
-        </div> */}
       </form>
     </div>
   );

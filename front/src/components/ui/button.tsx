@@ -3,7 +3,11 @@ import { FC } from 'react';
 interface ButtonProps {
   type: 'button' | 'submit';
   label: string;
-  className?: string;  
+  className?: string;
+  onClick?: () => void;
+  disabled?: boolean; 
+  isValid?: boolean | null;
+    
 }
 
 const Button: FC<ButtonProps> = ({ type, label, className }) => {

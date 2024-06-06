@@ -67,7 +67,7 @@ const SideNav: React.FC = () => {
         <NavLinks />
         <div className="hidden h-auto w-full grow rounded-md bg-gray-200 md:block"></div>
         <form className="w-full">
-          <button className="flex h-[48px] w-full items-center justify-center gap-2 rounded-md bg-gray-200 p-3 text-sm font-medium hover:bg-pink-200 hover:text-pink-600 md:flex-none md:justify-start md:p-2 md:px-3">
+          <button onClick={() => localStorage.removeItem('userSession')} className="flex h-[48px] w-full items-center justify-center gap-2 rounded-md bg-gray-200 p-3 text-sm font-medium hover:bg-pink-200 hover:text-pink-600 md:flex-none md:justify-start md:p-2 md:px-3">
             <FaPowerOff className="w-6" />
             <div className="hidden md:block">Sign Out</div>
           </button>

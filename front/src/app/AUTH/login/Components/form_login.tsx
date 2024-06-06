@@ -4,7 +4,6 @@ import { FormEvent, useState, ChangeEvent } from 'react';
 import { useRouter } from 'next/navigation';
 import { RiGoogleFill, RiCheckFill, RiErrorWarningFill } from 'react-icons/ri';
 import Button from '@/components/ui/button';
-// import ButtonIcon from '@/components/ui/button-icon';
 import Input from '@/components/ui/input';
 
 const Form_Login: React.FC = () => {
@@ -38,11 +37,11 @@ const Form_Login: React.FC = () => {
 
   const handleLogin = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setError(null); 
+    setError(null);
 
     if (emailValid && passwordValid) {
       try {
-        const response = await fetch('https://backpf-prueba.onrender.com/auth/login', { 
+        const response = await fetch('https://backpf-prueba.onrender.com/auth/login', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -53,20 +52,24 @@ const Form_Login: React.FC = () => {
         if (response.ok) {
           const { token, userType } = await response.json();
           localStorage.setItem('token', token);
+          alert('Iniciaste sesión correctamente.');
           if (userType === 'shelter') {
-            router.push('/dashboard-shelter'); 
+            router.push('/dashboard-shelter');
           } else {
-            router.push('/Home'); 
+            router.push('/Home');
           }
         } else {
           setError('Credenciales incorrectas. Por favor, inténtalo de nuevo.');
+          alert('Error: Credenciales incorrectas. Por favor, inténtalo de nuevo.');
         }
       } catch (error) {
         console.error('Error al iniciar sesión:', error);
         setError('Ocurrió un error. Por favor, inténtalo de nuevo.');
+        alert('Error: Ocurrió un error. Por favor, inténtalo de nuevo.');
       }
     } else {
       setError('Por favor, completa todos los campos correctamente.');
+      alert('Error: Por favor, completa todos los campos correctamente.');
     }
   };
 
@@ -92,9 +95,9 @@ const Form_Login: React.FC = () => {
             value={email}
             onChange={handleEmailChange}
             className={`w-full ${emailValid === false ? 'border-red-500' : emailValid === true ? 'border-green-500' : ''}`}
+            isValid={emailValid}
           />
-          {emailValid === true && <RiCheckFill className="absolute right-2 top-3 text-green-500" />}
-          {emailValid === false && <RiErrorWarningFill className="absolute right-2 top-3 text-red-500" />}
+          {emailValid === false && <p className="text-red-500 text-xs">Ingrese un correo electrónico válido.</p>}
         </div>
         <div className="relative mt-4">
           <Input
@@ -104,9 +107,9 @@ const Form_Login: React.FC = () => {
             value={password}
             onChange={handlePasswordChange}
             className={`w-full ${passwordValid === false ? 'border-red-500' : passwordValid === true ? 'border-green-500' : ''}`}
+            isValid={passwordValid}
           />
-          {passwordValid === true && <RiCheckFill className="absolute right-2 top-3 text-green-500" />}
-          {passwordValid === false && <RiErrorWarningFill className="absolute right-2 top-3 text-red-500" />}
+          {passwordValid === false && <p className="text-red-500 text-xs">La contraseña debe tener al menos 6 caracteres.</p>}
         </div>
         <div className='flex justify-end mb-5'>
           <button
@@ -128,15 +131,6 @@ const Form_Login: React.FC = () => {
             Regístrate
           </button>
         </div>
-        {/* <div className='mb-5'>
-          <hr className='border-2' />
-          <div className='flex justify-center'>
-            <span className='bg-white px-8 -mt-3'>o</span>
-          </div>
-        </div>
-        <div className='flex items-center justify-center gap-x-4'>
-          <ButtonIcon icon={RiGoogleFill} />
-        </div> */}
       </form>
     </div>
   );
