@@ -106,7 +106,7 @@ export class AuthService {
 
         await this.userRepository.save(newUser);
       } else if (type === 'shelter') {
-        const newShelter = this.userRepository.create({
+        const newShelter = this.shelterRepository.create({
           ...metadata,
           email,
         } as Partial<ShelterEntity>);

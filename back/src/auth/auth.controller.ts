@@ -29,6 +29,7 @@ export class AuthController {
   registerShelter(@Body() register: CreateShelterDto, @Req() req) {
     const accessToken = req.auth0Token;
     const { email, password, ...metadata } = register;
+    
     return this.authService.RegisterShelter(
       email,
       password,
