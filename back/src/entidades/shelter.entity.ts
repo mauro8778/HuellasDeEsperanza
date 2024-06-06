@@ -28,7 +28,6 @@ export class ShelterEntity {
   @Column({
     type: 'int',
     unique: true,
-    nullable: false,
   })
   dni: number;
 

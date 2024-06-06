@@ -29,7 +29,15 @@ export class AuthService {
     metadata: Partial<UserEntity>,
     accessToken: string,
   ) {
-    await this.mailService.registerUserMail(email,metadata.name,password)
+    const existingUser = await this.userRepository.findOneBy({ email });
+
+    if (existingUser) {
+      throw new ConflictException(
+        'Este email ya se encuentra asociado a un usuario',
+      );
+    }
+
+    await this.mailService.registerUserMail(email, metadata.name, password);
     return this.Register(email, password, metadata, accessToken, 'user');
   }
 
@@ -39,17 +47,42 @@ export class AuthService {
     metadata: Partial<ShelterEntity>,
     accessToken: string,
   ) {
+    const existingShelterDNI = await this.shelterRepository.findOneBy({
+      dni: metadata.dni,
+    });
+    if (existingShelterDNI) {
+      throw new ConflictException(
+        'Este DNI ya se encuentra asociado a un refugio',
+      );
+    }
+
+    const existingShelterEmail = await this.shelterRepository.findOneBy({
+      email,
+    });
+
+    if (existingShelterEmail) {
+      throw new ConflictException(
+        'Este email ya se encuentra asociado a un refugio',
+      );
+    }
+
     const existingShelter = await this.shelterRepository.findOne({
       where: {
         shelter_name: metadata.shelter_name,
         zona: metadata.zona,
       },
     });
-  
+
     if (existingShelter) {
-      throw new ConflictException('A shelter with the same name already exists in this zone.');
+      throw new ConflictException(
+        'A shelter with the same name already exists in this zone.',
+      );
     }
-    await this.mailService.registershelterMail(email,metadata.shelter_name,password)
+    await this.mailService.registershelterMail(
+      email,
+      metadata.shelter_name,
+      password,
+    );
     return this.Register(email, password, metadata, accessToken, 'shelter');
   }
 
@@ -60,28 +93,38 @@ export class AuthService {
     accessToken: string,
     type: 'user' | 'shelter',
   ) {
-    const existingUser = await this.userRepository.findOneBy({ email });
-    const existingShelter = await this.shelterRepository.findOneBy({ email });
-
-    if (existingUser || existingShelter) {
-      throw new ConflictException('Este email ya se encuentra asociado a un usuario');
-    }
-
-    if (type === 'shelter') {
-      const existingShelterDNI = await this.shelterRepository.findOneBy({ dni: (metadata as ShelterEntity).dni });
-      if (existingShelterDNI) {
-        throw new ConflictException('Este DNI ya se encuentra asociado a un refugio');
-      }
-    }
-
     try {
+      let userID: string;
+
+      if (type === 'user') {
+        const newUser = this.userRepository.create({
+          ...metadata,
+          email,
+        } as Partial<UserEntity>);
+
+        userID = newUser.id;
+
+        await this.userRepository.save(newUser);
+      } else if (type === 'shelter') {
+        const newShelter = this.shelterRepository.create({
+          ...metadata,
+          email,
+        } as Partial<ShelterEntity>);
+
+        userID = newShelter.id;
+
+        await this.shelterRepository.save(newShelter);
+      }
+
+      const newMetadata = { ...metadata, userID };
+
       await axios.post(
         `${process.env.AUTH0_MGMT_API_URL}users`,
         {
           email,
           password,
           connection: 'Username-Password-Authentication',
-          user_metadata: metadata,
+          user_metadata: newMetadata,
         },
         {
           headers: {
@@ -89,17 +132,6 @@ export class AuthService {
           },
         },
       );
-      if (type === 'user') {
-        await this.userRepository.save({
-          ...metadata,
-          email,
-        } as Partial<UserEntity>);
-      } else if (type === 'shelter') {
-        await this.shelterRepository.save({
-          ...metadata,
-          email,
-        } as Partial<ShelterEntity>);
-      }
       return { succes: 'Usuario registrado correctamente' };
     } catch (error) {
       throw new BadRequestException('Error creating user');
@@ -107,9 +139,10 @@ export class AuthService {
   }
 
   async Login(email: string, password: string) {
-
     const existingAccoutUser = await this.userRepository.findOneBy({ email });
-    const existingAccountShelter = await this.shelterRepository.findOneBy({ email });
+    const existingAccountShelter = await this.shelterRepository.findOneBy({
+      email,
+    });
 
     if (!existingAccoutUser && !existingAccountShelter) {
       throw new ConflictException('Correo inexistente en nuestros registros');
@@ -125,13 +158,13 @@ export class AuthService {
           grant_type: 'password',
           username: email,
           password: password,
-          scope: 'openid profile email', 
+          scope: 'openid profile email',
         },
       );
 
       const { access_token, id_token } = response.data;
 
-      return { succes: 'Usuario logueado correctamente', id_token };
+      return { succes: 'Usuario logueado correctamente', access_token, id_token };
     } catch (error) {
       throw new UnauthorizedException('Invalid credentials');
     }
