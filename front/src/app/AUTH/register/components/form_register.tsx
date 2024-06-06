@@ -53,39 +53,42 @@ const Form: React.FC = () => {
 
   const handleRegister = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setError(null); 
-
+    setError(null);
+  
     if (nameValid && emailValid && passwordValid && confirmPasswordValid) {
       try {
-<<<<<<< HEAD:front/src/app/AUTH/register/co
-        const response = await fetch('https://backpf-prueba.onrender.com/auth/register/user', { 
-=======
-      
->>>>>>> 1158e05ef76fcdb4d87c1a2b96dde92a85ae917f:front/src/app/AUTH/register/components/form_register.tsx
+        const response = await fetch('https://backpf-prueba.onrender.com/auth/register/user', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({  email, password }),
+          body: JSON.stringify({ name, email, password }),
         });
-
+  
         if (response.ok) {
+          const data = await response.json();
+          const token = data.access_token;
+  
+          localStorage.setItem('token', token);
+  
           router.push('/AUTH/login');
         } else {
-          // verifico respuesta de error de backend
-          const erorMessage = await response.text();
-          console.error('Error al registrar:', erorMessage);
-
+          const errorMessage = await response.text();
+          console.error('Error al registrar:', errorMessage);
           setError('Registro fallido. Por favor, inténtalo de nuevo.');
+          alert('Registro fallido. Por favor, inténtalo de nuevo.');
         }
       } catch (error) {
         console.error('Error al registrar:', error);
         setError('Ocurrió un error. Por favor, inténtalo de nuevo.');
+        alert('Ocurrió un error. Por favor, inténtalo de nuevo.');
       }
     } else {
       setError('Por favor, completa todos los campos correctamente.');
+      alert('Por favor, completa todos los campos correctamente.');
     }
   };
+  
 
   return (
     <div className='w-full max-w-md'>
