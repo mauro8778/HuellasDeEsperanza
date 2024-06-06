@@ -18,7 +18,7 @@ export class MercadoPagoService {
           {
             id: uuid(),
             title: orderData.title,
-            quantity: orderData.quanty,
+            quantity: 1,
             unit_price: orderData.price,
           },
         ],
