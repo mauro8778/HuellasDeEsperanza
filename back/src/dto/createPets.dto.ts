@@ -46,7 +46,7 @@ export class CreatePetsDto{
     @ApiProperty({
         example: "2"
     })
-    month: number
+    month: string
 
 
     
