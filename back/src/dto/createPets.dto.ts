@@ -76,9 +76,6 @@ export class CreatePetsDto{
         example: "..."
     })
     description?: string
-@IsOptional()
-    shelter:string
-    
 
     
     @IsEmpty()
