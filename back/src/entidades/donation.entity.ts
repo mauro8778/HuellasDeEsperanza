@@ -1,36 +1,36 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
-import {v4 as uuid} from "uuid"
-import { UserEntity } from "./user.entity";
-import { ShelterEntity } from "./shelter.entity";
+// import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+// import {v4 as uuid} from "uuid"
+// import { UserEntity } from "./user.entity";
+// import { ShelterEntity } from "./shelter.entity";
 
 
-@Entity({
-    name:'donation'
-})
-export class DonationEntity{
+// @Entity({
+//     name:'donation'
+// })
+// export class DonationEntity{
 
-    @PrimaryGeneratedColumn("uuid")
-    id: string = uuid()
+//     @PrimaryGeneratedColumn("uuid")
+//     id: string = uuid()
 
-    @Column({
-        type: "decimal",
-        precision: 10,
-        scale: 2,
-        nullable: false   
-    })
-    amount: number
-
-
-    @Column({
-        nullable: true,
-    })
-    date: Date
+//     @Column({
+//         type: "decimal",
+//         precision: 10,
+//         scale: 2,
+//         nullable: false   
+//     })
+//     amount: number
 
 
-    @ManyToOne(() => ShelterEntity, shelter => shelter.donations)
-    shelter: ShelterEntity;
+//     @Column({
+//         nullable: true,
+//     })
+//     date: Date
 
-    @ManyToOne(() => UserEntity, user => user.donations)
-    user: UserEntity;
 
-}
+//     @ManyToOne(() => ShelterEntity, shelter => shelter.donations)
+//     shelter: ShelterEntity;
+
+//     @ManyToOne(() => UserEntity, user => user.donations)
+//     user: UserEntity;
+
+// }
