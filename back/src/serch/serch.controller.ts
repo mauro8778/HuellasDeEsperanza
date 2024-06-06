@@ -7,15 +7,26 @@ import { ApiQuery, ApiTags } from '@nestjs/swagger';
 export class SearchController {
     constructor(private readonly searchService: SerchService){}
 
+    @Get()
+    @ApiQuery({ name: 'exotic_animals', required: false }) 
+    @ApiQuery({ name: 'location', required: false }) 
+    @ApiQuery({ name: 'shelter_name', required: false })
+    @ApiQuery({ name: 'breed', required: false }) 
+    @ApiQuery({ name: 'pet_size', required: false })  
+    @ApiQuery({ name: 'age', required: false })  
+    searchGeneral(@Query("exotic_animals") exotic_animals?, @Query("location") location?, @Query("shelter_name") shelter_name?
+    , @Query("breed") breed?, @Query("pet_size") pet_size?, @Query("age") age?){
+
+        return this.searchService.searchGeneral(exotic_animals, location, shelter_name, breed, pet_size, Number(age));
+    }
+
+
+
     @Get('pets')
     @ApiQuery({ name: 'breed', required: false }) 
     @ApiQuery({ name: 'pet_size', required: false }) 
     @ApiQuery({ name: 'age', required: false }) 
     filterPets(@Query("breed") breed, @Query("pet_size") pet_size, @Query("age") age){
-
-        if(!breed && !pet_size && !age){
-            throw new BadRequestException('Se debe indicar al menos un filtro');
-        };
 
         return this.searchService.filterPets(breed, pet_size,Number(age));
     };
@@ -24,10 +35,6 @@ export class SearchController {
     @ApiQuery({ name: 'exotic_animals', required: false }) 
     @ApiQuery({ name: 'location', required: false }) 
     filterShelters(@Query("exotic_animals") exotic_animals, @Query("location") location){
-
-        if(!exotic_animals && !location ){ 
-            throw new BadRequestException('Se debe indicar al menos un filtro');
-        };
 
         return this.searchService.filterShelters(exotic_animals, location);
     };

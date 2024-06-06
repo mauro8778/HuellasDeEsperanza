@@ -4,7 +4,7 @@ import { FormEvent, useState, ChangeEvent } from 'react';
 import { useRouter } from 'next/navigation';
 import { RiGoogleFill, RiCheckFill, RiErrorWarningFill } from 'react-icons/ri';
 import Button from '@/components/ui/button';
-import ButtonIcon from '@/components/ui/button-icon';
+// import ButtonIcon from '@/components/ui/button-icon';
 import Input from '@/components/ui/input';
 
 const Form_Login: React.FC = () => {
@@ -21,7 +21,7 @@ const Form_Login: React.FC = () => {
   };
 
   const validatePassword = (password: string) => {
-    return password.length >= 6; // Ejemplo: al menos 6 caracteres
+    return password.length >= 6; 
   };
 
   const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -42,7 +42,7 @@ const Form_Login: React.FC = () => {
 
     if (emailValid && passwordValid) {
       try {
-        const response = await fetch('https://backpf-prueba.onrender.com/auth/login', { 
+        const response = await fetch('https://backpf-prueba.onrender.com/auth/login', { // Aquí va la URL de tu backend
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

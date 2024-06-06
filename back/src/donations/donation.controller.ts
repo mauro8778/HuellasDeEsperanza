@@ -2,6 +2,8 @@ import { Body, Controller, Get, Param, ParseUUIDPipe, Post } from '@nestjs/commo
 import { DonationService } from './donation.service';
 import { DonationEntity } from 'src/entidades/donation.entity';
 import { ApiTags } from '@nestjs/swagger';
+import { CreateAdopcionDto } from 'src/dto/createAdopcion.dto';
+import { CreateDonationDto } from 'src/dto/createDonation.dto';
 
 @ApiTags("Donation")
 @Controller('donation')
@@ -28,13 +30,13 @@ export class DonationController {
         return await this.donationservice.shelterDonation(shelterid)
     }
 
-    @Post('new')
-    async newDonation(@Body() donation:DonationEntity){
-        return await this.donationservice.newDonation(donation)
-    }
-
     @Post('confirm')
     async confirmDonation(@Body() donation:DonationEntity){
         return await this.donationservice.confirmDonation(donation)
     }
+
+    @Post()
+    async createDonation(@Body() createDonationDto: CreateDonationDto) {
+    return this.donationservice.newDonation(createDonationDto);
+  }
 }

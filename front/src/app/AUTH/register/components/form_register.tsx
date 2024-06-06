@@ -53,21 +53,29 @@ const Form: React.FC = () => {
 
   const handleRegister = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setError(null); // Reset error message
+    setError(null); 
 
     if (nameValid && emailValid && passwordValid && confirmPasswordValid) {
       try {
+<<<<<<< HEAD:front/src/app/AUTH/register/co
         const response = await fetch('https://backpf-prueba.onrender.com/auth/register/user', { 
+=======
+      
+>>>>>>> 1158e05ef76fcdb4d87c1a2b96dde92a85ae917f:front/src/app/AUTH/register/components/form_register.tsx
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ name, email, password }),
+          body: JSON.stringify({  email, password }),
         });
 
         if (response.ok) {
           router.push('/AUTH/login');
         } else {
+          // verifico respuesta de error de backend
+          const erorMessage = await response.text();
+          console.error('Error al registrar:', erorMessage);
+
           setError('Registro fallido. Por favor, inténtalo de nuevo.');
         }
       } catch (error) {
