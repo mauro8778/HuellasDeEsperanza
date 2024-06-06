@@ -5,7 +5,7 @@ import { cn } from '@/libs/utils';
 import { RiLockLine, RiLockUnlockLine, RiCheckFill, RiErrorWarningFill } from 'react-icons/ri';
 
 interface InputProps {
-  type: 'text' | 'password';
+  type: 'text' | 'password'  | 'date'| 'number';
   placeholder: string;
   className?: string;
   name?: string;
