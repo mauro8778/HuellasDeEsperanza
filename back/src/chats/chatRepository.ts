@@ -1,44 +1,43 @@
-import { BadRequestException, Injectable } from "@nestjs/common";
+import { BadRequestException, Injectable, NotFoundException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { channel } from "diagnostics_channel";
 import { ChatEntity } from "src/entidades/chat.entity";
-import { Repository } from "typeorm";
+import { MessageEntity } from "src/entidades/message.entity";
+import { LessThan, MoreThan, Repository } from "typeorm";
 
 @Injectable()
 export class ChatRepository {
-    constructor(@InjectRepository(ChatEntity)
-                private chatrepository:Repository<ChatEntity>){}
-
-    async chat(){
-        const chat = await this.chatrepository.find();
-    
-        return chat;
-    }
-
-    async chatById(id:string){
-        const chatId = this.chatrepository.findOneBy({id});
-
-        if (!chatId){
-            throw new BadRequestException("El chat no existe")
-        }
-
-        return chatId;
-    }
-
-    async newChat(chat: Partial<ChatEntity>){
-        this.chatrepository.save(chat);
-
-        return "Nuevo chat creado"
-    }
-
-    async DeleteChat(id:string){
-    const chat = await this.chatrepository.findOneBy({id});
-        if (!chat) {
-            throw new BadRequestException(`El usuario con el id: ${id} no existe`);
-        };
-        this.chatrepository.remove(chat);
+    constructor(
         
-        return `El chat se eliminó correctamente`;
+        @InjectRepository(MessageEntity) private messageRepository:Repository<MessageEntity>
+    
+    ){}
+
+
+    async newMessage(messageContent: string){
+        const today = new Date()
+        const newMessage = this.messageRepository.create({ content:messageContent, createdAt: today })
+        return await this.messageRepository.save(newMessage)
+    }
+
+    async getMessages(){
+        const messages = await this.messageRepository.find()
+
+        if(!messages) throw new NotFoundException('No hay mensajes cargados')
+
+        return messages
+    }
+
+    async getMessageByDate(date: Date) {
+        const messages = await this.messageRepository.find({
+            where:{
+                createdAt: LessThan(date)
+            }
+        })
+        
+        if(!messages) throw new NotFoundException('Message no existente')
+        
+        return messages
     }
 
 }

@@ -64,6 +64,7 @@ export class CreateShelterDto {
         example: "Ubicacion"
     })
     location: string
+    
     @IsNotEmpty()
     @IsString()
     @ApiProperty({
@@ -78,6 +79,14 @@ export class CreateShelterDto {
         example: "..."
     })
     description: string
+
+
+    @IsOptional()
+    @IsString()
+    @ApiProperty({
+        example: "colocar url de la imagen"
+    })
+    imgUrl: string
 
 
     @IsEmpty()

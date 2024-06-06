@@ -85,7 +85,7 @@ export class ShelterRepository {
   }
 
   async getShelterById(id: string) {
-    const shelter = await this.sheltersRepository.find({ where: { id } });
+    const shelter = await this.sheltersRepository.findOne({ where: { id },relations:['pets'] });
     if (!shelter) {
       throw new NotFoundException('no se encontro el refugio');
     }

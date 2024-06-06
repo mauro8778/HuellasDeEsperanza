@@ -4,23 +4,15 @@ import { ChatEntity } from 'src/entidades/chat.entity';
 
 @Injectable()
 export class ChatService {
-constructor(private readonly chatrepository:ChatRepository){}
+    constructor(private readonly chatRepository:ChatRepository){}
 
-async chat(){
-    return await this.chatrepository.chat()
-}
+    newMessage(content: string){
+        return this.chatRepository.newMessage(content)
+    }
 
-async chatById(id:string){
-    return await this.chatrepository.chatById(id)
-}
-
-async newChat(chat:Omit<ChatEntity, "id">){
-    return await this.chatrepository.newChat(chat)
-}
-
-async DeleteChat(id:string){
-    return await this.chatrepository.DeleteChat(id)
-}
+    getMessages(){
+        return this.getMessages();
+    }
 
 
 }
