@@ -78,64 +78,36 @@ const Form_Register: React.FC = () => {
 
   const handleRegister = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setError(null);
+    setError(null); 
 
+    if (nameValid && emailValid && passwordValid && confirmPasswordValid) {
+      try {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users`, { 
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({  email, password }),
+        });
 
-    console.log('Name:', name);
-    console.log('Last Name:', lastName);
-    console.log('Email:', email);
-    console.log('Password:', password);
-    console.log('Confirm Password:', confirmPassword);
-    console.log('Birthdate:', birthdate);
+        if (response.ok) {
+          router.push('/AUTH/login');
+        } else {
+          // verifico respuesta de error de backend
+          const erorMessage = await response.text();
+          console.error('Error al registrar:', erorMessage);
 
-    // Verifica que todos los campos sean válidos
-    if (!nameValid || !lastNameValid || !emailValid || !passwordValid || !confirmPasswordValid || !birthdateValid) {
-      setError('Por favor, completa todos los campos correctamente.');
-      alert('Por favor, completa todos los campos correctamente.');
-      console.log('Validation failed');
-      return;
-    }
-
-    console.log('Validacion exitosa');
-    console.log('Datos a enviar:', { name, lastName, email, password, confirmPassword, birthdate, phone });
-
-    try {
-      const response = await fetch('https://backpf-prueba.onrender.com/auth/register/user', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ name, lastName, email, password, confirmPassword, birthdate }),
-      });
-
-      console.log('Response status:', response.status);
-
-     
-      if (!response.ok) {
-        const errorMessage = await response.text();
-        console.error('Error al registrar:', errorMessage);
-        setError('Registro fallido. Por favor, inténtalo de nuevo.');
-        alert('Registro fallido. Por favor, inténtalo de nuevo.');
-        console.log('Error response:', errorMessage);
-        return;
+          setError('Registro fallido. Por favor, inténtalo de nuevo.');
+        }
+      } catch (error) {
+        console.error('Error al registrar:', error);
+        setError('Ocurrió un error. Por favor, inténtalo de nuevo.');
       }
-
-      const data = await response.json();
-      const token = data.access_token;
-
-      console.log('Registration successful, token:', token);
-
-     
-      localStorage.setItem('token', token);
-      router.push('/AUTH/login');
-
-    } catch (error) {
-      console.error('Error al registrar:', error);
-      setError('Ocurrió un error. Por favor, inténtalo de nuevo.');
-      alert('Ocurrió un error. Por favor, inténtalo de nuevo.');
-      console.log('Catch error:', error);
+    } else {
+      setError('Por favor, completa todos los campos correctamente.');
     }
   };
+  
 
   return (
     <div className='w-full max-w-md'>

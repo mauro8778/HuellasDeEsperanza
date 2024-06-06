@@ -1,0 +1,92 @@
+[
+    {
+      "name": "Oscar",
+      "sexo": "macho",
+      "breed": "Perro",
+      "age": 2,
+      "pet_size": "mediano",
+      "imgUrl": "img.jpg",
+      "description": "Un perro juguetón y amigable."
+    },
+    {
+      "name": "Luna",
+      "sexo": "hembra",
+      "breed": "Gato",
+      "age": 3,
+      "pet_size": "pequeño",
+      "imgUrl": "luna.jpg",
+      "description": "Una gata curiosa y cariñosa."
+    },
+    {
+      "name": "Max",
+      "sexo": "macho",
+      "breed": "Perro",
+      "age": 4,
+      "pet_size": "grande",
+      "imgUrl": "max.jpg",
+      "description": "Un perro leal y protector."
+    },
+    {
+      "name": "Bella",
+      "sexo": "hembra",
+      "breed": "Gato",
+      "age": 2,
+      "pet_size": "pequeño",
+      "imgUrl": "bella.jpg",
+      "description": "Una gata elegante y juguetona."
+    },
+    {
+      "name": "Rocky",
+      "sexo": "macho",
+      "breed": "Perro",
+      "age": 6,
+      "pet_size": "mediano",
+      "imgUrl": "rocky.jpg",
+      "description": "Un perro activo y amigable."
+    },
+    {
+      "name": "Mia",
+      "sexo": "hembra",
+      "breed": "Gato",
+      "age": 1,
+      "pet_size": "pequeño",
+      "imgUrl": "mia.jpg",
+      "description": "Una gata curiosa y traviesa."
+    },
+    {
+      "name": "Simba",
+      "sexo": "macho",
+      "breed": "Perro",
+      "age": 3,
+      "pet_size": "grande",
+      "imgUrl": "simba.jpg",
+      "description": "Un perro valiente y leal."
+    },
+    {
+      "name": "Nina",
+      "sexo": "hembra",
+      "breed": "Gato",
+      "age": 4,
+      "pet_size": "mediano",
+      "imgUrl": "nina.jpg",
+      "description": "Una gata cariñosa y tranquila."
+    },
+    {
+      "name": "Bruno",
+      "sexo": "macho",
+      "breed": "Perro",
+      "age": 5,
+      "pet_size": "grande",
+      "imgUrl": "bruno.jpg",
+      "description": "Un perro juguetón y enérgico."
+    },
+    {
+      "name": "Lola",
+      "sexo": "hembra",
+      "breed": "Gato",
+      "age": 2,
+      "pet_size": "pequeño",
+      "imgUrl": "lola.jpg",
+      "description": "Una gata misteriosa y cariñosa."
+    }
+]
