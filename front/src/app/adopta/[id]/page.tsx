@@ -1,4 +1,3 @@
-
 import { MascotaDetail } from "@/components/MascotaDetail/MascotaDetail";
 import { IMascotas } from "@/interface/IMascotas";
 import { getProductById } from "@/utils/mascotas"; 
@@ -17,10 +16,9 @@ const DetailAnimals = async ({ params }: { params: { id: string } }) => {
         imgUrl: mascota.imgUrl,
         breed: mascota.breed,
         age: mascota.age
-        
     };
 
     return <MascotaDetail {...mascotaProps} />;
-}
+};
 
 export default DetailAnimals;
