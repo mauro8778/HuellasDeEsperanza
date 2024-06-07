@@ -1,8 +1,7 @@
 import React from "react";
 import Image from "next/image";
-import ListaRefugios from "@/components/Refugios/ListaRefugios";
-import Refugios from "@/utils/refugios";
 import RandomRefugiosCards from "@/components/Refugios/RandomRefugiosCards";
+import RandomAnimalCards from "@/components/Card-Animals/RandomAnimalsCards";
 
 export const Home: React.FC = () => {
   return (
@@ -20,7 +19,8 @@ export const Home: React.FC = () => {
       
 
       <div className="relative z-0 mt-10 ml-10">
-        <RandomRefugiosCards refugios={Refugios}/>
+        <RandomAnimalCards/>
+        <RandomRefugiosCards/>
       </div>
       
     </div>
