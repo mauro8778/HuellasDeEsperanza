@@ -1,42 +1,29 @@
-import React from 'react';
-import { IParams } from '@/interface/IRefugios';
-import Refugios, { getRefugioById } from '@/utils/refugios';
-import Image from 'next/image';
-import Mascotas from '@/utils/mascotas';
-import ListaMascotas from '@/components/Card-Animals/ListaMascotas';
+import { RefugioDetail } from "@/components/RefugioDetail/RefugioDetail";
+import { IRefugios } from "@/interface/IRefugios";
+import { getRefugioById } from "@/utils/refugios";
 
-const RefugioDetail = ({ params }: { params: IParams }) => {
-    const refugio = getRefugioById(params.id);
+
+const DetailRefugio = async ({ params }: { params: { id: string } }) => {
+    const refugio = await getRefugioById(params.id);
 
     if (!refugio) {
         return <div>Refugio no encontrado</div>;
     }
 
-    const mascotasDelRefugio = Mascotas.filter(mascota => mascota.refugio === refugio.name);
+    const mascotaProps: IRefugios = {
+        id: refugio.id,
+        shelter_name: refugio.shelter_name,
+        name: refugio.name,
+        description: refugio.description,
+        imgUrl: refugio.imgUrl,
+        zona: refugio.zona,
+        location: refugio.location,
+        email: refugio.email,
+        phone: refugio.phone,
+        pets: refugio.pets,
+    };
 
-    return (
-        <div className="p-4">
-            <h1 className="text-2xl font-bold mb-4">{refugio.name}</h1>
-            
-            <div className="flex items-center gap-4 mb-6 ml-40 mr-40">
-                <Image src={refugio.image} alt={refugio.name} width={300} height={150} className="w-72 h-auto" />
-                <p>{refugio.description}</p>
-            </div>
-
-            <h2 className="text-xl font-semibold mb-2">Mascotas en este refugio</h2>
-            {mascotasDelRefugio.length > 0 ? (
-                <ListaMascotas mascotas={mascotasDelRefugio} />
-            ) : (
-                <p>No hay mascotas disponibles en este refugio.</p>
-            )}
-        </div>
-    );
-};
-
-export async function generateStaticParams() {
-    return Refugios.map(refugio => ({
-        id: refugio.id.toString(),
-    }));
+    return <RefugioDetail {...mascotaProps} />;
 }
 
-export default RefugioDetail;
+export default DetailRefugio;
