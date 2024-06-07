@@ -1,8 +1,4 @@
-import { IMascotas } from "@/interface/IMascotas";
 import { IRefugios } from "@/interface/IRefugios";
-
-
-
 
 export async function getShelterDB() { 
     try {
