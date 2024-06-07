@@ -17,6 +17,7 @@ async function bootstrap() {
     .setTitle('HuellasDeEsperanza')
     .setDescription('')
     .setVersion('0.6')
+    .addBearerAuth()
     .build();
   const document = SwaggerModule.createDocument(app, swaggerConfig);
   SwaggerModule.setup('api', app, document);

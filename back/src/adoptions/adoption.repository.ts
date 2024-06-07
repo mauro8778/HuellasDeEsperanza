@@ -5,6 +5,7 @@ import { AdoptionEntity } from "src/entidades/adoption.entity";
 import { PetsEntity } from "src/entidades/pets.entity";
 import { ShelterEntity } from "src/entidades/shelter.entity";
 import { UserEntity } from "src/entidades/user.entity";
+import { PetsService } from "src/pets/pets.service";
 import { Repository } from "typeorm";
 
 @Injectable()
@@ -18,7 +19,9 @@ export class AdoptionRepository {
          @InjectRepository(UserEntity)
          private usersRepository: Repository<UserEntity>,
          @InjectRepository(PetsEntity)
-         private petsRepository: Repository<PetsEntity>){}
+         private petsRepository: Repository<PetsEntity>,
+        private petsService: PetsService
+        ){}
 
 
     async AllAdoptions(){
@@ -68,7 +71,13 @@ export class AdoptionRepository {
         adoption.shelter = shelter;
         adoption.pet = pet;
 
-        await this.adoptionrepository.save(adoption)
+        const adop = await this.adoptionrepository.save(adoption)
+
+        if (!adop) {
+            throw new NotFoundException(`Error en la Adopción`);
+        }
+
+        this.petsService.deletePet(petid)
 
         return await this.adoptionrepository.find({
             where: {id: adoption.id},
