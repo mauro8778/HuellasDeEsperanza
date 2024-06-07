@@ -1,12 +1,16 @@
 
 
 export interface IRefugios {
-    id: number;
+    id?: number;
     name: string;
-    provincia: string;
     zona: string;
-    image: string;
+    imgUrl: string;
     description: string;
+    location: string;
+    shelter_name?:string;
+    email?: string;
+    phone?: number;
+    pets?: string;
 }
 
 export interface IParams {
