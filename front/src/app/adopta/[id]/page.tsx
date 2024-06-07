@@ -7,7 +7,7 @@ const DetailAnimals = async ({ params }: { params: { id: string } }) => {
     const mascota = await getProductById(params.id);
 
     if (!mascota) {
-        return <div>Producto no encontrado</div>;
+        return <div>Mascota no encontrada</div>;
     }
 
     const mascotaProps: IMascotas = {

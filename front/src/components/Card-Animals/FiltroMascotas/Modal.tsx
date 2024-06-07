@@ -95,7 +95,7 @@ const Modal: React.FC<ModalProps> = ({ onClose, onFilter }) => {
           </select>
         </div>
         <div className="flex justify-end space-x-2">
-          <button onClick={handleFilter} className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600">Aplicar Filtro</button>
+          <button onClick={handleFilter} className="px-4 py-2 bg-pink-500 text-white rounded hover:bg-green-600">Aplicar Filtro</button>
           <button onClick={handleClose} className="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600">Cerrar</button>
         </div>
       </div>

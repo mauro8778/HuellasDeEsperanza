@@ -2,102 +2,74 @@
 
 import { useState, FormEvent, ChangeEvent } from 'react';
 import { useRouter } from 'next/navigation';
-import { RiCheckFill, RiErrorWarningFill } from 'react-icons/ri';
 import Button from '@/components/ui/button';
 import Input from '@/components/ui/input';
 
 const Form_Register: React.FC = () => {
   const router = useRouter();
-  const [name, setName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [birthdate, setBirthdate] = useState('');
+  const [phone, setPhone] = useState<string>('');
+
+  const [formData, setFormData] = useState({
+    name: '',
+    last_name: '',
+    email: '',
+    password: '',
+    confirm_password: '',
+    birthdate: '',
+    phone: '',
+    location: ''
+  });
+
+  const [formValidations, setFormValidations] = useState({
+    nameValid: null,
+    lastNameValid: null,
+    emailValid: null,
+    passwordValid: null,
+    confirmPasswordValid: null,
+    birthdateValid: null,
+    phoneValid: null,
+    locationValid: null
+  });
+
   const [error, setError] = useState<string | null>(null);
-  const [nameValid, setNameValid] = useState<boolean | null>(null);
-  const [lastNameValid, setLastNameValid] = useState<boolean | null>(null);
-  const [emailValid, setEmailValid] = useState<boolean | null>(null);
-  const [passwordValid, setPasswordValid] = useState<boolean | null>(null);
-  const [confirmPasswordValid, setConfirmPasswordValid] = useState<boolean | null>(null);
-  const [birthdateValid, setBirthdateValid] = useState<boolean | null>(null);
-  const [phone, setPhone] = useState<string>(''); // Cambiado a string en lugar de number
-  const [phoneValid, setPhoneValid] = useState<boolean | null>(null);
 
-  const validateName = (name: string) => name.trim().length > 0;
-  const validateLastName = (lastName: string) => lastName.trim().length > 0;
-  const validateEmail = (email: string) => /\S+@\S+\.\S+/.test(email);
-  const validatePassword = (password: string) => password.length >= 6;
-  const validateConfirmPassword = (confirmPassword: string) => confirmPassword === password;
-  const validateBirthdate = (birthdate: string) => new Date(birthdate).toString() !== 'Invalid Date';
-  const validatePhone = (phone: string) => /^\d{10}$/.test(phone);
-
-  const handleNameChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    setName(value);
-    setNameValid(validateName(value));
+  const validateFields = {
+    name: (value: string) => value.trim().length >= 3,
+    last_name: (value: string) => value.trim().length >= 3,
+    email: (value: string) => /\S+@\S+\.\S+/.test(value),
+    password: (value: string) => value.length >= 6,
+    confirm_password: (value: string) => value === formData.password,
+    birthdate: (value: string) => !isNaN(Date.parse(value)),
+    phone: (value: string) => /^\d{10}$/.test(value),
+    location: (value: string) => value.trim().length > 2
   };
 
-  const handleLastNameChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    setLastName(value);
-    setLastNameValid(validateLastName(value));
-  };
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
 
-  const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    setEmail(value);
-    setEmailValid(validateEmail(value));
+    const validationKey = name === 'last_name' ? 'lastName' : name === 'confirm_password' ? 'confirmPassword' : name;
+    setFormValidations(prev => ({
+      ...prev,
+      [`${validationKey}Valid`]: value === '' ? null : validateFields[name as keyof typeof validateFields](value)
+    }));
   };
-
-  const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    setPassword(value);
-    setPasswordValid(validatePassword(value));
-    setConfirmPasswordValid(validateConfirmPassword(confirmPassword));
-  };
-
-  const handleConfirmPasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    setConfirmPassword(value);
-    setConfirmPasswordValid(validateConfirmPassword(value));
-  };
-
-  const handleBirthdateChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    setBirthdate(value);
-    setBirthdateValid(validateBirthdate(value));
-  };
-
-  const handlePhoneChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    setPhone(value);
-    setPhoneValid(validatePhone(value));
-  };
-
 
   const handleRegister = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setError(null);
 
+    const phoneAsNumber = /^\d{10}$/.test(formData.phone) ? parseInt(formData.phone, 10) : null;
 
-    console.log('Name:', name);
-    console.log('Last Name:', lastName);
-    console.log('Email:', email);
-    console.log('Password:', password);
-    console.log('Confirm Password:', confirmPassword);
-    console.log('Birthdate:', birthdate);
-
-    // Verifica que todos los campos sean válidos
-    if (!nameValid || !lastNameValid || !emailValid || !passwordValid || !confirmPasswordValid || !birthdateValid) {
+    const allValid = Object.values(formValidations).every(Boolean);
+    if (!allValid) {
       setError('Por favor, completa todos los campos correctamente.');
       alert('Por favor, completa todos los campos correctamente.');
-      console.log('Validation failed');
+      console.log('Validation failed', formValidations);
       return;
     }
 
-    console.log('Validacion exitosa');
-    console.log('Datos a enviar:', { name, lastName, email, password, confirmPassword, birthdate, phone });
+    console.log('Datos a enviar:', { ...formData, phone: phoneAsNumber });
 
     try {
       const response = await fetch('https://backpf-prueba.onrender.com/auth/register/user', {
@@ -105,35 +77,31 @@ const Form_Register: React.FC = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ name, lastName, email, password, confirmPassword, birthdate }),
+        body: JSON.stringify({ ...formData, phone: phoneAsNumber }),
       });
 
       console.log('Response status:', response.status);
 
-     
       if (!response.ok) {
         const errorMessage = await response.text();
-        console.error('Error al registrar:', errorMessage);
         setError('Registro fallido. Por favor, inténtalo de nuevo.');
         alert('Registro fallido. Por favor, inténtalo de nuevo.');
-        console.log('Error response:', errorMessage);
+        console.error('Error al registrar:', errorMessage);
         return;
       }
 
       const data = await response.json();
       const token = data.access_token;
 
-      console.log('Registration successful, token:', token);
+      console.log('Registro exitoso, token:', token);
 
-     
       localStorage.setItem('token', token);
       router.push('/AUTH/login');
 
     } catch (error) {
-      console.error('Error al registrar:', error);
       setError('Ocurrió un error. Por favor, inténtalo de nuevo.');
       alert('Ocurrió un error. Por favor, inténtalo de nuevo.');
-      console.log('Catch error:', error);
+      console.error('Error al registrar:', error);
     }
   };
 
@@ -151,83 +119,36 @@ const Form_Register: React.FC = () => {
             {error}
           </div>
         )}
-        <div className="relative">
-          <Input
-            type='text'
-            name='name'
-            placeholder='Nombre'
-            value={name}
-            onChange={handleNameChange}
-            isValid={nameValid}
-          />
-          {nameValid === false && <p className="text-red-500 text-xs">El nombre no puede estar vacío.</p>}
-        </div>
-        <div className="relative mt-4">
-          <Input
-            type='text'
-            name='lastName'
-            placeholder='Apellido'
-            value={lastName}
-            onChange={handleLastNameChange}
-            isValid={lastNameValid}
-          />
-          {lastNameValid === false && <p className="text-red-500 text-xs">El apellido no puede estar vacío.</p>}
-        </div>
-        <div className="relative mt-4">
-          <Input
-            type='text'
-            name='email'
-            placeholder='Email'
-            value={email}
-            onChange={handleEmailChange}
-            isValid={emailValid}
-          />
-          {emailValid === false && <p className="text-red-500 text-xs">Ingrese un correo electrónico válido.</p>}
-        </div>
-        <div className="relative mt-4">
-          <Input
-            type='password'
-            name='password'
-            placeholder='Contraseña'
-            value={password}
-            onChange={handlePasswordChange}
-            isValid={passwordValid}
-          />
-          {passwordValid === false && <p className="text-red-500 text-xs">La contraseña debe tener al menos 6 caracteres.</p>}
-        </div>
-        <div className="relative mt-4">
-          <Input
-            type='password'
-            name='confirmPassword'
-            placeholder='Confirmar contraseña'
-            value={confirmPassword}
-            onChange={handleConfirmPasswordChange}
-            isValid={confirmPasswordValid}
-          />
-          {confirmPasswordValid === false && <p className="text-red-500 text-xs">Las contraseñas no coinciden.</p>}
-        </div>
-        <div className="relative mt-4">
-          <Input
-            type='date'
-            name='birthdate'
-            placeholder='Fecha de nacimiento'
-            value={birthdate}
-            onChange={handleBirthdateChange}
-            isValid={birthdateValid}
-          />
-          {birthdateValid === false && <p className="text-red-500 text-xs">Ingrese una fecha de nacimiento válida.</p>}
-        </div>
-        <div className="relative mt-4">
-          <Input
-            type='number'
-            name='phone'
-            placeholder='Teléfono'
-            value={phone ? phone.toString() : ''}
-            onChange={handlePhoneChange}
-            isValid={phoneValid}
-          />
-          {phoneValid === false && <p className="text-red-500 text-xs">Ingrese un número de teléfono válido.</p>}
-        </div>
+        {['name', 'last_name', 'email', 'password', 'confirm_password', 'birthdate', 'phone', 'location' ].map((field) => (
+          <div key={field} className="relative mt-4">
+            <Input
+              type={field === 'password' || field === 'confirm_password' ? 'password' : field === 'birthdate' ? 'date' : field === 'phone' ? 'number' : 'text'}
+              name={field}
+              placeholder={field.charAt(0).toUpperCase() + field.slice(1).replace('_', ' ')}
+              value={formData[field as keyof typeof formData]}
+              onChange={handleChange}
+              className={`border-2 ${
+                formValidations[`${field === 'last_name' ? 'lastName' : field === 'confirm_password' ? 'confirmPassword' : field}Valid` as keyof typeof formValidations] === null
+                  ? 'border-gray-300'
+                  : formValidations[`${field === 'last_name' ? 'lastName' : field === 'confirm_password' ? 'confirmPassword' : field}Valid` as keyof typeof formValidations]
+                  ? 'border-green-500'
+                  : 'border-red-500'
+              }`}
+            />
+            {formValidations[`${field === 'last_name' ? 'lastName' : field === 'confirm_password' ? 'confirmPassword' : field}Valid` as keyof typeof formValidations] === false && (
+              <p className="text-red-500 text-xs">
+                {field === 'name' ? 'El nombre no puede estar vacío.' : ''}
+                {field === 'last_name' ? 'El apellido no puede estar vacío.' : ''}
+                {field === 'email' ? 'Ingrese un correo electrónico válido.' : ''}
+                {field === 'password' ? 'La contraseña debe tener al menos 6 caracteres.' : ''}
+                {field === 'confirm_password' ? 'Las contraseñas no coinciden.' : ''}
+                {field === 'birthdate' ? 'Ingrese una fecha de nacimiento válida.' : ''}
+                {field === 'phone' ? 'Ingrese un número de teléfono válido.' : ''}
+                {field === 'location' ? 'Ingrese una ubicación.' : ''}
+              </p>
+            )}
+          </div>
+        ))}
         <Button type='submit' label='Crear cuenta' />
         <div className='mt-5 mb-10 flex items-center justify-center gap-x-2'>
           <p className='text-gray-500'>¿Tienes una cuenta?</p>

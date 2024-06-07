@@ -1,8 +1,9 @@
-'use client'
-import React, { useState, useEffect } from 'react';
-import ListaMascotas from '@/components/Card-Animals/ListaMascotas';
+'use client';
+import React, { useState, useEffect, lazy, Suspense } from 'react';
 import { IMascotas } from '@/interface/IMascotas';
 import Modal from '@/components/Card-Animals/FiltroMascotas/Modal';
+
+const ListaMascotas = lazy(() => import('@/components/Card-Animals/ListaMascotas'));
 
 export default function Adopta() {
   const [mascotasState, setMascotasState] = useState<IMascotas[]>([]);
@@ -43,13 +44,18 @@ export default function Adopta() {
   };
 
   return (
-    <main>
-      <h1>Nuestras Mascotas</h1>
-      <button onClick={() => setIsModalOpen(true)} className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">Filtrar Mascotas</button>
-      <ListaMascotas mascotas={mascotasState} />
-      {isModalOpen && (
-        <Modal onClose={() => setIsModalOpen(false)} onFilter={handleModalFilter} />
-      )}
-    </main>
+    <main className="flex flex-col items-center bg-gray-300">
+  <button onClick={() => setIsModalOpen(true)} className="px-4 py-2 bg-pink-600 text-white rounded hover:bg-pink-700 mt-4">
+    Filtrar Mascotas
+  </button>
+  <Suspense fallback={<div>Cargando mascotas...</div>}>
+    <ListaMascotas mascotas={mascotasState} />
+  </Suspense>
+  {isModalOpen && (
+    <Modal onClose={() => setIsModalOpen(false)} onFilter={handleModalFilter} />
+  )}
+</main>
+
+
   );
 }

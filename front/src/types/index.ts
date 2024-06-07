@@ -5,9 +5,16 @@ export interface IRegisterProp {
     repeatPassword: string
 }
 
-export interface ILoginProp {
-    email: string
+
+export interface ILogingProps {
+    
+    email: string,
     password: string
+}
+
+export interface IErrorProps {
+    email?: string,
+    password?: string
 }
 
 export interface IMascotas {
