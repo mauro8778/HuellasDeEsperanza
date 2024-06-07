@@ -1,65 +1,81 @@
-import { Logger } from '@nestjs/common';
 import {
-  MessageBody,
   SubscribeMessage,
   WebSocketGateway,
   WebSocketServer,
-  ConnectedSocket,
-  OnGatewayInit,
   OnGatewayConnection,
   OnGatewayDisconnect,
+  ConnectedSocket,
+  MessageBody,
 } from '@nestjs/websockets';
 import { Server, Socket } from 'socket.io';
 import { ChatRepository } from './chatRepository';
+import { InjectRepository } from '@nestjs/typeorm';
+import { UserEntity } from 'src/entidades/user.entity';
+import { Repository } from 'typeorm';
+import { ChatService } from './chat.service';
+
 
 @WebSocketGateway({
   cors: {
     origin: '*',
   },
 })
-export class ChatGateway implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect{
+export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
 
-  constructor(private readonly chatRepository : ChatRepository){}
+  constructor(private readonly chatService : ChatService, @InjectRepository(UserEntity) private userRepository : Repository<UserEntity>){}
+
+  private connectedUsers: Set<UserEntity> = new Set<UserEntity>();
 
   @WebSocketServer()
   server: Server;
 
-  private usuariosLogueados = new Set('string');
-
-  private logger: Logger = new Logger('ChatGateway');
-
-  afterInit(server: Server) {
-    this.logger.log('WebSocket server inicializado');
+  async handleConnection(client: Socket) {
+      const username = client.handshake.auth.username
+      const user = await this.userRepository.findOneBy({ email: username });
+      user.id = client.id
+      this.connectedUsers.add(user)
+      console.log(`${username} se ha conectado`)
+      console.log('usuarios conectados: ')
+      this.connectedUsers.forEach((usuario) => {
+        console.log(usuario.email)
+      })
   }
 
   handleDisconnect(client: Socket) {
-    this.logger.log(`Cliente desconectado: ${client.id}`);
-    this.usuariosLogueados.delete(client.id)
+    const username = client.handshake.auth.username
+    this.connectedUsers.forEach((usuario) => {
+      if (usuario.email === username) {
+        this.connectedUsers.delete(usuario);
+      }
+    });
+    console.log(`${username} se ha desconectado`);
   }
 
-  async handleConnection(client: Socket, ...args: any[]) {
-    this.logger.log(`Cliente conectado: ${client.id}`);
 
+  @SubscribeMessage('chatMessage')
+  handleChatMessage(@ConnectedSocket() client: Socket, @MessageBody() data: { recipient: string; message: string } ) {
+    const username = client.handshake.auth.username;
     
-    if(!client.recovered){
-      const messages = await this.chatRepository.getMessageByDate(client.handshake.auth.server)
-
-      messages.forEach(message => {
-        this.server.emit('msgToCommunity', message.content, message.createdAt)
+    const recipientOn = Array.from(this.connectedUsers).find((user) => user.email === data.recipient);
+    if(recipientOn){
+      this.server.to(recipientOn.id).emit('chatMessage',{
+        senderEmail: username,
+        message: data.message
+      
       })
+      console.log(`El usuario ${username} envío el siguiente mensaje al usuario ${data.recipient}: ${data.message}`)
+      this.chatService.newMessage(data.message)
+    }else{
+      console.log('Usuario no conectado')
     }
     
   }
 
-
-  @SubscribeMessage('msgToCommunity')
-  async handleMessageCommunity(@ConnectedSocket() client: Socket, @MessageBody() data: string) {
-    const message = await this.chatRepository.newMessage(data)  
-    client.broadcast.emit('msgToCommunity',data, message.createdAt); 
-
+  @SubscribeMessage('chatTyping')
+  handleChatTyping(@ConnectedSocket() client: Socket, @MessageBody() data: {username: string, recipient: string}) {
+    const recipientOn = Array.from(this.connectedUsers).find((user) => user.email === data.recipient);
+    if(recipientOn){
+      client.to(recipientOn.id).emit('chatTyping',data.username)
+      }
   }
-
-
-
 }
- 
