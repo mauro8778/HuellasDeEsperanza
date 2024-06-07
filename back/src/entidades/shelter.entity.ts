@@ -1,9 +1,10 @@
-import { Column, Entity, ManyToMany, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { v4 as uuid } from 'uuid';
 // import { DonationEntity } from './donation.entity';
 import { AdoptionEntity } from './adoption.entity';
 import { PetsEntity } from './pets.entity';
 import { OrderDetailsEntity } from './orderDetail.entity';
+import { UserEntity } from './user.entity';
 
 @Entity({
   name: 'shelter',
@@ -85,8 +86,10 @@ export class ShelterEntity {
   // donations: number;
 
 
+  @ManyToMany(() => UserEntity, (user) => user.favorite)
+  user: UserEntity[];
 
-  @OneToMany(() => AdoptionEntity, (adoptions) => adoptions.shelter)
+  @ManyToMany(() => AdoptionEntity, (adoptions) => adoptions.shelter)
   adoptions: AdoptionEntity[];
 
   @OneToMany(() => PetsEntity, (pets) => pets.shelter)

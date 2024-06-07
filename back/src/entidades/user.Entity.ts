@@ -1,8 +1,9 @@
-import { Column, Entity, JoinColumn, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, JoinColumn, JoinTable, ManyToMany, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { v4 as uuid } from 'uuid';
 // import { DonationEntity } from './donation.entity';
 import { AdoptionEntity } from './adoption.entity';
 import { OrdersEntity } from './orders.entity';
+import { ShelterEntity } from './shelter.entity';
 
 @Entity({
   name: 'users',
@@ -51,6 +52,11 @@ export class UserEntity {
 
   // @OneToMany(() => DonationEntity, (donation) => donation.user)
   // donations: DonationEntity[];
+
+
+  @ManyToMany(() => ShelterEntity, (favorite) => favorite.user)
+  @JoinTable()
+  favorite: ShelterEntity[];
 
   @OneToMany(() => AdoptionEntity, (adoptions) => adoptions.user)
   adoptions: AdoptionEntity[];
