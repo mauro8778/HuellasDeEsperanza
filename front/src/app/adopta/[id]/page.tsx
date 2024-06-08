@@ -1,6 +1,6 @@
 import { MascotaDetail } from "@/components/MascotaDetail/MascotaDetail";
 import { IMascotas } from "@/interface/IMascotas";
-import { getProductById } from "@/utils/mascotas"; 
+import getProductById from "@/utils/getPruductById";
 
 const DetailAnimals = async ({ params }: { params: { id: string } }) => {
     const mascota = await getProductById(params.id);
