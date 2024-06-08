@@ -11,7 +11,7 @@ const CardRefuge: React.FC<{ refugio: IRefugios }> = ({ refugio }) => {
   const truncatedTitle = refugio.shelter_name ? truncateDescription(refugio.shelter_name, 25) : '';
   const truncatedDescription = refugio.description ? truncateDescription(refugio.description, 55) : '';
   return (
-    <div className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/4 bg-gray-400 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 mb-4 p-5">
+    <div className="w-full sm:w-1/2 md:w-1/3 xl:w-1/4 bg-gray-400 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 mb-4 p-5">
       <div className="h-64 relative overflow-hidden rounded-t-lg">
         <Image src={refugio.imgUrl} alt={refugio.name} layout="fill" objectFit="cover" />
       </div>

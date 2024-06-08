@@ -9,9 +9,7 @@ const RandomRefugiosCards: React.FC = () => {
     fetch("https://backpf-prueba.onrender.com/shelters")
       .then(response => response.json())
       .then(data => {
-        // Mezclar aleatoriamente los refugios
         const shuffled = data.sort(() => 0.5 - Math.random());
-        // Seleccionar los primeros tres refugios aleatorios
         const selected = shuffled.slice(0, 3);
         setRandomRefugios(selected);
       })
@@ -19,7 +17,7 @@ const RandomRefugiosCards: React.FC = () => {
   }, []);
 
   return (
-    <div className="grid grid-cols-1 gap-4 md:grid-cols-3 mt-5">
+    <div className="grid grid-cols-3 gap-2 mt-5">
       {randomRefugios.map((refugio, index) => (
         <CardRefuge key={index} refugio={refugio} />
       ))}

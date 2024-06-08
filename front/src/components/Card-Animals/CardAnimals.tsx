@@ -84,26 +84,24 @@ const CardAnimals: React.FC<{ mascota: IMascotas }> = ({ mascota }) => {
     <>
       <div className="bg-transparent rounded-lg shadow-2xl p-4 m-2 md:m-4 max-w-xs mx-auto transform transition-transform duration-200 hover:scale-105">
         <div className="absolute top-2 right-2">
-          <button onClick={handleEditClick}>
-          <svg 
-              className="h-8 w-8 text-white hover:text-black transition-colors duration-200" 
-              width="24"  
-              height="24"  
-              viewBox="0 0 24 24"  
-              xmlns="http://www.w3.org/2000/svg"  
-              fill="none"  
-              stroke="currentColor"  
-              strokeWidth="2"  
-              strokeLinecap="round"  
-              strokeLinejoin="round">
-              <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
-              <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
+          <button onClick={handleEditClick} className="group">
+            <svg 
+                className="h-8 w-8 text-rose-500 group-hover:text-green-500" 
+                viewBox="0 0 24 24"  
+                fill="none"  
+                stroke="currentColor"  
+                stroke-width="2"  
+                stroke-linecap="round"  
+                stroke-linejoin="round">  
+                <circle cx="12" cy="12" r="1" />  
+                <circle cx="19" cy="12" r="1" />  
+                <circle cx="5" cy="12" r="1" />
             </svg>
-
           </button>
+
         </div>
         <Link href={`/adopta/${mascota.id}`}>
-          <div className="flex justify-center">
+          <div className="flex justify-center mt-5">
             {mascota.imgUrl && (
               <Image
                 src={imgUrl!}
