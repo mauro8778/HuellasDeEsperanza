@@ -28,6 +28,13 @@ export class UpdatePetsDto{
     })
     age?: number
 
+    @IsOptional()
+    @IsNumber()
+    @ApiProperty({
+        example: "2"
+    })
+    month: string
+
 
     @IsOptional()
     @IsString()
@@ -35,5 +42,13 @@ export class UpdatePetsDto{
         example: "medium"
     })
     pet_size?: petSize.Big | petSize.Little | petSize.Medium
+    
+    @IsOptional()
+    @IsString()
+    @ApiProperty({
+        description: "Descripción del producto",
+        example: "..."
+    })
+    description?: string
 
 }
