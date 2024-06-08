@@ -39,3 +39,12 @@ export interface IRefugios {
     image: string
     description?: string
 }
+
+export interface JwtPayload {
+    sub: string;
+    name: string;
+    email: string;
+    nickname: string;
+    picture?: string;
+  }
+  

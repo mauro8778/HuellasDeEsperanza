@@ -6,29 +6,11 @@ import NavLinks from './nav_links';
 import { FaPowerOff } from 'react-icons/fa';
 import ImageLogo from '@/components/ui/imageLogo';
 import Image from 'next/image';
+import { decodeJwt } from '@/utils/decodeJwt';
+import { JwtPayload } from '@/types/index';
 
-interface JwtPayload {
-  sub: string;
-  name: string;
-  email: string;
-  nickname: string;
-  picture?: string;
-}
 
-// Función para decodificar un JWT manualmente
-function decodeJwt(token: string): any {
-  try {
-    const base64Url = token.split('.')[1];
-    const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-    const jsonPayload = decodeURIComponent(atob(base64).split('').map((c) => {
-      return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-    }).join(''));
-    return JSON.parse(jsonPayload);
-  } catch (error) {
-    console.error('Error decoding token:', error);
-    return null;
-  }
-}
+
 
 const SideNav: React.FC = () => {
   const [userData, setUserData] = useState<Partial<JwtPayload> | null>(null);
