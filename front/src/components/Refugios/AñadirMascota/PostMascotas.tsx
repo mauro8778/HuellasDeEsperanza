@@ -11,16 +11,16 @@ const FormularioMascota: React.FC<FormularioMascotaProps> = ({ onClose, onAddMas
   const [sexo, setSexo] = useState('');
   const [raza, setRaza] = useState('');
   const [edad, setEdad] = useState<number | null>(null);
-  const [mes, setMes] = useState<number | null>(null);
+  const [mes, setMes] = useState('');
   const [tamaño, setTamaño] = useState('');
   const [descripcion, setDescripcion] = useState('');
-  const [refugio, setRefugio] = useState('');
+  // const [refugio, setRefugio] = useState('');
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (nombre && sexo && raza && edad !== null && mes !== null && tamaño && refugio && selectedFile) {
+    if (nombre && sexo && raza && edad !== null && mes !== null && tamaño  && selectedFile) {
       try {
         const formData = new FormData();
         formData.append('file', selectedFile);
@@ -44,7 +44,7 @@ const FormularioMascota: React.FC<FormularioMascotaProps> = ({ onClose, onAddMas
           month: mes,
           pet_size: tamaño,
           description: descripcion,
-          shelter: refugio,
+          // shelter: refugio,
           imgUrl: imageUrl, 
         };
 
@@ -93,7 +93,7 @@ const FormularioMascota: React.FC<FormularioMascotaProps> = ({ onClose, onAddMas
         />
       </div>
 
-      <div className="mb-4">
+      {/* <div className="mb-4">
         <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="refugio">
           Refugio de la Mascota
         </label>
@@ -104,12 +104,12 @@ const FormularioMascota: React.FC<FormularioMascotaProps> = ({ onClose, onAddMas
           onChange={(e) => setRefugio(e.target.value)}
           className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
         />
-      </div>
+      </div> */}
 
       <div className="flex mb-4">
         <div className="">
           <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="edad">
-            Edad de la Mascota (Años)
+            Edad de la Mascota 
           </label>
           <input
             id="edadAños"
@@ -117,22 +117,20 @@ const FormularioMascota: React.FC<FormularioMascotaProps> = ({ onClose, onAddMas
             value={edad !== null ? edad : ''}
             onChange={(e) => setEdad(e.target.value ? parseInt(e.target.value) : null)}
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            placeholder="Años"
+            placeholder="Edad"
           />
         </div>
-        <div className="">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="mes">
-            Edad de la Mascota (Meses)
-          </label>
-          <input
-            id="edadMeses"
-            type="number"
-            value={mes !== null ? mes : ''}
-            onChange={(e) => setMes(e.target.value ? parseInt(e.target.value) : null)}
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            placeholder="Meses"
-          />
-        </div>
+        <select 
+  id="edadMeses"
+  value={mes}
+  onChange={(e) => setMes(e.target.value)}
+  className="mt-7 ml-2 shadow appearance-none border rounded text-sm py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+>
+  <option value="">Meses o Años?</option>
+  <option value="Macho">Meses</option>
+  <option value="Hembra">Años</option>
+</select>
+
       </div>
 
       <div className="mb-4">
@@ -207,7 +205,7 @@ const FormularioMascota: React.FC<FormularioMascotaProps> = ({ onClose, onAddMas
           className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
         />
       </div>
-      <button type="submit" className="text-white bg-gradient-to-br from-pink-500 to-orange-400 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">
+      <button type="submit" className="text-white bg-green-700 from-green-500 to-orange-400 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">
         Enviar
       </button>
     </form>
