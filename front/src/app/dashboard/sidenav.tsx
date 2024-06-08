@@ -1,4 +1,5 @@
 'use client';
+
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import NavLinks from './nav_links';
@@ -6,30 +7,56 @@ import { FaPowerOff } from 'react-icons/fa';
 import ImageLogo from '@/components/ui/imageLogo';
 import Image from 'next/image';
 
+interface JwtPayload {
+  sub: string;
+  name: string;
+  email: string;
+  nickname: string;
+  picture?: string;
+}
+
+// Función para decodificar un JWT manualmente
+function decodeJwt(token: string): any {
+  try {
+    const base64Url = token.split('.')[1];
+    const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    const jsonPayload = decodeURIComponent(atob(base64).split('').map((c) => {
+      return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join(''));
+    return JSON.parse(jsonPayload);
+  } catch (error) {
+    console.error('Error decoding token:', error);
+    return null;
+  }
+}
+
 const SideNav: React.FC = () => {
-  const [userData, setUserData] = useState<any>(null);
+  const [userData, setUserData] = useState<Partial<JwtPayload> | null>(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isGoogleAuthenticated, setIsGoogleAuthenticated] = useState(false);
 
   useEffect(() => {
-    const userSession = localStorage.getItem('userSession');
-    if (userSession) {
-      try {
-        const { user } = JSON.parse(userSession);
-        if (user) {
-          setUserData(user);
+    const session = localStorage.getItem('userSession');
+    if (session) {
+      const { id_token } = JSON.parse(session);
+      if (id_token) {
+        const decodedToken = decodeJwt(id_token);
+        if (decodedToken) {
+          setUserData({
+            name: decodedToken.name,
+            nickname: decodedToken.nickname,
+            picture: decodedToken.picture,
+            email: decodedToken.email,
+          });
           setIsLoggedIn(true);
-          setIsGoogleAuthenticated(user.provider === 'google');
+          setIsGoogleAuthenticated(true);
         }
-      } catch (error) {
-        console.error('Error parsing user session:', error);
       }
     } else {
       setIsLoggedIn(false);
       setIsGoogleAuthenticated(false);
     }
   }, []);
-  
 
   const handleSignOut = () => {
     localStorage.removeItem('userSession');
@@ -50,20 +77,19 @@ const SideNav: React.FC = () => {
           <>
             <div className="flex items-center justify-center mb-4">
               <Image
-                className="rounded-full w-1/3 h-auto"
+                className="rounded-full w-24 h-24"
                 alt="Avatar de usuario"
-                src={isGoogleAuthenticated   && userData?.googleProfileImageUrl ? userData.googleProfileImageUrl : `/avatar-placeholder.png`}
-                width={100} 
-                height={100} 
+                src={userData?.picture || '/avatar.webp'}
+                width={100}
+                height={100}
               />
             </div>
-            <div>
+            <div className="flex flex-col h-[100px] grow items-center justify-center gap-2 rounded-md bg-gray-200 p-3 text-sm font-medium hover:bg-pink-200 hover:text-pink-600 md:flex-none md:justify-start md:p-2 md:px-3">
               {userData && (
                 <>
-                  {userData.name && <p className="text-black"><strong>Nombre:</strong> {userData.name}</p>}
-                  {userData.email && <p className="text-black"><strong>Email:</strong> {userData.email}</p>}
-                  {userData.phone && <p className="text-black"><strong>Teléfono:</strong> {userData.phone}</p>}
-                  {isGoogleAuthenticated && userData.googleUsername && <p className="text-black"><strong>Usuario de Google:</strong> {userData.googleUsername}</p>}
+                  {userData.nickname && <p className="text-black"> {userData.nickname}</p>}
+                  {userData.name && <p className="text-black"> {userData.name}</p>}
+                  {/* {userData.email && <p className="text-black"> {userData.email}</p>} */}
                 </>
               )}
             </div>
@@ -72,7 +98,7 @@ const SideNav: React.FC = () => {
           <div className="flex flex-col h-[100px] grow items-center justify-center gap-2 rounded-md bg-gray-200 p-3 text-sm font-medium hover:bg-pink-200 hover:text-pink-600 md:flex-none md:justify-start md:p-2 md:px-3">
             <p className="text-black"><strong>Nombre:</strong></p>
             <p className="text-black"><strong>Email:</strong></p>
-            <p className="text-black"><strong>Usuario de Google:</strong></p>
+            {/* <p className="text-black"><strong>Usuario:</strong></p> */}
           </div>
         )}
       </div>
@@ -81,14 +107,14 @@ const SideNav: React.FC = () => {
         <div className="hidden h-auto w-full grow rounded-md bg-gray-200 md:block"></div>
         <form className="w-full">
           <Link href={'/Home'}>
-          <button
-            type="button"
-            onClick={handleSignOut}
-            className="flex h-[48px] w-full items-center justify-center gap-2 rounded-md bg-gray-200 p-3 text-sm font-medium hover:bg-pink-200 hover:text-pink-600 md:flex-none md:justify-start md:p-2 md:px-3"
-          >
-            <FaPowerOff className="w-6" />
-            <div className="hidden md:block">Sign Out</div>
-          </button>
+            <button
+              type="button"
+              onClick={handleSignOut}
+              className="flex h-[48px] w-full items-center justify-center gap-2 rounded-md bg-gray-200 p-3 text-sm font-medium hover:bg-pink-200 hover:text-pink-600 md:flex-none md:justify-start md:p-2 md:px-3"
+            >
+              <FaPowerOff className="w-6" />
+              <div className="hidden md:block">Sign Out</div>
+            </button>
           </Link>
         </form>
       </div>

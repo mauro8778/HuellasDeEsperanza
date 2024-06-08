@@ -66,6 +66,7 @@ const Form_Login: React.FC = () => {
     try {
       const response = await fetch("https://backpf-prueba.onrender.com/auth/login", {
         method: "POST",
+        //  credentials: 'include',
         headers: {
           "Content-Type": "application/json"
         },
@@ -77,10 +78,14 @@ const Form_Login: React.FC = () => {
       }
 
       const data = await response.json();
+
       console.log('Datos de la respuesta:', data); 
-      const { access_token, id_token } = data;
+
+      const { access_token, id_token } = data; //access_token, id_token
+
       localStorage.setItem("userSession", JSON.stringify({ access_token, id_token }));
-      console.log('Datos de la sesión del usuario almacenados en localStorage:', { access_token, id_token }); 
+      
+      console.log('Datos de la sesión del usuario almacenados en localStorage:', {  access_token, id_token }); 
 
       Swal.fire({
         title: "¡Inicio de sesión exitoso!",

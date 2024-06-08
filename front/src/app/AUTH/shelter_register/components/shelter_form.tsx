@@ -13,8 +13,10 @@ interface FormData {
   dni: number | '';
   phone: number | '';
   shelter_name: string;
-  locality: string;
+  // locality: string;
   description: string;
+  location: string;
+  zona: string;
 }
 
 interface Validations {
@@ -25,8 +27,10 @@ interface Validations {
   dniValid: boolean | null;
   phoneValid: boolean | null;
   shelterNameValid: boolean | null;
-  localityValid: boolean | null;
+  // localityValid: boolean | null;
   descriptionValid: boolean | null;
+  locationValid: boolean | null;
+  zonaValid: boolean | null;
 }
 
 const ShelterForm: React.FC = () => {
@@ -38,8 +42,10 @@ const ShelterForm: React.FC = () => {
     dni: '',
     phone: '',
     shelter_name: '',
-    locality: '',
+    // locality: '',
     description: '',
+    location: '',
+    zona: ''
   });
 
   const [validations, setValidations] = useState<Validations>({
@@ -50,8 +56,10 @@ const ShelterForm: React.FC = () => {
     dniValid: null,
     phoneValid: null,
     shelterNameValid: null,
-    localityValid: null,
+    // localityValid: null,
     descriptionValid: null,
+    locationValid: null,
+    zonaValid: null
   });
 
   const [error, setError] = useState<string | null>(null);
@@ -80,14 +88,9 @@ const ShelterForm: React.FC = () => {
   };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-
-    
     const { name, value } = e.target;
-    
-    const numericValue = name === 'dni' || name === 'phone' ? parseInt(value) : value;
-    
-    setFormData({ ...formData, [name]:  numericValue });
-    console.log('formData', formData);
+
+    setFormData({ ...formData, [name]: name === 'dni' || name === 'phone' ? Number(value) : value });
 
     switch (name) {
       case 'email':
@@ -95,11 +98,8 @@ const ShelterForm: React.FC = () => {
         break;
       case 'password':
         const passwordValidation = validatePassword(value);
-        
-      
-
-        setValidations({ 
-          ...validations, 
+        setValidations({
+          ...validations,
           passwordValid: value ? passwordValidation.valid : null,
           passwordStrength: value ? passwordValidation.strength : ''
         });
@@ -107,8 +107,10 @@ const ShelterForm: React.FC = () => {
       case 'dni':
       case 'phone':
       case 'shelter_name':
-      case 'locality':
+      // case 'locality':
       case 'description':
+      case 'location':
+      case 'zona':
         setValidations({ ...validations, [`${name}Valid`]: value ? value.length > 0 : null });
         break;
       default:
@@ -120,37 +122,33 @@ const ShelterForm: React.FC = () => {
     event.preventDefault();
     setError(null);
 
-    console.log('Form Data:', formData);
- 
-
     const someInvalid = Object.values(validations).some(valid => valid === false);
-    console.log('q me traes vos?:', someInvalid);
 
     if (!someInvalid) {
       try {
         const formDataToSend = {
-          
           ...formData,
-          dni: formData.dni,
-          phone: formData.phone
+          dni: formData.dni === '' ? null : formData.dni,
+          phone: formData.phone === '' ? null : formData.phone
         };
-        
-        
-        
+
+        console.log('Form Data to Send:', formDataToSend);
+
         const response = await fetch('https://backpf-prueba.onrender.com/auth/register/shelter', {
           method: 'POST',
+          //  credentials: 'include',
           headers: {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify(formDataToSend),
         });
-        
-        console.log('Respuesta:', response);
 
         if (response.ok) {
           router.push('/AUTH/login');
         } else {
-          setError('Error en el registro. Por favor, inténtalo de nuevo.');
+          const errorData = await response.json();
+          console.error('Error en la respuesta:', errorData);
+          setError(`Error en el registro: ${errorData.message || 'Error desconocido'}`);
         }
       } catch (error) {
         console.error('Error en el registro:', error);
@@ -160,7 +158,6 @@ const ShelterForm: React.FC = () => {
       setError('Por favor, completa todos los campos correctamente.');
     }
   };
-
 
   return (
     <div className="w-full max-w-md">
@@ -180,12 +177,14 @@ const ShelterForm: React.FC = () => {
             { name: 'dni', placeholder: 'DNI', validation: validations.dniValid, errorMessage: 'El DNI no puede estar vacío.' },
             { name: 'phone', placeholder: 'Teléfono', validation: validations.phoneValid, errorMessage: 'El teléfono no puede estar vacío.' },
             { name: 'shelter_name', placeholder: 'Nombre del Refugio', validation: validations.shelterNameValid, errorMessage: 'El nombre del refugio no puede estar vacío.' },
-            { name: 'locality', placeholder: 'Localidad', validation: validations.localityValid, errorMessage: 'La localidad no puede estar vacía.' },
+            // { name: 'locality', placeholder: 'Localidad', validation: validations.localityValid, errorMessage: 'La localidad no puede estar vacía.' },
             { name: 'description', placeholder: 'Descripción', validation: validations.descriptionValid, errorMessage: 'La descripción no puede estar vacía.' },
+            { name: 'location', placeholder: 'Ubicación', validation: validations.locationValid, errorMessage: 'La ubicación no puede estar vacía.' },
+            { name: 'zona', placeholder: 'Zona', validation: validations.zonaValid, errorMessage: 'La zona no puede estar vacía.' }
           ].map(({ name, placeholder, validation, errorMessage, isPassword = false }) => (
             <div key={name} className="relative">
               <Input
-                type={isPassword ? 'password' : 'text'}
+                type={isPassword ? 'password' : name === 'dni' || name === 'phone' ? 'number' : 'text'}
                 name={name}
                 placeholder={placeholder}
                 value={formData[name as keyof typeof formData]}
@@ -219,4 +218,4 @@ const ShelterForm: React.FC = () => {
   );
 };
 
-export default ShelterForm;
+export default ShelterForm

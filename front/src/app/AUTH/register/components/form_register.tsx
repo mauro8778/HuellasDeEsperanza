@@ -7,7 +7,6 @@ import Input from '@/components/ui/input';
 
 const Form_Register: React.FC = () => {
   const router = useRouter();
-  const [phone, setPhone] = useState<string>('');
 
   const [formData, setFormData] = useState({
     name: '',
@@ -22,10 +21,10 @@ const Form_Register: React.FC = () => {
 
   const [formValidations, setFormValidations] = useState({
     nameValid: null,
-    lastNameValid: null,
+    last_nameValid: null,
     emailValid: null,
+    confirm_passwordValid: null,
     passwordValid: null,
-    confirmPasswordValid: null,
     birthdateValid: null,
     phoneValid: null,
     locationValid: null
@@ -39,7 +38,7 @@ const Form_Register: React.FC = () => {
     email: (value: string) => /\S+@\S+\.\S+/.test(value),
     password: (value: string) => value.length >= 6,
     confirm_password: (value: string) => value === formData.password,
-    birthdate: (value: string) => !isNaN(Date.parse(value)),
+    birthdate: (value: string) => value.length > 0,
     phone: (value: string) => /^\d{10}$/.test(value),
     location: (value: string) => value.trim().length > 2
   };
@@ -48,7 +47,7 @@ const Form_Register: React.FC = () => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
 
-    const validationKey = name === 'last_name' ? 'lastName' : name === 'confirm_password' ? 'confirmPassword' : name;
+    const validationKey = name;
     setFormValidations(prev => ({
       ...prev,
       [`${validationKey}Valid`]: value === '' ? null : validateFields[name as keyof typeof validateFields](value)
@@ -128,22 +127,22 @@ const Form_Register: React.FC = () => {
               value={formData[field as keyof typeof formData]}
               onChange={handleChange}
               className={`border-2 ${
-                formValidations[`${field === 'last_name' ? 'lastName' : field === 'confirm_password' ? 'confirmPassword' : field}Valid` as keyof typeof formValidations] === null
+                formValidations[`${field}Valid` as keyof typeof formValidations] === null
                   ? 'border-gray-300'
-                  : formValidations[`${field === 'last_name' ? 'lastName' : field === 'confirm_password' ? 'confirmPassword' : field}Valid` as keyof typeof formValidations]
+                  : formValidations[`${field}Valid` as keyof typeof formValidations]
                   ? 'border-green-500'
                   : 'border-red-500'
               }`}
             />
-            {formValidations[`${field === 'last_name' ? 'lastName' : field === 'confirm_password' ? 'confirmPassword' : field}Valid` as keyof typeof formValidations] === false && (
+            {formValidations[`${field}Valid` as keyof typeof formValidations] === false && (
               <p className="text-red-500 text-xs">
                 {field === 'name' ? 'El nombre no puede estar vacío.' : ''}
                 {field === 'last_name' ? 'El apellido no puede estar vacío.' : ''}
                 {field === 'email' ? 'Ingrese un correo electrónico válido.' : ''}
                 {field === 'password' ? 'La contraseña debe tener al menos 6 caracteres.' : ''}
-                {field === 'confirm_password' ? 'Las contraseñas no coinciden.' : ''}
-                {field === 'birthdate' ? 'Ingrese una fecha de nacimiento válida.' : ''}
-                {field === 'phone' ? 'Ingrese un número de teléfono válido.' : ''}
+                {field === 'confirm_password' ? 'La contraseña no coincide.' : ''}
+                {field === 'birthdate' ? 'Ingrese una fecha de nacimiento.' : ''}
+                {field === 'phone' ? 'Ingrese un número de teléfono válido (10 dígitos).' : ''}
                 {field === 'location' ? 'Ingrese una ubicación.' : ''}
               </p>
             )}
