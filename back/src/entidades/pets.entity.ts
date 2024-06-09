@@ -100,4 +100,7 @@ export class PetsEntity {
     @ManyToMany(() => UserEntity, (user) => user.favorite_pets)
     user: UserEntity[];
 
+    @ManyToMany(() => UserEntity, (user) => user.pets)
+    users: UserEntity[];
+
 }

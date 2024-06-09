@@ -120,41 +120,28 @@ export class AdoptionRepository {
             const shelter = adoption.shelter;
             const user = adoption.user;
     
-            console.log('Adopción:', adoption);
-            if (user && pet) {
-                if (!user.pet) {
-                    user.pet = [];
-                }
-                user.pet.push(pet);
-                await this.usersRepository.save(user);
+            if (shelter && shelter.pets) {
+                shelter.pets = shelter.pets.filter(p => p.id !== pet.id);
+                await this.sheltersRepository.save(shelter);
             }
-            if (shelter && pet) {
-                const shelterRepo = await this.sheltersRepository.findOne({ where: { id: shelter.id } });
-                if (shelterRepo) {
-                    shelterRepo.pets = shelterRepo.pets.filter(p => p.id !== pet.id);
-                    await this.sheltersRepository.save(shelterRepo);
-                }
-
-                console.log('Refugio actualizado:', shelterRepo);
-            }
-    
             
     
-          
+            if (user && user.pets) {
+                if (!user.pets) {
+                    user.pets = [];
+                }
+                user.pets.push(pet);
+                await this.usersRepository.save(user);
+                console.log(user);
+            }
     
-            console.log('Usuario actualizado:', user);
-        }
+            await this.adoptionrepository.save(adoption);
     
-        await this.mailservice.confirmPostulacion(adoption.user.email,adoption.user.name,adoption.pet.name)
-        return await this.adoptionrepository.find({
-            where: { id: adoption.id },
-            relations: {
-                user: true,
-                shelter: true,
-                pet: true,
-            },
-        });
-    }
+            return await this.usersRepository.findOne({ where: { id: user.id }, relations: ['pets'] });
+    
+        
+    }}
+    
     
     
     
