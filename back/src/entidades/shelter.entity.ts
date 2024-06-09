@@ -81,14 +81,12 @@ export class ShelterEntity {
   isActive: boolean;
 
   @Column({
+    nullable: true,
     type: "decimal"
   })
   rate: number;
 
-  // @Column({
-  //   nullable: true,
-  // })
-  // donations: number;
+
 
 
   @ManyToMany(() => UserEntity, (user) => user.favorite_shelters)

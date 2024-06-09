@@ -57,9 +57,6 @@ export class UserEntity {
   })
   isActive: boolean;
 
-  // @OneToMany(() => DonationEntity, (donation) => donation.user)
-  // donations: DonationEntity[];
-
 
   @ManyToMany(() => ShelterEntity, (favorite_shelters) => favorite_shelters.user)
   @JoinTable()

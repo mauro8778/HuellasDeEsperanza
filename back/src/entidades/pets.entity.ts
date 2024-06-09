@@ -105,6 +105,7 @@ export class PetsEntity {
     users: UserEntity[];
 
     @OneToMany(() => AdoptionEntity, adoption => adoption.pet)
-  adoptions: AdoptionEntity[];
+  
+    adoptions: AdoptionEntity[];
 
 }
