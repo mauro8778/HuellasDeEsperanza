@@ -30,7 +30,6 @@ export class AdoptionEntity{
     @ManyToOne(() => ShelterEntity, (shelter) => shelter.adoptions)
     shelter: ShelterEntity
     
-    @OneToOne(() => PetsEntity)
-    @JoinColumn({name: "petId"})
+    @OneToOne(() => PetsEntity, pet => pet.adoptions)
     pet: PetsEntity
 }
