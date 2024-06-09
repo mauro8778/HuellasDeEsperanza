@@ -141,8 +141,10 @@ export class AdoptionRepository {
         if (!user) {
             throw new NotFoundException("refugio no encontrado")
         }
+        console.log(1);
 
-        const newUser = await this.usersRepository.findOne({where:{id: user.id}, relations:{pets: true}})
+        const newUser = await this.usersRepository.findOne({where:{id: user.id}, relations: {pets:true}})
+        console.log(1);
 
         console.log(newUser);
         
@@ -152,15 +154,18 @@ export class AdoptionRepository {
 
         await this.usersRepository.save(newUser)
 
+    console.log(1);
     
             await this.adoptionrepository.update(adoption.id, { isActive: true });
 
+            console.log(1);
 
             
             await this.adoptionrepository.save(adoption);
 
             
-    
+            console.log(1);
+
             return await this.usersRepository.findOne({ where: { id: user.id }, relations: {pets: true} });
       
     

@@ -73,7 +73,7 @@ export class UserEntity {
   @JoinColumn({ name: "order_id" })
   orders: OrdersEntity[]
 
-  @ManyToMany(() => PetsEntity, pets => pets.user)
+  @ManyToMany(() => PetsEntity, pets => pets.users)
   @JoinColumn()
-    pets: PetsEntity[];
+  pets: PetsEntity[];
 }
