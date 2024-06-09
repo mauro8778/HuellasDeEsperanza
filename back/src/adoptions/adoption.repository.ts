@@ -106,7 +106,7 @@ export class AdoptionRepository {
     async activateAdoption(adoptionId: string) {
         const adoption = await this.adoptionrepository.findOne({
             where: { id: adoptionId },
-            relations: ['user', 'shelter', 'pet'],
+            relations: ['user', 'shelter', 'pets'],
         });
     
         if (!adoption) {
