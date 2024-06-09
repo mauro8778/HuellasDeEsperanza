@@ -22,7 +22,12 @@ export class SerchService {
     };
 
 
-    searchGeneral(exotic_animals?, location?, shelter_name?, breed?, pet_size?, age?) {
-        return this.searchRepository.searchGeneral(exotic_animals, location, shelter_name, breed, pet_size, age);
+    searchGeneral1(exotic_animals?, location?, shelter_name?, breed?, pet_size?, age?) {
+        return this.searchRepository.searchGeneral1(exotic_animals, location, shelter_name, breed, pet_size, age);
     };
+
+    searchGeneral(query: string) {
+        return this.searchRepository.searchGeneral(query);
+
+    }
 }

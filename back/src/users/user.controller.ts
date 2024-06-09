@@ -41,7 +41,7 @@ export class UserController {
     }
 
 
-    @Post('favorite/:id')
+    @Post('shelter/favorite/:id')
     @ApiQuery({ name: 'userId', required: true }) 
     addShelterFavorite(
         @Param('id',ParseUUIDPipe) shelterId, @Query("userId") userId: string){
@@ -49,5 +49,35 @@ export class UserController {
         // const userId = request.user['https://huellasdesperanza.com/userID'];}
 
         return this.usersService.addShelterFavorite(shelterId, userId)
+    }
+
+    @Post('pet/favorite/:id')
+    @ApiQuery({ name: 'userId', required: true }) 
+    addPetFavorite(
+        @Param('id',ParseUUIDPipe) pet, @Query("userId") userId: string){
+
+        // const userId = request.user['https://huellasdesperanza.com/userID'];}
+
+        return this.usersService.addPetFavorite(pet, userId)
+    }
+
+    @Put('pet/favorite/:id')
+    @ApiQuery({ name: 'userId', required: true }) 
+    PutPetFavorite(
+        @Param('id',ParseUUIDPipe) pet, @Query("userId") userId: string){
+
+        // const userId = request.user['https://huellasdesperanza.com/userID'];}
+
+        return this.usersService.PutPetFavorite(pet, userId)
+    }
+
+    @Put('shelter/favorite/:id')
+    @ApiQuery({ name: 'userId', required: true }) 
+    PutShelterFavorite(
+        @Param('id',ParseUUIDPipe) shelterId, @Query("userId") userId: string){
+
+        // const userId = request.user['https://huellasdesperanza.com/userID'];}
+
+        return this.usersService.PutShelterFavorite(shelterId, userId)
     }
 }

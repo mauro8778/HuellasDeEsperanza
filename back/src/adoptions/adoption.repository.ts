@@ -28,11 +28,12 @@ export class AdoptionRepository {
         const adoptions: AdoptionEntity[] = await this.adoptionrepository.find({
             relations:{
                 user: true,
-                pet: true
+                pet: true,
+                shelter: true
             }
         });
         
-        if (!adoptions) {
+        if (adoptions.length == 0) {
             throw new NotFoundException('No existen adopciones');
         };
 
@@ -100,11 +101,11 @@ export class AdoptionRepository {
         return `La adopción fue eliminada`;
     }
 
-    async AdoptionUser( userid :string){
-        const user: UserEntity = await this.usersRepository.findOne({
+    async AdoptionUser(userid :string){
+        const user: AdoptionEntity = await this.adoptionrepository.findOne({
             where:{id: userid},
             relations:{
-                adoptions: true
+                user: true,
             }
         });
     
@@ -112,10 +113,10 @@ export class AdoptionRepository {
     }
 
     async AdoptionShelter(shelterid : string){
-        const shelter: ShelterEntity = await this.sheltersRepository.findOne({
+        const shelter: AdoptionEntity = await this.adoptionrepository.findOne({
             where:{id: shelterid},
             relations:{
-                adoptions: true
+                shelter: true
             }
         });
     

@@ -80,13 +80,18 @@ export class ShelterEntity {
   })
   isActive: boolean;
 
+  @Column({
+    type: "decimal"
+  })
+  rate: number;
+
   // @Column({
   //   nullable: true,
   // })
   // donations: number;
 
 
-  @ManyToMany(() => UserEntity, (user) => user.favorite)
+  @ManyToMany(() => UserEntity, (user) => user.favorite_shelters)
   user: UserEntity[];
 
   @ManyToMany(() => AdoptionEntity, (adoptions) => adoptions.shelter)
