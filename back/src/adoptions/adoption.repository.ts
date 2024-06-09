@@ -106,7 +106,7 @@ export class AdoptionRepository {
     async activateAdoption(adoptionId: string) {
         const adoption = await this.adoptionrepository.findOne({
             where: { id: adoptionId },
-            relations: ['user', 'shelter', 'pets'],
+            relations: ['user', 'shelter', 'pet'],
         });
     
         if (!adoption) {
@@ -124,23 +124,20 @@ export class AdoptionRepository {
                 shelter.pets = shelter.pets.filter(p => p.id !== pet.id);
                 await this.sheltersRepository.save(shelter);
             }
-            
     
-            if (user && user.pets) {
-                if (!user.pets) {
-                    user.pets = [];
-                }
-                user.pets.push(pet);
-                await this.usersRepository.save(user);
-                console.log(user);
+            if (!user.pets) {
+                user.pets = [];
             }
+            user.pets.push(pet);
+            await this.usersRepository.save(user);
     
             await this.adoptionrepository.save(adoption);
     
             return await this.usersRepository.findOne({ where: { id: user.id }, relations: ['pets'] });
-    
-        
-    }}
+        } else {
+            return null;
+        }
+    }
     
     
     

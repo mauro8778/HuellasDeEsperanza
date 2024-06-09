@@ -1,7 +1,8 @@
-import { Column, Entity, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { v4 as uuid } from "uuid"
 import { ShelterEntity } from "./shelter.entity";
 import { UserEntity } from "./user.entity";
+import { AdoptionEntity } from "./adoption.entity";
 
 
 @Entity({
@@ -102,5 +103,8 @@ export class PetsEntity {
 
     @ManyToMany(() => UserEntity, (user) => user.pets)
     users: UserEntity[];
+
+    @OneToMany(() => AdoptionEntity, adoption => adoption.pet)
+  adoptions: AdoptionEntity[];
 
 }
