@@ -5,6 +5,7 @@ import { useState, FormEvent, ChangeEvent } from 'react';
 import { useRouter } from 'next/navigation';
 import Button from '@/components/ui/button';
 import Input from '@/components/ui/input';
+import Swal from 'sweetalert2';
 
 interface FormData {
   name: string;
@@ -87,6 +88,11 @@ const ShelterForm: React.FC = () => {
     };
   };
 
+  const validatePhone = (phone: string) => {
+    const re = /^\d{10}$/;
+    return re.test(phone);
+  };
+
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
@@ -104,8 +110,10 @@ const ShelterForm: React.FC = () => {
           passwordStrength: value ? passwordValidation.strength : ''
         });
         break;
-      case 'dni':
       case 'phone':
+        setValidations({ ...validations, phoneValid: value ? validatePhone(value) : null });
+        break;
+      case 'dni':
       case 'shelter_name':
       // case 'locality':
       case 'description':
@@ -144,11 +152,28 @@ const ShelterForm: React.FC = () => {
         });
 
         if (response.ok) {
-          router.push('/AUTH/login');
+          Swal.fire({
+            title: "¡Registro exitoso!",
+            text: "Te has registrado correctamente.",
+            icon: "success",
+            confirmButtonText: "Aceptar",
+            timer: 2500
+          }).then(() => {
+            router.push('/AUTH/login');
+          });
+          
         } else {
           const errorData = await response.json();
           console.error('Error en la respuesta:', errorData);
           setError(`Error en el registro: ${errorData.message || 'Error desconocido'}`);
+          Swal.fire({
+            title: "¡Algo salio mal!",
+            text: "Tu refugio no pudo ser registrado. Por favor, inténtalo de nuevo.",
+            icon: "error",
+            confirmButtonText: "Aceptar",
+            timer: 3000,
+            
+          });
         }
       } catch (error) {
         console.error('Error en el registro:', error);
@@ -175,7 +200,7 @@ const ShelterForm: React.FC = () => {
             { name: 'email', placeholder: 'Email', validation: validations.emailValid, errorMessage: 'Ingrese un correo electrónico válido.' },
             { name: 'password', placeholder: 'Contraseña', validation: validations.passwordValid, errorMessage: 'La contraseña debe tener al menos 8 caracteres.', isPassword: true },
             { name: 'dni', placeholder: 'DNI', validation: validations.dniValid, errorMessage: 'El DNI no puede estar vacío.' },
-            { name: 'phone', placeholder: 'Teléfono', validation: validations.phoneValid, errorMessage: 'El teléfono no puede estar vacío.' },
+            { name: 'phone', placeholder: 'Teléfono', validation: validations.phoneValid, errorMessage: 'El teléfono debe tener 10 dígitos.' },
             { name: 'shelter_name', placeholder: 'Nombre del Refugio', validation: validations.shelterNameValid, errorMessage: 'El nombre del refugio no puede estar vacío.' },
             // { name: 'locality', placeholder: 'Localidad', validation: validations.localityValid, errorMessage: 'La localidad no puede estar vacía.' },
             { name: 'description', placeholder: 'Descripción', validation: validations.descriptionValid, errorMessage: 'La descripción no puede estar vacía.' },
@@ -218,4 +243,4 @@ const ShelterForm: React.FC = () => {
   );
 };
 
-export default ShelterForm
+export default ShelterForm;

@@ -10,7 +10,7 @@ const Logo: React.FC = () => {
       <div className={`${saira.className}  fixed   flex  items-center justify-center text-white text-center text-lg md:text-2xl lg:text-lg mt-36 mb-4`}>
         <h1>
           <span>
-            Huellas de Esperanza
+            {/* Huellas de Esperanza */}
           </span>
         </h1>
       </div>
