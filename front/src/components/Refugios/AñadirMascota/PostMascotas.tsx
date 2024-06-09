@@ -11,16 +11,23 @@ const FormularioMascota: React.FC<FormularioMascotaProps> = ({ onClose, onAddMas
   const [sexo, setSexo] = useState('');
   const [raza, setRaza] = useState('');
   const [edad, setEdad] = useState<number | null>(null);
-  const [mes, setMes] = useState('');
+  const [mes, setMes] = useState<number | null>(null);
   const [tamaño, setTamaño] = useState('');
   const [descripcion, setDescripcion] = useState('');
-  // const [refugio, setRefugio] = useState('');
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (nombre && sexo && raza && edad !== null && mes !== null && tamaño  && selectedFile) {
+    const userSessionString = localStorage.getItem('userSession');
+    if (!userSessionString) {
+      alert('No hay una sesión de usuario activa.');
+      return;
+    }
+    const userSession = JSON.parse(userSessionString);
+    const token = userSession.access_token;
+
+    if (nombre && sexo && raza && edad !== null  && tamaño && selectedFile) {
       try {
         const formData = new FormData();
         formData.append('file', selectedFile);
@@ -44,7 +51,6 @@ const FormularioMascota: React.FC<FormularioMascotaProps> = ({ onClose, onAddMas
           month: mes,
           pet_size: tamaño,
           description: descripcion,
-          // shelter: refugio,
           imgUrl: imageUrl, 
         };
 
@@ -52,6 +58,7 @@ const FormularioMascota: React.FC<FormularioMascotaProps> = ({ onClose, onAddMas
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
           },
           body: JSON.stringify(nuevaMascota),
         });
@@ -64,7 +71,6 @@ const FormularioMascota: React.FC<FormularioMascotaProps> = ({ onClose, onAddMas
         alert('Mascota agregada correctamente');
         onClose();
       } catch (error) {
-        // console.error('Error:', error.message || error);
         alert('Ocurrió un error al agregar la mascota. Por favor, intente nuevamente.');
       }
     } else {
@@ -77,7 +83,6 @@ const FormularioMascota: React.FC<FormularioMascotaProps> = ({ onClose, onAddMas
       setSelectedFile(event.target.files[0]);
     }
   };
-
   return (
     <form onSubmit={handleSubmit} className="mt-4" encType="multipart/form-data">
       <div className="mb-4">
@@ -93,19 +98,6 @@ const FormularioMascota: React.FC<FormularioMascotaProps> = ({ onClose, onAddMas
         />
       </div>
 
-      {/* <div className="mb-4">
-        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="refugio">
-          Refugio de la Mascota
-        </label>
-        <input
-          id="refugio"
-          type="text"
-          value={refugio}
-          onChange={(e) => setRefugio(e.target.value)}
-          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-        />
-      </div> */}
-
       <div className="flex mb-4">
         <div className="">
           <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="edad">
@@ -120,17 +112,19 @@ const FormularioMascota: React.FC<FormularioMascotaProps> = ({ onClose, onAddMas
             placeholder="Edad"
           />
         </div>
-        <select 
-  id="edadMeses"
-  value={mes}
-  onChange={(e) => setMes(e.target.value)}
-  className="mt-7 ml-2 shadow appearance-none border rounded text-sm py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
->
-  <option value="">Meses o Años?</option>
-  <option value="Macho">Meses</option>
-  <option value="Hembra">Años</option>
-</select>
-
+        <div className="">
+          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="mes">
+            mes de la Mascota 
+          </label>
+          <input
+            id="edadMeses"
+            type="number"
+            value={mes !== null ? mes : ''}
+            onChange={(e) => setMes(e.target.value ? parseInt(e.target.value) : null)}
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            placeholder="Mes"
+          />
+        </div>
       </div>
 
       <div className="mb-4">
@@ -193,6 +187,7 @@ const FormularioMascota: React.FC<FormularioMascotaProps> = ({ onClose, onAddMas
           <option value="Gato">Gato</option>
         </select>
       </div>
+
       <div className="mb-4">
         <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="imagen">
           Imagen de la Mascota
@@ -213,3 +208,4 @@ const FormularioMascota: React.FC<FormularioMascotaProps> = ({ onClose, onAddMas
 };
 
 export default FormularioMascota;
+
