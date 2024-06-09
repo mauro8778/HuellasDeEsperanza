@@ -30,7 +30,7 @@ export class UserController {
         return this.usersService.updatedProfile(id, user)
     }
 
-    @Post(':id')
+    @Post('delete/:id')
     deleteUser(@Param('id', ParseUUIDPipe) id : string) {
         return this.usersService.deleteUser(id)
     }

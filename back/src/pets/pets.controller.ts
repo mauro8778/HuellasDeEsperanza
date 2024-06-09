@@ -31,12 +31,12 @@ export class PetsController {
         }
         return this.petsService.addPet(pet,shelterId);
     }
-    @Post('contition/:id')
+    @Post('condition/:id')
     conditionPet( id : string ){
         return this.petsService.conditionPet(id)
     }
     
-    @Post(':id')
+    @Post('delete/:id')
     deletePet(@Param('id', ParseUUIDPipe) id: string){
         return this.petsService.deletePet(id);
     }
