@@ -95,7 +95,7 @@ export class AdoptionRepository {
       throw new NotFoundException(`Error en la Adopción`);
     }
     await this.mailservice.sendPostulacion(
-      shelter.name,
+      shelter.shelter_name,
       pet.name,
       user.name,
       user.email,

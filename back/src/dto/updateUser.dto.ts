@@ -1,20 +1,28 @@
 import { ApiProperty } from "@nestjs/swagger"
-import { IsEmail, IsNumber, IsOptional, IsString, Matches } from "class-validator"
+import { IsEmail, IsNumber, IsOptional, IsString, Length, Matches } from "class-validator"
 
 export class UpdateUserDto{
 
     @IsOptional()
     @IsString()
+    @Length(2,30)
+    @Matches(/^[a-zA-Z ]+$/, {
+    message: 'El nombre solo puede contener letras y espacios',
+    })
     @ApiProperty({
-        example: "Juan"
+    example: 'Juan Carlos',
     })
     name?: string
 
 
     @IsOptional()
     @IsString()
+    @Length(2,30)
+    @Matches(/^[a-zA-Z ]+$/, {
+    message: 'El nombre solo puede contener letras y espacios',
+    })
     @ApiProperty({
-        example: "Castillo"
+    example: 'Juan Carlos',
     })
     last_name?: string
 
@@ -48,6 +56,7 @@ export class UpdateUserDto{
 
     @IsOptional()
     @IsNumber()
+    @Length(10)
     @ApiProperty({
         description: "Debe ser un numero de telefono",
         example: "11 3344-5566"
@@ -59,4 +68,11 @@ export class UpdateUserDto{
     @IsString()
     @ApiProperty()
     location?: string 
+
+    @IsOptional()
+    @IsString()
+    @ApiProperty({
+      example: 'colocar una imagen'
+    })
+    imgUrl?: string;
 }
