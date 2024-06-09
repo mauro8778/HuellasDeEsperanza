@@ -9,6 +9,7 @@ import { PetsService } from "src/pets/pets.service";
 import { Repository } from "typeorm";
 import * as cron from 'node-cron';
 import { MailService } from "src/mails/mail.service";
+import { error } from "console";
 @Injectable()
 export class AdoptionRepository {
     private readonly logger = new Logger(MailService.name);
@@ -104,43 +105,66 @@ export class AdoptionRepository {
     
 
     async activateAdoption(adoptionId: string) {
-        const adoption = await this.adoptionrepository.findOne({
+        const adoption: AdoptionEntity = await this.adoptionrepository.findOne({
             where: { id: adoptionId },
-            relations: ['user', 'shelter', 'pets'],
+            relations: ['user', 'shelter', 'pet'],
         });
     
         if (!adoption) {
             throw new NotFoundException(`Adopción no encontrada`);
         }
+
+        if (adoption.isActive == true) {
+            throw new NotFoundException("la adopcion ya esta aprobada")
+        }
     
-        if (!adoption.isActive) {
-            await this.adoptionrepository.update(adoption.id, { isActive: true });
     
             const pet = adoption.pet;
             const shelter = adoption.shelter;
             const user = adoption.user;
-    
-            if (shelter && shelter.pets) {
-                shelter.pets = shelter.pets.filter(p => p.id !== pet.id);
-                await this.sheltersRepository.save(shelter);
-            }
+
+        if (!shelter) {
+            throw new NotFoundException("refugio no encontrado")
+        }
+
+        const newRefugio = await this.sheltersRepository.findOne({where:{id: shelter.id}, relations: {pets: true}})
+            console.log("entro");
+            console.log(newRefugio.pets);
+            
+            newRefugio.pets = newRefugio.pets.filter((p) => p.id != pet.id);
+            await this.sheltersRepository.save(newRefugio);
+            console.log("paso");
+            console.log( "paso",newRefugio.pets);
+            
             
     
-            if (user && user.pets) {
-                if (!user.pets) {
-                    user.pets = [];
-                }
-                user.pets.push(pet);
-                await this.usersRepository.save(user);
-                console.log(user);
-            }
-    
-            await this.adoptionrepository.save(adoption);
-    
-            return await this.usersRepository.findOne({ where: { id: user.id }, relations: ['pets'] });
-    
+        if (!user) {
+            throw new NotFoundException("refugio no encontrado")
+        }
+
+        const newUser = await this.usersRepository.findOne({where:{id: user.id}, relations:{pets: true}})
+
+        console.log(newUser);
         
-    }}
+        newUser.pets.push(pet)
+
+        console.log(newUser);
+
+        await this.usersRepository.save(newUser)
+
+    
+            await this.adoptionrepository.update(adoption.id, { isActive: true });
+
+
+            
+            await this.adoptionrepository.save(adoption);
+
+            
+    
+            return await this.usersRepository.findOne({ where: { id: user.id }, relations: {pets: true} });
+      
+    
+    }
     
     
     

@@ -70,7 +70,7 @@ export class PetsEntity {
 
     @Column({
         type: "text",
-        default: "https://upload.wikimedia.org/wikipedia/commons/a/a3/Image-not-found.png"
+        default: "https://definicion.de/wp-content/uploads/2019/07/perfil-de-usuario.png"
     })
     imgUrl: string
 
