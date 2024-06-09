@@ -2,16 +2,16 @@ import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { IMascotas } from '@/interface/IMascotas';
+import EditMascota from './EditMascota';
 
 const truncateDescription = (text: string, maxLength: number) => {
   if (text.length <= maxLength) return text;
   return text.substr(0, maxLength) + '...';
 };
 
-const CardAnimals: React.FC<{ mascota: IMascotas }> = ({ mascota }) => {
+const CardAnimals: React.FC<{ mascota: IMascotas, updateMascota: (mascota: IMascotas) => void }> = ({ mascota, updateMascota }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editedMascota, setEditedMascota] = useState<IMascotas>(mascota);
-  const [reloadPage, setReloadPage] = useState(false); 
 
   const truncatedDescription = mascota.description ? truncateDescription(mascota.description, 25) : '';
 
@@ -59,9 +59,9 @@ const CardAnimals: React.FC<{ mascota: IMascotas }> = ({ mascota }) => {
       
       if (response.ok) {
         console.log('Mascota actualizada exitosamente');
+        alert('Mascota actualizada exitosamente');
         setIsEditing(false);
-        setEditedMascota(editedMascota);
-        setReloadPage(true); 
+        updateMascota(editedMascota);
       } else {
         console.error('Error al actualizar la mascota:', response.statusText);
       }
@@ -70,15 +70,6 @@ const CardAnimals: React.FC<{ mascota: IMascotas }> = ({ mascota }) => {
       console.error('Error al actualizar la mascota:', error);
     }
   };
-
-  useEffect(() => {
-    if (reloadPage) {
-
-      setTimeout(() => {
-        setReloadPage(false); 
-      }, 1000);
-    }
-  }, [reloadPage]);
 
   return (
     <>
@@ -90,15 +81,14 @@ const CardAnimals: React.FC<{ mascota: IMascotas }> = ({ mascota }) => {
                 viewBox="0 0 24 24"  
                 fill="none"  
                 stroke="currentColor"  
-                stroke-width="2"  
-                stroke-linecap="round"  
-                stroke-linejoin="round">  
+                strokeWidth="2"  
+                strokeLinecap="round"  
+                strokeLinejoin="round">  
                 <circle cx="12" cy="12" r="1" />  
                 <circle cx="19" cy="12" r="1" />  
                 <circle cx="5" cy="12" r="1" />
             </svg>
           </button>
-
         </div>
         <Link href={`/adopta/${mascota.id}`}>
           <div className="flex justify-center mt-5">
@@ -115,73 +105,23 @@ const CardAnimals: React.FC<{ mascota: IMascotas }> = ({ mascota }) => {
           </div>
           <div className="p-4">
             <h1 className="text-lg font-semibold mb-2 text-black">{mascota.name}</h1>
-            <p className="text-gray-600 mb-2">{mascota.age} años - {mascota.sexo}</p>
+            <p className="text-gray-600 mb-2">{mascota.age} {mascota.month} - {mascota.sexo}</p>
             <p className="mb-3 font-normal text-gray-700 dark:text-gray-400 min-h-10">{truncatedDescription}</p>
           </div>
         </Link>
       </div>
 
       {isEditing && (
-        <div className="fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-75 z-50">
-        <div className="bg-white rounded-lg p-4 max-w-xs w-full"> 
-          <h2 className="text-lg font-semibold mb-4">Editar Mascota</h2>
-          <div className="mb-2">
-            <label htmlFor="name" className="block text-xs text-gray-600">Nombre</label>
-            <input
-              type="text"
-              name="name"
-              id="name"
-              value={editedMascota.name}
-              onChange={handleInputChange}
-              className="border border-gray-300 p-2 mb-2 rounded-lg w-full"
-            />
-          </div>
-          <div className="mb-2">
-            <label htmlFor="breed" className="block text-xs text-gray-600">Raza</label>
-            <input
-              type="text"
-              name="breed"
-              id="breed"
-              value={editedMascota.breed}
-              onChange={handleInputChange}
-              className="border border-gray-300 p-2 mb-2 rounded-lg w-full"
-            />
-          </div>
-          <div className="mb-2">
-            <label htmlFor="age" className="block text-xs text-gray-600">Edad</label>
-            <input
-              type="number"
-              name="age"
-              id="age"
-              value={editedMascota.age}
-              onChange={handleInputChange}
-              className="border border-gray-300 p-2 mb-2 rounded-lg w-full"
-            />
-          </div>
-          <div className="mb-4">
-            <label htmlFor="pet_size" className="block text-xs text-gray-600">Tamaño de Mascota</label>
-            <select
-              name="pet_size"
-              id="pet_size"
-              value={editedMascota.pet_size}
-              onChange={handleSelectChange} 
-              className="border border-gray-300 p-2 mb-2 rounded-lg w-full"
-            >
-              <option value="small">Pequeño</option>
-              <option value="medium">Mediano</option>
-              <option value="large">Grande</option>
-            </select>
-          </div>
-          <div className="flex justify-between">
-            <button className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700" onClick={handleSaveChanges}>Guardar</button>
-            <button className="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-700" onClick={handleModalClose}>Cerrar</button>
-          </div>
-        </div>
-      </div>
-      
-    )}
-  </>
-);
+        <EditMascota
+          editedMascota={editedMascota}
+          handleInputChange={handleInputChange}
+          handleSelectChange={handleSelectChange}
+          handleSaveChanges={handleSaveChanges}
+          handleModalClose={handleModalClose}
+        />
+      )}
+    </>
+  );
 };
 
 export default CardAnimals;

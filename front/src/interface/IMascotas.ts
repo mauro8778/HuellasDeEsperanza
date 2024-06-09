@@ -6,8 +6,9 @@ export interface IMascotas  {
     shelter?: string;
     breed?: string;
     age?:number
-    month?:string
+    month?:number
     pet_size?: string
-    imgUrl?: string 
+    imgUrl?: string
+    imgUrls?: string[];
   }
 
