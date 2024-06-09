@@ -1,10 +1,11 @@
-import { Injectable, Logger, NotFoundException, OnModuleInit } from "@nestjs/common";
+import { BadRequestException, Injectable, Logger, NotFoundException, OnModuleInit } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { UserEntity } from "src/entidades/user.entity";
 import { MailService } from "src/mails/mail.service";
 import { Repository } from "typeorm";
 import * as cron from 'node-cron';
 import { ShelterEntity } from "src/entidades/shelter.entity";
+import { PetsEntity } from "src/entidades/pets.entity";
 
 @Injectable()
 export class UserRepository implements OnModuleInit {
@@ -13,6 +14,8 @@ export class UserRepository implements OnModuleInit {
   private readonly usersRepository: Repository<UserEntity>,
     @InjectRepository(ShelterEntity)
     private readonly sheltersRepository: Repository<ShelterEntity>,
+    @InjectRepository(PetsEntity)
+    private readonly petsRepository: Repository<PetsEntity>,
     private readonly mailService: MailService,) { }
   async onModuleInit() {
     this.scheduleEmails();
@@ -96,7 +99,7 @@ export class UserRepository implements OnModuleInit {
 
 
   async addShelterFavorite(id: string, userId: string) {
-    const user = await this.usersRepository.findOne({
+    const user: UserEntity = await this.usersRepository.findOne({
       where: { id: userId },
       relations: ['favorite']
     });
@@ -111,7 +114,32 @@ export class UserRepository implements OnModuleInit {
       throw new NotFoundException(`No se encontró el refugio`);
     }
 
-    user.favorite.push(shelter);
+    user.favorite_shelters.push(shelter);
+
+    await this.usersRepository.save(user);
+
+
+    return "Añadido a Favoritos";
+  }
+
+
+  async addPetFavorite(petId: string, userId: string) {
+    const user: UserEntity = await this.usersRepository.findOne({
+      where: { id: userId },
+      relations: ['favorite']
+    });
+
+    if (!user) {
+      throw new NotFoundException(`No se encontró el usuario`);
+    }
+
+    const pet: PetsEntity = await this.petsRepository.findOneBy({ id: petId });
+
+    if (!pet) {
+      throw new NotFoundException(`No se encontró el refugio`);
+    }
+
+    user.favorite_pets.push(pet);
 
     await this.usersRepository.save(user);
 
@@ -123,7 +151,8 @@ export class UserRepository implements OnModuleInit {
   async getFavorites() {
     const Users: UserEntity[] = await this.usersRepository.find({
       relations: {
-        favorite: true
+        favorite_pets: true,
+        favorite_shelters: true
       }
     })
 
@@ -134,4 +163,35 @@ export class UserRepository implements OnModuleInit {
     return Users;
   }
 
+
+  async PutPetFavorite(petId: any, userId: string) {
+    const user: UserEntity = await this.usersRepository.findOne({where:{id: userId}});
+
+    if (!user) {
+      throw new BadRequestException("Usuario no encontrado")
+    }
+
+    user.favorite_pets = user.favorite_pets.filter((pet) => pet.id != petId);
+
+    await this.usersRepository.save(user);
+
+    return "Mascota eliminada de favoritos";
+  }
+
+
+  async PutShelterFavorite(shelterId: any, userId: string) {
+    const user: UserEntity = await this.usersRepository.findOne({where:{id: userId}});
+
+    if (!user) {
+      throw new BadRequestException("Usuario no encontrado")
+    }
+
+    user.favorite_shelters = user.favorite_shelters.filter((shelter) => shelter.id != shelterId);
+
+    await this.usersRepository.save(user);
+
+    return "Refugio eliminado de favoritos";
+  }
+
+    
 }

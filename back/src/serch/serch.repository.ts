@@ -14,7 +14,7 @@ export class SearchRepository {
         private readonly petsRepository: Repository<PetsEntity>,
     ) { }
 
-    async searchGeneral(exotic_animals, location, shelter_name, breed, pet_size, age) {
+    async searchGeneral1(exotic_animals, location, shelter_name, breed, pet_size, age) {
 
         const sconditions: any = { isActive: true };
 
@@ -60,5 +60,35 @@ export class SearchRepository {
 
         return { sheltersFiltrados, petsFiltrados };
     }
+
+    async searchGeneral(query: string) {
+            if (!query) {
+              return [];
+            }
+        
+    const pets = await this.petsRepository.createQueryBuilder('pet')
+    .where('shelter.isActive = :isActive', { isActive: true })
+    .andWhere(
+      qb => {
+    qb.where('pet.name ILIKE :query', { query: `%${query}%` })
+    .orWhere('pet.sexo ILIKE :query', { query: `%${query}%` })
+    .orWhere('pet.breed ILIKE :query', { query: `%${query}%` })
+    .orWhere('pet.pet_size ILIKE :query', { query: `%${query}%` })
+    .orWhere('CAST(pet.age AS TEXT) ILIKE :query', { query: `%${query}%` })
+    .orWhere('CAST(pet.month AS TEXT) ILIKE :query', { query: `%${query}%` })
+})  .getMany();
+
+    const shelters = await this.sheltersRepository.createQueryBuilder('shelter')
+    .where('shelter.isActive = :isActive', { isActive: true })
+    .andWhere(
+      qb => {
+    qb.where('shelter.shelter_name ILIKE :query', { query: `%${query}%` })
+    .orWhere('shelter.zona ILIKE :query', { query: `%${query}%` })
+    .orWhere('shelter.location ILIKE :query', { query: `%${query}%` })
+})  .getMany();
+
+    return [...pets, ...shelters];
+  }
+
 
 }

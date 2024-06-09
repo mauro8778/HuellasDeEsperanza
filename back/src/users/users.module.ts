@@ -9,9 +9,10 @@ import { MailService } from 'src/mails/mail.service';
 import { ConfigService } from '@nestjs/config';
 import { ShelterEntity } from 'src/entidades/shelter.entity';
 import { ShelterRepository } from 'src/shelters/shelters.repository';
+import { PetsEntity } from 'src/entidades/pets.entity';
 
 @Module({
-  imports:[TypeOrmModule.forFeature([UserEntity,VolunteerEntity,ShelterEntity])],
+  imports:[TypeOrmModule.forFeature([UserEntity,VolunteerEntity,ShelterEntity,PetsEntity])],
   controllers: [UserController],
   providers: [UserService,UserRepository,MailService, ConfigService, ShelterRepository]
 })
