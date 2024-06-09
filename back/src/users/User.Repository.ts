@@ -83,18 +83,23 @@ export class UserRepository implements OnModuleInit {
   }
   async scheduleEmails() {
     cron.schedule('0 0 1 */3 *', async () => {
-      const users = await this.usersRepository.find();
-      const subject = 'Nuevas oportunidades de adopción';
-      const text = 'Huellas de esperanza tiene nuevas oportunidades de animalitos peludos para adoptar.';
-      const html = '<p>Huellas de esperanza tiene nuevas oportunidades de animalitos peludos para adoptar.</p>';
+        const users = await this.usersRepository.find();
+        const subject = '¡Castraciones gratuitas en Huellas de Esperanza!';
+        const text = '¡Te traemos una promoción especial! Huellas de Esperanza ofrece castraciones gratuitas para tu mascota. La próxima jornada se realizará pronto en nuestro refugio. ¡Visita nuestra página para obtener más información!';
+        const html = `<div style="border: 2px solid #ff3366; padding: 20px; background: #ffffff; border-radius: 15px; text-align: center;">
+            <p style="color: #ff3366; font-size: 24px; font-weight: bold; margin-bottom: 10px;">¡Castraciones gratuitas en Huellas de Esperanza!</p>
+            <p style="color: #000; font-size: 16px;">¡Te traemos una promoción especial! Huellas de Esperanza ofrece <span style="font-weight: bold;">castraciones gratuitas</span> para tu mascota. La próxima jornada se realizará pronto en nuestro refugio. ¡Visita nuestra página para obtener más información!</p>
+            <p style="color: #000; font-size: 16px;">¡No pierdas esta oportunidad y visita nuestra página para informarte sobre cómo participar!</p>
+            <a href="http://tu-pagina-web.com" style="display: inline-block; padding: 10px 20px; background: #ff3366; color: #ffffff; text-decoration: none; border-radius: 5px; margin-top: 20px;">Visitar Huellas de Esperanza</a>
+        </div>`;
 
-      for (const user of users) {
-        await this.mailService.sendMail(user.email, subject, text, html);
-      }
+        for (const user of users) {
+            await this.mailService.sendMail(user.email, subject, text, html);
+        }
 
-      this.logger.log('Scheduled emails sent');
+        this.logger.log('Scheduled emails sent');
     });
-  }
+}
 
 
 
@@ -192,6 +197,5 @@ export class UserRepository implements OnModuleInit {
 
     return "Refugio eliminado de favoritos";
   }
-
-    
+   
 }

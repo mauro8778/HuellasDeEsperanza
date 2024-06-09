@@ -25,7 +25,6 @@ export class PetsController {
     @Post()
     addPet(@Body() pet : CreatePetsDto, @Req() request){
         const shelterId = request.user['https://huellasdesperanza.com/userID'];
-        console.log(shelterId)
         if (!shelterId) {
             throw new Error("Shelter ID is required");
         }

@@ -75,4 +75,7 @@ export class UserEntity {
   @OneToMany(() => OrdersEntity, (orders) => orders.user)
   @JoinColumn({ name: "order_id" })
   orders: OrdersEntity[]
+
+  @ManyToMany(() => PetsEntity, pet => pet.user)
+    pets: PetsEntity[];
 }

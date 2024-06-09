@@ -15,12 +15,17 @@ export class AdoptionService {
         return await this.adoptionrepository.AdoptionsById(id)
     }
 
-    async newAdoption(user: string, shelter: string, pet: string) {
-        return await this.adoptionrepository.NewAdoption(user, shelter, pet)
+    async newAdoption(user: string, pet: string) {
+        return await this.adoptionrepository.newAdoption(user, pet)
     }
 
     async Delete(id: string) {
         return await this.adoptionrepository.Delete(id)
+    
+    }
+
+    async activateAdoption(adoptionId: string){
+        await this.adoptionrepository.activateAdoption(adoptionId)
     }
 
     async adoptionUser(userid: string) {
