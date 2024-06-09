@@ -6,6 +6,7 @@ import HiddenNavBar from "@/components/hidden_navbar/HiddenNavBar";
 import  Navbar  from "@/components/NavBar/NavBar";
 
 
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadataa = metadata;
@@ -18,6 +19,7 @@ export default function RootLayout({
   return (
     <html lang="es">
       <body className={inter.className}>
+       
        
         <HiddenNavBar> 
           <Navbar/>

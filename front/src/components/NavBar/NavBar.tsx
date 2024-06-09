@@ -72,7 +72,7 @@ const Navbar: React.FC = () => {
                 )}
               </div>
             </div>
-            <Link href={"/dashboard/yourdonations"}>
+            <Link href={"/dashboard/donations"}>
              <button className="m-4 text-4xl text-white mr-6 mb-12 hover:animate-bounce">
               <BiSolidDonateHeart />
             </button>
