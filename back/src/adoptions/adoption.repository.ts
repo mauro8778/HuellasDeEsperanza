@@ -114,30 +114,38 @@ export class AdoptionRepository {
         }
     
         if (!adoption.isActive) {
-            adoption.isActive = true;
+            await this.adoptionrepository.update(adoption.id, { isActive: true });
     
             const pet = adoption.pet;
             const shelter = adoption.shelter;
             const user = adoption.user;
     
-            console.log('pet', 'shelter', 'user', pet, shelter, user);
-    
-            if (shelter) {
-                shelter.pets = shelter.pets.filter(p => p.id !== pet.id);
-                await this.sheltersRepository.save(shelter);
-            }
-    
-            if (user) {
-                if (!user.pets) {
-                    user.pets = [];
+            console.log('Adopción:', adoption);
+            if (user && pet) {
+                if (!user.pet) {
+                    user.pet = [];
                 }
-                user.pets.push(pet);
+                user.pet.push(pet);
                 await this.usersRepository.save(user);
             }
+            if (shelter && pet) {
+                const shelterRepo = await this.sheltersRepository.findOne({ where: { id: shelter.id } });
+                if (shelterRepo) {
+                    shelterRepo.pets = shelterRepo.pets.filter(p => p.id !== pet.id);
+                    await this.sheltersRepository.save(shelterRepo);
+                }
+
+                console.log('Refugio actualizado:', shelterRepo);
+            }
     
-            await this.adoptionrepository.update(adoption.id, { isActive: true });
+            
+    
+          
+    
+            console.log('Usuario actualizado:', user);
         }
     
+        await this.mailservice.confirmPostulacion(adoption.user.email,adoption.user.name,adoption.pet.name)
         return await this.adoptionrepository.find({
             where: { id: adoption.id },
             relations: {
@@ -147,6 +155,7 @@ export class AdoptionRepository {
             },
         });
     }
+    
     
     
 

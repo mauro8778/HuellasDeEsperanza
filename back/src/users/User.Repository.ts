@@ -21,14 +21,14 @@ export class UserRepository implements OnModuleInit {
     this.scheduleEmails();
   }
   async getUsers() {
-    const users = await this.usersRepository.find()
+    const users = await this.usersRepository.find();
 
     if (users.length === 0) {
-      throw new NotFoundException('no existen usuarios');
+        throw new NotFoundException('No existen usuarios');
     }
 
     return users;
-  }
+}
 
 
 
