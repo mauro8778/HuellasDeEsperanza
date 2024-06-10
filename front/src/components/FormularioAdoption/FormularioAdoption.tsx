@@ -1,4 +1,5 @@
 'use client';
+
 import { ReactNode } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Button from '@/components/ui/button';
@@ -10,7 +11,7 @@ interface FormLoginProps {
 
 const FormularioAdoption: React.FC<FormLoginProps> = () => {
   const searchParams = useSearchParams();
-  const name = searchParams.get('name'); 
+  const name = searchParams.get('name');
 
   return (
     <div className='w-full max-w-md'>

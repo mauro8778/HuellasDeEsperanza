@@ -2,10 +2,6 @@ import type { Metadata } from 'next';
 import Logo from '@/components/ui/Logo';
 import FormularioAdoption from '@/components/FormularioAdoption/FormularioAdoption';
 
-export const metadata: Metadata = {
-  title: 'Login | Auth',
-  description: 'Login | Auth',
-};
 
 export const FormAdopt = () =>{
   return (
