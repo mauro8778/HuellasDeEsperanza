@@ -20,7 +20,7 @@ const Search: React.FC = () => {
           placeholder="Buscar..."
           className="flex-grow px-2 text-gray-700 focus:outline-none rounded-l-lg"
         />
-        <button type="submit" className="flex items-center justify-center px-4 text-white bg-black rounded-r-lg focus:outline-none">
+        <button type="submit" className="flex items-center justify-center px-4 text-white bg-gray-700 rounded-r-lg focus:outline-none">
           <RiSearchLine className="w-5 h-5" />
         </button>
       </form>

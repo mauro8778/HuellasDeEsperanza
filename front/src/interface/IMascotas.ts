@@ -8,6 +8,7 @@ export interface IMascotas  {
     age?:number
     month?:number
     pet_size?: string
-    imgUrl?: string 
+    imgUrl?: string
+    imgUrls?: string[];
   }
 

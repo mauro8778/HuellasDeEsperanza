@@ -1,18 +1,25 @@
-'use client';
-
-import { FC, useState } from 'react';
+import { FC, useState, useEffect } from 'react';
 import { cn } from '@/libs/utils';
 import { RiLockLine, RiLockUnlockLine, RiCheckFill, RiErrorWarningFill } from 'react-icons/ri';
 
 interface InputProps {
-  type: 'text' | 'password'  | 'date'| 'number';
+  type: 'text' | 'password' | 'date' | 'number' | 'email';
   placeholder: string;
   className?: string;
   name?: string;
-  value?: string;
-  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  value?: string |  number ;
   isValid?: boolean | null;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
+
+const validateInput = (type: string, value: string): boolean => {
+  if (type === 'email') {
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailPattern.test(value);
+  }
+  // lueo agrego mas validaciones 
+  return value.trim() !== '';
+};
 
 const Input: FC<InputProps> = ({
   type,
@@ -21,26 +28,41 @@ const Input: FC<InputProps> = ({
   name,
   value,
   onChange,
-  isValid,
 }) => {
   const [showPassword, setShowPassword] = useState(false);
+  const [isFieldValid, setIsFieldValid] = useState<boolean | null>(null);
+  const [isTouched, setIsTouched] = useState(false);
+
+  useEffect(() => {
+    if (isTouched) {
+      setIsFieldValid(validateInput(type, String(value || '')));
+
+    }
+  }, [isTouched, type, value]);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newValue = e.target.value;
+    setIsTouched(true);
+    const valid = validateInput(type, newValue);
+    setIsFieldValid(valid);
+    if (onChange) onChange(e);
+  };
 
   return (
     <div className="w-full relative mb-5">
       <input
-        type={type === 'text' ? 'text' : showPassword ? 'text' : 'password'}
+        type={type === 'password' && showPassword ? 'text' : type}
         className={cn(
-          'bg-gray-100 w-full py-3 pl-4 pr-12 outline-none rounded-xl',
+          'bg-gray-100 w-full py-3 pl-4 pr-12 outline-none rounded-xl border-2',
           className,
-          isValid === false ? 'border-red-500' : isValid === true ? 'border-green-500' : ''
+          
         )}
         placeholder={placeholder}
         name={name}
         value={value}
-        onChange={onChange}
+        onChange={handleChange}
       />
-      {isValid === true && <RiCheckFill className="absolute right-4 top-1/2 transform -translate-y-1/2 text-green-500" />}
-      {isValid === false && <RiErrorWarningFill className="absolute right-4 top-1/2 transform -translate-y-1/2 text-red-500" />}
+      
       {type === 'password' && (
         <button
           type="button"
@@ -55,4 +77,3 @@ const Input: FC<InputProps> = ({
 };
 
 export default Input;
-

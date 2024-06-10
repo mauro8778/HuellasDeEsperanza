@@ -1,53 +1,95 @@
-'use client'
-import { useState } from 'react';
+'use client';
+
+import React, { useEffect, useState } from 'react';
 import ListaRefugios from '@/components/Refugios/ListaRefugios';
-import Modal from '@/components/Refugios/FiltroRefugio/Modal';
-import { useFilter } from '@/components/Refugios/FiltroRefugio/useFilter';
-import FormularioMascota from '@/components/Refugios/AñadirMascota/PostMascotas';
-import ModalPost from '@/components/Refugios/AñadirMascota/ModalPostMascotas';
+import { IRefugios } from '@/interface/IRefugios';
+import ModalFilter from '@/components/Refugios/FiltroRefugio/ModalFilterRefugios';
 import { IMascotas } from '@/interface/IMascotas';
+import ModalFormularioMascota from '@/components/Refugios/AñadirMascota/ModalPostMascotas';
 
+const Page = () => {
+  const [refugios, setRefugios] = useState<IRefugios[]>([]);
+  const [filterModalVisible, setFilterModalVisible] = useState(false);
+  const [addMascotaModalVisible, setAddMascotaModalVisible] = useState(false);
+  const [filtroUbicacion, setFiltroUbicacion] = useState('');
+  const [filtroZona, setFiltroZona] = useState('');
+  const [ubicacionesDisponibles, setUbicacionesDisponibles] = useState<string[]>([]);
+  const [zonasDisponibles, setZonasDisponibles] = useState<string[]>([]);
 
-export default function Refuge() {
-  const { isModalOpen, openModal, closeModal, filteredRefugios, handleFilter } = useFilter();
-  const [mostrarModal, setMostrarModal] = useState(false);
-  const [mascotas, setMascotas] = useState<IMascotas[]>([]);
+  useEffect(() => {
+    fetch('https://backpf-prueba.onrender.com/shelters')
+      .then(response => response.json())
+      .then((data: IRefugios[]) => {
+        setRefugios(data);
+        const ubicaciones = [...new Set(data.map(refugio => refugio.location))];
+        const zonas = [...new Set(data.map(refugio => refugio.zona))];
+        setUbicacionesDisponibles(ubicaciones);
+        setZonasDisponibles(zonas);
+      })
+      .catch(error => console.error('Error fetching data:', error));
+  }, []);
 
-  const handleAddMascota = (nuevaMascota: IMascotas) => {
-    setMascotas([...mascotas, nuevaMascota]);
+  const handleOpenFilterModal = () => {
+    setFilterModalVisible(true);
+  };
+
+  const handleCloseFilterModal = () => {
+    setFilterModalVisible(false);
+  };
+
+  const handleFilter = (ubicacion: string, zona: string) => {
+    setFiltroUbicacion(ubicacion);
+    setFiltroZona(zona);
+    setFilterModalVisible(false);
+  };
+
+  const handleOpenAddMascotaModal = () => {
+    setAddMascotaModalVisible(true);
+  };
+
+  const handleCloseAddMascotaModal = () => {
+    setAddMascotaModalVisible(false);
+  };
+
+  const handleAddMascota = (mascota: IMascotas) => {
+  };
+
+  const filtrarRefugios = () => {
+    return refugios.filter(refugio => {
+      const ubicacionCoincide = filtroUbicacion ? refugio.location.toLowerCase().includes(filtroUbicacion.toLowerCase()) : true;
+      const zonaCoincide = filtroZona ? refugio.zona.toLowerCase().includes(filtroZona.toLowerCase()) : true;
+      return ubicacionCoincide && zonaCoincide;
+    });
   };
 
   return (
-    <main className="p-4">
-      <h1 className="text-3xl font-bold mb-4">Lista de Refugios</h1>
-      
-      <div className="relative w-full mb-20">
-        <div className="absolute left-1/2 transform -translate-x-1/2">
-          <button onClick={openModal} className="relative inline-flex items-center justify-center p-0.5 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-pink-500 to-orange-400 group-hover:from-pink-500 group-hover:to-orange-400 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800">
-            <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
-              Filtrar Refugios
-            </span>
-          </button>
-        </div>
-        <div className="absolute right-0">
-          <button onClick={() => setMostrarModal(true)} className="relative inline-flex items-center justify-center p-0.5 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-pink-500 to-orange-400 group-hover:from-pink-500 group-hover:to-orange-400 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800">
-            <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
-              Añadir mascota
-            </span>
-          </button>
-        </div>
+    <main className='bg-gray-300'>
+      <div className="flex justify-center space-x-2">
+        <button onClick={handleOpenFilterModal} className="mt-3 text-white bg-green-700 hover:bg-green-600 focus:ring-4 focus:outline-none focus:ring-blue-200 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">
+          Filtrar Refugios
+        </button>
+        <button onClick={handleOpenAddMascotaModal} className="mt-3 text-white bg-green-700 hover:bg-green-600 focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">
+          Añadir Mascota
+        </button>
       </div>
 
-      <ListaRefugios refugios={filteredRefugios} />
+      <ListaRefugios refugios={filtrarRefugios()} />
 
+      <ModalFilter
+        isOpen={filterModalVisible}
+        onClose={handleCloseFilterModal}
+        onFilter={handleFilter}
+        ubicaciones={ubicacionesDisponibles}
+        zonas={zonasDisponibles}
+      />
 
-      {isModalOpen && (
-        <Modal onClose={closeModal} onFilter={handleFilter} />
-      )}
-
-      <ModalPost isVisible={mostrarModal} onClose={() => setMostrarModal(false)}>
-        <FormularioMascota onClose={() => setMostrarModal(false)} onAddMascota={handleAddMascota} />
-      </ModalPost>
+      <ModalFormularioMascota
+        isOpen={addMascotaModalVisible}
+        onClose={handleCloseAddMascotaModal}
+        onAddMascota={handleAddMascota}
+      />
     </main>
   );
-}
+};
+
+export default Page;

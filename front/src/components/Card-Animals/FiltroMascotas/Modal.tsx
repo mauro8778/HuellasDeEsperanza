@@ -1,11 +1,13 @@
+
 import React, { useState, useEffect } from 'react';
 
 interface ModalProps {
   onClose: () => void;
   onFilter: (edad: string, sexo: string, category: string, petSize: string) => void;
+  options: { age: string[], pet_size: string[], breed: string[] };
 }
 
-const Modal: React.FC<ModalProps> = ({ onClose, onFilter }) => {
+const Modal: React.FC<ModalProps> = ({ onClose, onFilter, options }) => {
   const [edad, setEdad] = useState('');
   const [sexo, setSexo] = useState('');
   const [category, setCategory] = useState('');
@@ -18,18 +20,6 @@ const Modal: React.FC<ModalProps> = ({ onClose, onFilter }) => {
     }, 100);
     return () => clearTimeout(timer);
   }, []);
-
-  const ageOptions = [
-    { label: 'Cachorro', value: '<1' },
-    { label: '1-4 años', value: '1-4' },
-    { label: 'Mayor de 4 años', value: '>4' }
-  ];
-
-  const sizeOptions = [
-    { label: 'Pequeño', value: 'Pequeño' },
-    { label: 'Mediano', value: 'Mediano' },
-    { label: 'Grande', value: 'Grande' }
-  ];
 
   const handleFilter = () => {
     onFilter(edad, sexo, category.toLowerCase(), petSize.toLowerCase());
@@ -53,8 +43,8 @@ const Modal: React.FC<ModalProps> = ({ onClose, onFilter }) => {
             onChange={(e) => setEdad(e.target.value)}
             className="w-full p-2 border border-gray-300 rounded">
             <option value="">Todas</option>
-            {ageOptions.map((option) => (
-              <option key={option.value} value={option.value}>{option.label}</option>
+            {options.age.map((option) => (
+              <option key={option} value={option}>{option}</option>
             ))}
           </select>
         </div>
@@ -70,15 +60,16 @@ const Modal: React.FC<ModalProps> = ({ onClose, onFilter }) => {
           </select>
         </div>
         <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-700 mb-2">Perro o Gato</label>
+          <label className="block text-sm font-medium text-gray-700 mb-2">Raza</label>
           <select
             value={category}
             onChange={(e) => setCategory(e.target.value)}
             className="w-full p-2 border border-gray-300 rounded"
           >
             <option value="">Todos</option>
-            <option value="Perro">Perro</option>
-            <option value="Gato">Gato</option>
+            {options.breed.map((option) => (
+              <option key={option} value={option}>{option}</option>
+            ))}
           </select>
         </div>
         <div className="mb-4">
@@ -89,13 +80,13 @@ const Modal: React.FC<ModalProps> = ({ onClose, onFilter }) => {
             className="w-full p-2 border border-gray-300 rounded"
           >
             <option value="">Todos</option>
-            {sizeOptions.map((option) => (
-              <option key={option.value} value={option.value}>{option.label}</option>
+            {options.pet_size.map((option) => (
+              <option key={option} value={option}>{option}</option>
             ))}
           </select>
         </div>
         <div className="flex justify-end space-x-2">
-          <button onClick={handleFilter} className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600">Aplicar Filtro</button>
+          <button onClick={handleFilter} className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700">Aplicar Filtro</button>
           <button onClick={handleClose} className="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600">Cerrar</button>
         </div>
       </div>

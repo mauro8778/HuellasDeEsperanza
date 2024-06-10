@@ -12,18 +12,25 @@ const NavMenu: React.FC = () => {
 
   return (
     <nav>
-      <ul className="flex space-x-4 text-white">
+      <ul className="flex space-x-4 text-gray-100 text-xl  ">
         <li>
-          <Link className='hover:text-gray-600' href={{
+          <Link className=' hover:text-pink-300  ' href={{
             pathname: "/Home",
             query: {name: "test"},
           }}>
-            Home
+            Inicio
           </Link>
         </li>
-        <li className="relative z-10" onClick={toggleMenu}>
+        <li>
+          <Link className=' hover:text-pink-300 ' href={{
+            pathname: "/adopta",
+            query: {name: "test"},
+          }}>
+            Adopta
+          </Link>
+        </li>
+        {/* <li className="relative z-10" onClick={toggleMenu}>
           <span className="text-white cursor-pointer hover:text-gray-600">Mascotas</span>
-          {/* Aca muestro si el menu esta abierto o no */}
           {menuOpen && (
             <ul className="absolute bg-white shadow-lg py-2 mt-2 rounded-md w-32">
               <li>
@@ -43,36 +50,36 @@ const NavMenu: React.FC = () => {
               </li>
             </ul>
           )}
-        </li>
-        <li>
+        </li> */}
+        {/* <li>
           <Link className='hover:text-gray-600' href={{
             pathname: "/Contact",
             query: {name: "test"},
           }}>
             Contacto
           </Link>
-        </li>
-        <li>
+        </li> */}
+        {/* <li>
           <Link className='hover:text-gray-600' href="/about">
             About
           </Link>
-        </li>
+        </li> */}
         <li>
-          <Link className='hover:text-gray-600' href={{
+          <Link className=' hover:text-pink-300 hover:transform hover:scale-105 transition-transform duration-200' href={{
             pathname: "/refugios",
             query: {name: "test"},
           }}>
             Refugios
           </Link>
         </li>
-        <li>
+        {/* <li>
           <Link className='hover:text-gray-600' href={{
             pathname: "/donations",
             query: {name: "test"},
           }}>
             Donaciones
           </Link>
-        </li>
+        </li> */}
       </ul>
     </nav>
   );

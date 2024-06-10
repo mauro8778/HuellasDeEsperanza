@@ -1,26 +1,37 @@
+'use client'
 
+
+import { useEffect, useState } from 'react';
 import { MascotaDetail } from "@/components/MascotaDetail/MascotaDetail";
 import { IMascotas } from "@/interface/IMascotas";
-import { getProductById } from "@/utils/mascotas"; 
 
-const DetailAnimals = async ({ params }: { params: { id: string } }) => {
-    const mascota = await getProductById(params.id);
+const DetailAnimals = ({ params }: { params: { id: string } }) => {
+    const [mascota, setMascota] = useState<IMascotas | null>(null);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await fetch(`https://backpf-prueba.onrender.com/pets/${params.id}`);
+                if (!response.ok) {
+                    throw new Error('Failed to fetch data');
+                }
+                const data = await response.json();
+                console.log("Data:", data); 
+                setMascota(data[0]); 
+            } catch (error) {
+                console.error('Error fetching data:', error);
+                setMascota(null);
+            }
+        };
+
+        fetchData();
+    }, [params.id]);
 
     if (!mascota) {
-        return <div>Producto no encontrado</div>;
+        return <div>Mascota no encontrada</div>;
     }
 
-    const mascotaProps: IMascotas = {
-        id: mascota.id,
-        name: mascota.name,
-        description: mascota.description,
-        imgUrl: mascota.imgUrl,
-        breed: mascota.breed,
-        age: mascota.age
-        
-    };
-
-    return <MascotaDetail {...mascotaProps} />;
-}
+    return <MascotaDetail {...mascota} />;
+};
 
 export default DetailAnimals;
