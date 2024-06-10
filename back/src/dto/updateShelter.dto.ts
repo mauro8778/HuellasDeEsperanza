@@ -1,12 +1,16 @@
 import { ApiProperty } from "@nestjs/swagger"
-import { IsBoolean, IsEmail, IsNumber, IsOptional, IsString, Matches } from "class-validator"
+import { IsBoolean, IsEmail, IsInt, IsNumber, IsOptional, IsString, Length, Matches, isIn, isInt } from "class-validator"
 
 export class UpdateShelterDto{
 
     @IsOptional()
     @IsString()
+    @Length(2, 30)
+    @Matches(/^[a-zA-Z ]+$/, {
+        message: 'El nombre solo puede contener letras y espacios',
+    })
     @ApiProperty({
-        example: "Oscar"
+        example: 'Juan Carlos',
     })
     name?: string
 
@@ -34,26 +38,32 @@ export class UpdateShelterDto{
 
     @IsOptional()
     @IsNumber()
+    @Length(8, 12)
     @ApiProperty({
-        description: "Debe ser un Numero de DNI",
+        description: "Debe ser un Numero de DNI/CUIL",
         example: "44654321"
     })
     dni?: number
 
 
     @IsOptional()
-    @IsNumber()
+    @IsInt()
+    @Length(10)
     @ApiProperty({
-        description: "Debe ser un numero de telefono",
-        example: "1133445566"
-    })    
+        description: 'Debe ser un numero de telefono',
+        example: 1133445567,
+    })
     phone?: number
 
 
     @IsOptional()
     @IsString()
+    @Length(2, 30)
+    @Matches(/^[a-zA-Z ]+$/, {
+        message: 'El nombre solo puede contener letras y espacios',
+    })
     @ApiProperty({
-        example: "Refugio"
+        example: 'Refugio Piola',
     })
     shelter_name?: string
 
@@ -65,17 +75,34 @@ export class UpdateShelterDto{
     })
     location?: string
 
+    @IsOptional()
+    @IsString()
+    @ApiProperty({
+        example: "Ubicacion"
+    })
+    zona: string
+
 
     @IsOptional()
     @IsString()
+    @Length(2, 200)
     @ApiProperty({
         example: "..."
     })
     description?: string
+
+    @IsOptional()
+    @IsString()
+    @ApiProperty({
+        example: "colocar url de la imagen"
+    })
+    imgUrl: string
 
 
     @IsOptional()
     @IsBoolean()
     @ApiProperty()
     exotic_animals?: boolean
+
+
 }

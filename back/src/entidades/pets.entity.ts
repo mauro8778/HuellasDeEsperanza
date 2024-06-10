@@ -1,4 +1,4 @@
-import { Column, Entity, JoinTable, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { v4 as uuid } from "uuid"
 import { ShelterEntity } from "./shelter.entity";
 import { UserEntity } from "./user.entity";
@@ -71,7 +71,7 @@ export class PetsEntity {
 
     @Column({
         type: "text",
-        default: "https://definicion.de/wp-content/uploads/2019/07/perfil-de-usuario.png"
+        default: "https://upload.wikimedia.org/wikipedia/commons/a/a3/Image-not-found.png"
     })
     imgUrl: string
 
@@ -94,30 +94,13 @@ export class PetsEntity {
     })
     isActive: boolean;
 
-
-    @ManyToOne(() => ShelterEntity, shelter => shelter.pets)
+    @ManyToOne(() => ShelterEntity, (shelter) => shelter.pets)
+    @JoinColumn()
     shelter: ShelterEntity
 
     @ManyToMany(() => UserEntity, (user) => user.favorite_pets)
     user: UserEntity[];
 
-    @ManyToMany(() => UserEntity, (user) => user.pets)
-@JoinTable({
-    name: 'pets_users', // Nombre de la tabla de unión
-    joinColumn: {
-        name: 'pet_id', // Nombre de la columna que referencia a la entidad PetsEntity
-        referencedColumnName: 'id',
-    },
-    inverseJoinColumn: {
-        name: 'user_id', // Nombre de la columna que referencia a la entidad UserEntity
-        referencedColumnName: 'id',
-    },
-})
-users: UserEntity[];
-
-    @OneToMany(() => AdoptionEntity, adoption => adoption.pet)
-    adoptions: AdoptionEntity[];
-
-
-
+    @ManyToOne(() => UserEntity, (user) => user.pets)
+    users: UserEntity;
 }

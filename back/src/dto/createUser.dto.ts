@@ -83,6 +83,15 @@ export class CreateUserDto {
   })
   phone?: number;
 
+
+  @IsOptional()
+  @IsString()
+  @ApiProperty({
+    example: 'colocar una imagen'
+  })
+  imgUrl?: string;
+
+
   @IsOptional()
   @IsString()
   @ApiProperty()

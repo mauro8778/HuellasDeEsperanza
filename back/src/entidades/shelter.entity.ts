@@ -96,6 +96,7 @@ export class ShelterEntity {
   adoptions: AdoptionEntity[];
 
   @OneToMany(() => PetsEntity, (pets) => pets.shelter)
+  @JoinColumn()
   pets: PetsEntity[];
 
   @ManyToMany(() => OrderDetailsEntity, (orderdetail) => orderdetail.shelters)

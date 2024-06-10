@@ -7,6 +7,7 @@ import * as cron from 'node-cron';
 import { ShelterEntity } from "src/entidades/shelter.entity";
 import { PetsEntity } from "src/entidades/pets.entity";
 
+
 @Injectable()
 export class UserRepository implements OnModuleInit {
   private readonly logger = new Logger(MailService.name);
@@ -21,7 +22,9 @@ export class UserRepository implements OnModuleInit {
     this.scheduleEmails();
   }
   async getUsers() {
-    const users = await this.usersRepository.find();
+    const users = await this.usersRepository.find({
+      relations:['pets']
+    });
 
     if (users.length === 0) {
         throw new NotFoundException('No existen usuarios');

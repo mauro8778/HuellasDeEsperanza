@@ -73,17 +73,7 @@ export class UserEntity {
   @JoinColumn({ name: "order_id" })
   orders: OrdersEntity[]
 
-  @ManyToMany(() => PetsEntity, (pets) => pets.users)
-@JoinTable({
-    name: 'pets_users', // Nombre de la tabla de unión
-    joinColumn: {
-        name: 'user_id', // Nombre de la columna que referencia a la entidad UserEntity
-        referencedColumnName: 'id',
-    },
-    inverseJoinColumn: {
-        name: 'pet_id', // Nombre de la columna que referencia a la entidad PetsEntity
-        referencedColumnName: 'id',
-    },
-})
-pets: PetsEntity[];
+  @OneToMany(() => PetsEntity, pets => pets.users)
+  @JoinColumn()
+  pets: PetsEntity[];
 }
