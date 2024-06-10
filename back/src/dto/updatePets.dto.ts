@@ -35,7 +35,6 @@ export class UpdatePetsDto {
     @IsString()
     @ApiProperty({
         example: "mes o año"
-    })
     month: string
 
 
@@ -45,6 +44,14 @@ export class UpdatePetsDto {
         example: "medium"
     })
     pet_size?: petSize.Big | petSize.Little | petSize.Medium
+    
+    @IsOptional()
+    @IsString()
+    @ApiProperty({
+        description: "Descripción del producto",
+        example: "..."
+    })
+    description?: string
 
     @IsOptional()
     @IsString()
