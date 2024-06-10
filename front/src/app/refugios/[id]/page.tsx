@@ -21,9 +21,13 @@ const DetailRefugio = async ({ params }: { params: { id: string } }) => {
         email: refugio.email,
         phone: refugio.phone,
         pets: refugio.pets,
+
+        
     };
+    
 
     return <RefugioDetail {...mascotaProps} />;
+    
 }
 
 export default DetailRefugio;

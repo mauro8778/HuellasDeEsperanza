@@ -15,15 +15,15 @@ const Dashboard = () => {
             </Card>
           </div>
           <div className='flex-1'>
-            <Card title="Adopted Pets">
+            {/* <Card title="Adopted Pets">
               <Adopted_User />
-            </Card>
+            </Card> */}
           </div>
         </div>
         <div className='flex-1 mt-8'>
-          <Card title="Shelters">
+          {/* <Card title="Shelters">
             <Shelter_user />
-          </Card>
+          </Card> */}
         </div>
       </div>
     </div>

@@ -17,7 +17,7 @@ const HiddenNavBar: React.FC<HiddenNavBarProps> = ({ children }) => {
     '/dashboard/admin', 
     '/dashboard/user',
     '/dashboard/shelter',
-    '/dashboard/yourdonations',
+    '/dashboard/donations',
     '/dashboard/petslost',
     '/dashboard/adopted',
     '/AUTH/login',

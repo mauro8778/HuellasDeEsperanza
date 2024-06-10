@@ -88,6 +88,7 @@ const Page = () => {
         onClose={handleCloseAddMascotaModal}
         onAddMascota={handleAddMascota}
       />
+      
     </main>
   );
 };

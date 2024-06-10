@@ -11,7 +11,7 @@ const links = [
   { name: "Dashboard", href: "/dashboard", icon: MdDashboardCustomize },
   { name: "Donaciones", href: "/dashboard/donations", icon: BiSolidDonateHeart },
   { name: "Mascotas adoptadas", href: "/dashboard/adopted", icon: MdOutlinePets },
-  { name: "Mascotas perdidas", href: "/dashboard/petslost", icon: MdOutlinePets },
+  // { name: "Mascotas perdidas", href: "/dashboard/petslost", icon: MdOutlinePets },
 ];
 
 export default function NavLinks() {

@@ -1,7 +1,7 @@
 'use client';
-import Logo from "../ui/Logo";
-import Search from "./Search";
-import NavMenu from "./NavMenu";
+import Logo from "@/components/ui/Logo";
+import Search from "@/components/NavBar/Search";
+import NavMenu from "@/components/NavBar/NavMenu";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { decodeJwt } from '@/utils/decodeJwt';
