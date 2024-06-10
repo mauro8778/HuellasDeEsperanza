@@ -66,7 +66,7 @@ export default function Adopta() {
         {filteredMascotas.length > 0 ? (
           <ListaMascotas mascotas={filteredMascotas} updateMascota={updateMascota} />
         ) : (
-          <div>No se encontraron mascotas con los filtros seleccionados.</div>
+          <div>No se encontraron mascotas con los filtros seleccionados!</div>
         )}
       </Suspense>
       <ModalFilterMascotas
