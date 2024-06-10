@@ -21,13 +21,14 @@ const Page = () => {
       .then(response => response.json())
       .then((data: IRefugios[]) => {
         setRefugios(data);
-        const ubicaciones = [...new Set(data.map(refugio => refugio.location))];
-        const zonas = [...new Set(data.map(refugio => refugio.zona))];
+        const ubicaciones = Array.from(new Set(data.map(refugio => refugio.location)));
+        const zonas = Array.from(new Set(data.map(refugio => refugio.zona)));
         setUbicacionesDisponibles(ubicaciones);
         setZonasDisponibles(zonas);
       })
       .catch(error => console.error('Error fetching data:', error));
   }, []);
+  
 
   const handleOpenFilterModal = () => {
     setFilterModalVisible(true);
