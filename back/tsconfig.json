@@ -1,5 +1,4 @@
 {
-
   "compilerOptions": {
     "module": "commonjs",
     "declaration": true,
@@ -19,5 +18,7 @@
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
     "resolveJsonModule": true,
+    "noUnusedLocals": false,
+    "types": ["Multer"]
   }
 }
