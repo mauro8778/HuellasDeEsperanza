@@ -45,7 +45,7 @@ export class CreatePetsDto{
     age: number
 
     @IsNotEmpty()
-    @IsNumber()
+    @IsString()
     @ApiProperty({        
         example: "año o mes"
     })
@@ -80,6 +80,10 @@ export class CreatePetsDto{
         example: "..."
     })
     description?: string
+
+    @IsOptional()
+    @IsString()
+    species: string
 
     
     @IsEmpty()

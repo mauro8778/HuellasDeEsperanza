@@ -38,7 +38,6 @@ export class UpdateShelterDto{
 
     @IsOptional()
     @IsNumber()
-    @Length(8, 12)
     @ApiProperty({
         description: "Debe ser un Numero de DNI/CUIL",
         example: "44654321"
@@ -48,7 +47,6 @@ export class UpdateShelterDto{
 
     @IsOptional()
     @IsInt()
-    @Length(10)
     @ApiProperty({
         description: 'Debe ser un numero de telefono',
         example: 1133445567,
