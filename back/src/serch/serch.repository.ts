@@ -74,8 +74,8 @@ export class SearchRepository {
     .orWhere('pet.sexo ILIKE :query', { query: `%${query}%` })
     .orWhere('pet.breed ILIKE :query', { query: `%${query}%` })
     .orWhere('pet.pet_size ILIKE :query', { query: `%${query}%` })
+    .orWhere('pet.month ILIKE :query', { query: `%${query}%` })
     .orWhere('CAST(pet.age AS TEXT) ILIKE :query', { query: `%${query}%` })
-    .orWhere('CAST(pet.month AS TEXT) ILIKE :query', { query: `%${query}%` })
 })  .getMany();
 
     const shelters = await this.sheltersRepository.createQueryBuilder('shelter')

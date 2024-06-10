@@ -1,5 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger"
-import { IsEmpty, IsNotEmpty, IsNumber, IsOptional, IsString, Length, isNotEmpty } from "class-validator"
+import { IsEmpty, IsNotEmpty, IsNumber, IsOptional, IsString, Length, Matches, isNotEmpty } from "class-validator"
 import { petSize } from "./helpers/pet_size.enum"
 import { petGender } from "src/entidades/helpers/petGender.enum"
 
@@ -7,6 +7,9 @@ export class CreatePetsDto{
 
     @IsNotEmpty()
     @IsString()
+    @Matches(/^[a-zA-Z ]+$/, {
+        message: 'El nombre solo puede contener letras y espacios',
+    })
     @ApiProperty({
         description: "Nombre de la mascota",
         example: "Oscar"

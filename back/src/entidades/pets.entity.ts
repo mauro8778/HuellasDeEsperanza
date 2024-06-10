@@ -51,7 +51,7 @@ export class PetsEntity {
     @Column({
         nullable: false
     })
-    month: number
+    month: string
 
 
     @Column({
