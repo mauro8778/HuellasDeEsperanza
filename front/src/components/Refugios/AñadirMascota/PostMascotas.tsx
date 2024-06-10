@@ -27,7 +27,7 @@ const FormularioMascota: React.FC<FormularioMascotaProps> = ({ onClose, onAddMas
     const userSession = JSON.parse(userSessionString);
     const token = userSession.access_token;
 
-    if (nombre && sexo && raza && edad !== null  && tamaño && selectedFile) {
+    if (nombre && sexo && raza && edad !== null  && mes !== null  &&tamaño && selectedFile) {
       try {
         const formData = new FormData();
         formData.append('file', selectedFile);
