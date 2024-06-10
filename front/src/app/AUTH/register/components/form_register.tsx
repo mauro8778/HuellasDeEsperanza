@@ -67,6 +67,7 @@ const Form_Register: React.FC = () => {
 
   const handleRegister = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
     setError(null);
 
     const phoneAsNumber = /^\d{10}$/.test(formData.phone) ? parseInt(formData.phone, 10) : null;
@@ -147,8 +148,10 @@ const Form_Register: React.FC = () => {
         confirmButtonText: "Aceptar",
         timer: 2000
       });
+
     }
   };
+  
 
   return (
     <div className='w-full max-w-md'>
