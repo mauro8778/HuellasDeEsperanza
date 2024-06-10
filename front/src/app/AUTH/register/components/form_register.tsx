@@ -4,6 +4,7 @@ import { useState, FormEvent, ChangeEvent } from 'react';
 import { useRouter } from 'next/navigation';
 import Button from '@/components/ui/button';
 import Input from '@/components/ui/input';
+import Swal from 'sweetalert2';
 
 const Form_Register: React.FC = () => {
   const router = useRouter();
@@ -38,10 +39,20 @@ const Form_Register: React.FC = () => {
     email: (value: string) => /\S+@\S+\.\S+/.test(value),
     password: (value: string) => value.length >= 6,
     confirm_password: (value: string) => value === formData.password,
-    birthdate: (value: string) => value.length > 0,
+    birthdate: (value: string) => {
+      const today = new Date();
+      const birthDate = new Date(value);
+      let age = today.getFullYear() - birthDate.getFullYear();
+      const monthDifference = today.getMonth() - birthDate.getMonth();
+      if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < birthDate.getDate())) {
+        age--;
+      }
+      return age >= 18;
+    },
     phone: (value: string) => /^\d{10}$/.test(value),
     location: (value: string) => value.trim().length > 2
   };
+  
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -56,6 +67,7 @@ const Form_Register: React.FC = () => {
 
   const handleRegister = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
     setError(null);
 
     const phoneAsNumber = /^\d{10}$/.test(formData.phone) ? parseInt(formData.phone, 10) : null;
@@ -63,7 +75,18 @@ const Form_Register: React.FC = () => {
     const allValid = Object.values(formValidations).every(Boolean);
     if (!allValid) {
       setError('Por favor, completa todos los campos correctamente.');
-      alert('Por favor, completa todos los campos correctamente.');
+      Swal.fire({
+        title: "¡Error!",
+        text: "Por favor, completa todos los campos correctamente.",
+        icon: "error",
+        confirmButtonText: "Entendido",
+        timer: 2000,
+        customClass: {
+          popup: 'max-w-md w-full p-4 bg-white rounded-lg shadow-lg',
+          title: 'text-xl font-bold text-gray-700',
+          confirmButton: 'bg-green-500 text-white rounded px-4 py-2 mt-2'
+        }
+      });
       console.log('Validation failed', formValidations);
       return;
     }
@@ -84,7 +107,18 @@ const Form_Register: React.FC = () => {
       if (!response.ok) {
         const errorMessage = await response.text();
         setError('Registro fallido. Por favor, inténtalo de nuevo.');
-        alert('Registro fallido. Por favor, inténtalo de nuevo.');
+        Swal.fire({
+          title: "¡Error!",
+          text: "Registro fallido. Por favor, inténtalo de nuevo.",
+          icon: "error",
+          confirmButtonText: "Aceptar",
+          timer: 2000,
+          customClass: {
+            popup: 'max-w-md w-full p-4 bg-white rounded-lg shadow-lg',
+            title: 'text-xl font-bold text-gray-700',
+            confirmButton: 'bg-green-500 text-white rounded px-4 py-2 mt-2'
+          }
+        });
         console.error('Error al registrar:', errorMessage);
         return;
       }
@@ -95,14 +129,29 @@ const Form_Register: React.FC = () => {
       console.log('Registro exitoso, token:', token);
 
       localStorage.setItem('token', token);
-      router.push('/AUTH/login');
+      Swal.fire({
+        title: "¡Registro exitoso!",
+        text: "Te has registrado correctamente.",
+        icon: "success",
+        confirmButtonText: "Aceptar",
+        timer: 2000
+      }).then(() => {
+        router.push('/AUTH/login');
+      });
 
     } catch (error) {
       setError('Ocurrió un error. Por favor, inténtalo de nuevo.');
-      alert('Ocurrió un error. Por favor, inténtalo de nuevo.');
-      console.error('Error al registrar:', error);
+      Swal.fire({
+        title: "¡Error!",
+        text: "Hubo un error al registrar. Por favor, inténtalo nuevamente.",
+        icon: "error",
+        confirmButtonText: "Aceptar",
+        timer: 2000
+      });
+
     }
   };
+  
 
   return (
     <div className='w-full max-w-md'>

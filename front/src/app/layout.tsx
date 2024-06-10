@@ -5,6 +5,7 @@ import metadata from "@/app/metadata";
 import HiddenNavBar from "@/components/hidden_navbar/HiddenNavBar";
 import Navbar from "@/components/NavBar/NavBar";
 
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadataa = metadata;
@@ -21,8 +22,10 @@ export default function RootLayout({
         <meta name="description" content={String(metadata.description) || "Descripción por defecto"} />
       </head>
       <body className={inter.className}>
-        <HiddenNavBar>
-          <Navbar />
+        
+          
+        <HiddenNavBar> 
+          <Navbar/>
         </HiddenNavBar>
         {children}
       </body>

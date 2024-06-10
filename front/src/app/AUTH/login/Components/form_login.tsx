@@ -58,6 +58,7 @@ const Form_Login: React.FC = () => {
     event.preventDefault();
     setError(null);
 
+
     if (!validateEmail(userData.email) || !validatePassword(userData.password)) {
       setError("Por favor, corrige los errores en el formulario.");
       return;
@@ -66,7 +67,7 @@ const Form_Login: React.FC = () => {
     try {
       const response = await fetch("https://backpf-prueba.onrender.com/auth/login", {
         method: "POST",
-        //  credentials: 'include',
+       
         headers: {
           "Content-Type": "application/json"
         },
@@ -75,13 +76,14 @@ const Form_Login: React.FC = () => {
 
       if (!response.ok) {
         throw new Error("Error al iniciar sesión");
+
       }
 
       const data = await response.json();
 
       console.log('Datos de la respuesta:', data); 
 
-      const { access_token, id_token } = data; //access_token, id_token
+      const { access_token, id_token } = data; 
 
       localStorage.setItem("userSession", JSON.stringify({ access_token, id_token }));
       
@@ -91,7 +93,7 @@ const Form_Login: React.FC = () => {
         title: "¡Inicio de sesión exitoso!",
         text: "Te has logeado correctamente.",
         icon: "success",
-        confirmButtonText: "OK",
+        confirmButtonText: "Aceptar",
         timer: 2000
       }).then(() => {
         router.push("/dashboard");
@@ -102,8 +104,13 @@ const Form_Login: React.FC = () => {
         title: "¡Error!",
         text: "Hubo un error al iniciar sesión. Por favor, inténtalo nuevamente.",
         icon: "error",
-        confirmButtonText: "OK",
-        timer: 2000
+        confirmButtonText: "Aceptar",
+        timer: 2000,
+        customClass: {
+          popup: 'max-w-md w-full p-4 bg-white rounded-lg shadow-lg',
+          title: 'text-xl font-bold text-gray-700',
+          confirmButton: 'bg-green-500 text-white rounded px-4 py-2 mt-2'
+        }
       });
     }
   };
