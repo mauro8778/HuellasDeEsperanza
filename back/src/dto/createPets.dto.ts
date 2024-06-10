@@ -24,7 +24,7 @@ export class CreatePetsDto{
         description: "Nombre de la mascota",
         example: "macho"
     })
-    sexo: string
+    sexo: petGender.Hembra | petGender.Macho
 
 
         
@@ -46,7 +46,7 @@ export class CreatePetsDto{
 
     @IsNotEmpty()
     @IsNumber()
-    @ApiProperty({
+    @ApiProperty({        
         example: "año o mes"
     })
     month: string

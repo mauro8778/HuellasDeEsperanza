@@ -51,7 +51,7 @@ export class UpdatePetsDto {
     @ApiProperty({
         example: "MACHO O HEMBRA"
     })
-    sexp: string;
+    sexo: string;
 
     @IsOptional()
     @IsString()
@@ -66,7 +66,7 @@ export class UpdatePetsDto {
     @ApiProperty({
         example: "perro,gato o otros"
     })
-    especies: string
+    species: string
 
     @IsOptional()
     @IsString()
