@@ -34,7 +34,7 @@ export class CreateUserDto {
     message: 'El apellido solo puede contener letras y espacios',
   })
   @ApiProperty({
-    example: 'Castillo',
+    example: 'Castjhkjhkjhkillo',
   })
   last_name: string;
 
