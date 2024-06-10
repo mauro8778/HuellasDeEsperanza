@@ -26,7 +26,7 @@ export class UserController {
 
     @Put('profile')
     updatedProfile(
-        @Param('id',ParseUUIDPipe) id:string,
+        @Param('id',ParseUUIDPipe) id : string,
         @Body() user : UpdateUserDto){
         return this.usersService.updatedProfile(id, user)
     }
@@ -43,7 +43,7 @@ export class UserController {
 
     @UseGuards(AuthGuard)
     @Post('shelter/favorite/:id')
-    addShelterFavorite(@Param('id',ParseUUIDPipe) shelterId,@Req() request){
+    addShelterFavorite(@Param('id', ParseUUIDPipe) shelterId: string,@Req() request){
 
         const userId = request.user['https://huellasdesperanza.com/userID'];
 
@@ -52,7 +52,7 @@ export class UserController {
 
     @UseGuards(AuthGuard)
     @Post('pet/favorite/:id')
-    addPetFavorite(@Param('id',ParseUUIDPipe) id: string, @Req() request) {
+    addPetFavorite(@Param('id', ParseUUIDPipe) id: string, @Req() request) {
 
          const userId = request.user['https://huellasdesperanza.com/userID'];
 
@@ -62,7 +62,7 @@ export class UserController {
 
     @UseGuards(AuthGuard)
     @Put('pet/favorite/:id')
-    PutPetFavorite(@Param('id',ParseUUIDPipe) id,  @Req() request){
+    PutPetFavorite(@Param('id', ParseUUIDPipe) id: string,  @Req() request){
 
         const userId = request.user['https://huellasdesperanza.com/userID']
 
@@ -72,7 +72,7 @@ export class UserController {
 
     @UseGuards(AuthGuard)
     @Put('shelter/favorite/:id')
-    PutShelterFavorite(@Param('id',ParseUUIDPipe) id, @Req() request){
+    PutShelterFavorite(@Param('id', ParseUUIDPipe) id: string, @Req() request){
 
         const userId = request.user['https://huellasdesperanza.com/userID']
 
