@@ -12,14 +12,12 @@ export class CarritoController {
     
     @UseGuards(AuthGuard)
     @Post()
-    addOrder(@Body() order: CreateOrderDto,  @Req() request){
-        const {shelters} = order
+    addOrder(@Param('id',ParseUUIDPipe)shelterid: string, @Req() request){
 
-        const userId = request.user['https://huellasdesperanza.com/userID'];
-
-
-        return this.carritoServices.addOrder(userId, shelters)
-    }
+        const userId = request.user['https://huellasdesperanza.com/userID'];{
+        
+        return this.carritoServices.addOrder(userId, shelterid)
+    }}
 
 
     @Get(":id")
