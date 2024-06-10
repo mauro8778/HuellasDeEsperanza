@@ -95,7 +95,7 @@ export class AdoptionRepository {
       throw new NotFoundException(`Error en la Adopción`);
     }
     await this.mailservice.sendPostulacion(
-      shelter.shelter_name,
+      shelter.name,
       pet.name,
       user.name,
       user.email,
@@ -146,28 +146,6 @@ export class AdoptionRepository {
             where: { id: adoption.shelter.id },
             relations: ['pets'],
         });
-
-            if (!user) {
-                throw new NotFoundException("refugio no encontrado")
-            }
-            console.log(1);
-
-            console.log(user.pets);
-            
-    
-            const newUser = await this.usersRepository.findOne({where:{id: user.id}, relations: ['pets']})
-            console.log(1);
-    
-            console.log(newUser);
-            
-            newUser.pets.push(pet)
-    
-            console.log(newUser);
-    
-            await this.usersRepository.save(newUser)
-    
-        console.log(1);
-
 
         if (!shelter) {
             throw new NotFoundException(`Refugio no encontrado`);
