@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, ParseUUIDPipe, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, ParseUUIDPipe, Post, Req } from '@nestjs/common';
 import { CreateOrderDto } from 'src/dto/CreateOrderDto';
 import { CarritoService } from './carrito.service';
 import { ApiTags } from '@nestjs/swagger';
@@ -10,10 +10,12 @@ export class CarritoController {
 
     
     @Post()
-    addOrder(@Body() order: CreateOrderDto){
-        const {userId, shelters} = order
-        return this.carritoServices.addOrder(userId, shelters)
-    }
+    addOrder(@Param('id',ParseUUIDPipe)shelterid: string, @Req() request){
+
+        const userId = request.user['https://huellasdesperanza.com/userID'];{
+        
+        return this.carritoServices.addOrder(userId, shelterid)
+    }}
 
 
     @Get(":id")
