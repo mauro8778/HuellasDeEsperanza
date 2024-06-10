@@ -1,4 +1,4 @@
-import { Column, Entity, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinTable, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { v4 as uuid } from "uuid"
 import { ShelterEntity } from "./shelter.entity";
 import { UserEntity } from "./user.entity";
@@ -102,11 +102,22 @@ export class PetsEntity {
     user: UserEntity[];
 
     @ManyToMany(() => UserEntity, (user) => user.pets)
-    users: UserEntity[];
+@JoinTable({
+    name: 'pets_users', // Nombre de la tabla de unión
+    joinColumn: {
+        name: 'pet_id', // Nombre de la columna que referencia a la entidad PetsEntity
+        referencedColumnName: 'id',
+    },
+    inverseJoinColumn: {
+        name: 'user_id', // Nombre de la columna que referencia a la entidad UserEntity
+        referencedColumnName: 'id',
+    },
+})
+users: UserEntity[];
 
     @OneToMany(() => AdoptionEntity, adoption => adoption.pet)
     adoptions: AdoptionEntity[];
 
-    
+
 
 }

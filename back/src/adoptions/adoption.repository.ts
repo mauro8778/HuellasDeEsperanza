@@ -123,6 +123,28 @@ export class AdoptionRepository {
             const shelter = adoption.shelter;
             const user = adoption.user;
 
+            if (!user) {
+                throw new NotFoundException("refugio no encontrado")
+            }
+            console.log(1);
+
+            console.log(user.pets);
+            
+    
+            const newUser = await this.usersRepository.findOne({where:{id: user.id}, relations: ['pets']})
+            console.log(1);
+    
+            console.log(newUser);
+            
+            newUser.pets.push(pet)
+    
+            console.log(newUser);
+    
+            await this.usersRepository.save(newUser)
+    
+        console.log(1);
+
+
         if (!shelter) {
             throw new NotFoundException("refugio no encontrado")
         }
@@ -138,23 +160,6 @@ export class AdoptionRepository {
             
             
     
-        if (!user) {
-            throw new NotFoundException("refugio no encontrado")
-        }
-        console.log(1);
-
-        const newUser = await this.usersRepository.findOne({where:{id: user.id}, relations: {pets:true}})
-        console.log(1);
-
-        console.log(newUser);
-        
-        newUser.pets.push(pet)
-
-        console.log(newUser);
-
-        await this.usersRepository.save(newUser)
-
-    console.log(1);
     
             await this.adoptionrepository.update(adoption.id, { isActive: true });
 

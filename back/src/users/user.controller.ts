@@ -43,10 +43,7 @@ export class UserController {
 
     @UseGuards(AuthGuard)
     @Post('shelter/favorite/:id')
-    @ApiQuery({ name: 'userId', required: true }) 
-    addShelterFavorite(
-        @Param('id',ParseUUIDPipe) shelterId,
-        @Req() request){
+    addShelterFavorite(@Param('id',ParseUUIDPipe) shelterId,@Req() request){
 
         const userId = request.user['https://huellasdesperanza.com/userID'];
 
@@ -55,37 +52,30 @@ export class UserController {
 
     @UseGuards(AuthGuard)
     @Post('pet/favorite/:id')
-    @ApiQuery({ name: 'userId', required: true }) 
-    addPetFavorite(
-        @Param('id',ParseUUIDPipe) pet, 
-        @Req() request) {
+    addPetFavorite(@Param('id',ParseUUIDPipe) id: string, @Req() request) {
 
          const userId = request.user['https://huellasdesperanza.com/userID'];
 
-        return this.usersService.addPetFavorite(pet, userId)
+        return this.usersService.addPetFavorite(id, userId)
     }
 
 
     @UseGuards(AuthGuard)
     @Put('pet/favorite/:id')
-    @ApiQuery({ name: 'userId', required: true }) 
-    PutPetFavorite(
-        @Param('id',ParseUUIDPipe) pet,  @Req() request){
+    PutPetFavorite(@Param('id',ParseUUIDPipe) id,  @Req() request){
 
         const userId = request.user['https://huellasdesperanza.com/userID']
 
-        return this.usersService.PutPetFavorite(pet, userId)
+        return this.usersService.PutPetFavorite(id, userId)
     }
 
 
     @UseGuards(AuthGuard)
     @Put('shelter/favorite/:id')
-    @ApiQuery({ name: 'userId', required: true }) 
-    PutShelterFavorite(
-        @Param('id',ParseUUIDPipe) shelterId, @Req() request){
+    PutShelterFavorite(@Param('id',ParseUUIDPipe) id, @Req() request){
 
         const userId = request.user['https://huellasdesperanza.com/userID']
 
-        return this.usersService.PutShelterFavorite(shelterId, userId)
+        return this.usersService.PutShelterFavorite(id, userId)
     }
 }

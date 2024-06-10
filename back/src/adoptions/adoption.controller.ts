@@ -1,7 +1,7 @@
 import { Body, Controller, Delete, Get, Param, ParseUUIDPipe, Post, Req, UseGuards } from '@nestjs/common';
 import { AdoptionService } from './adoption.service';
 import { CreateAdopcionDto } from 'src/dto/createAdopcion.dto';
-import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { ApiTags } from '@nestjs/swagger';
 import { AuthGuard } from 'src/guards/auth.guard';
 
 @ApiTags("Adoption")
@@ -19,7 +19,6 @@ export class AdoptionController {
         return await this.adopcionservice.adoptionsById(id)
     }
 
-    @ApiBearerAuth()
     @UseGuards(AuthGuard)
     @Post('new/:id')
     async newAdoption(@Param('id') petid: string, @Req() request) {
