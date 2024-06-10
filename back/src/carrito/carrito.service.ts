@@ -6,7 +6,7 @@ import { ShelterOrderDto } from '../dto/shelterOrderDto';
 export class CarritoService {
     constructor( private carritoRepository: CarritoRepository ){}
 
-    addOrder(shelterId: string, userId:string) {
+    addOrder(shelterId, userId:string) {
         return this.carritoRepository.addOrder(userId, shelterId)
     }
 
