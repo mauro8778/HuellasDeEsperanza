@@ -1,4 +1,3 @@
-import type { Metadata } from 'next';
 import Logo from '@/components/ui/Logo';
 import FormularioAdoption from '@/components/FormularioAdoption/FormularioAdoption';
 

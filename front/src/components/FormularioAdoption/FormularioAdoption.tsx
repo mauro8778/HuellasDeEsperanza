@@ -10,15 +10,16 @@ interface FormLoginProps {
 }
 
 const FormularioAdoption: React.FC<FormLoginProps> = () => {
-  const searchParams = useSearchParams();
-  const name = searchParams.get('name');
-
   return (
     <div className='w-full max-w-md'>
       <div className='mb-5'>
         <h2 className='text-2xl font-semibold'>Hola!</h2>
         <p className='text-gray-500 text-sm'>
-          Estás a un paso de adoptar a <span className='text-pink-600 font-bold'>{name}</span>.
+          Por favor completa el formulario, si no leiste aún los requisitos presiona <button
+            type='button'
+            className='font-semibold hover:text-pink-600 transition-colors duration-300'>
+            aquí.
+          </button>
         </p>
       </div>
       <form className='w-full'>
