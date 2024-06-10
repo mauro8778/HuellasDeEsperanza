@@ -25,7 +25,7 @@ export class AdoptionService {
     }
 
     async activateAdoption(adoptionId: string){
-        await this.adoptionrepository.activateAdoption(adoptionId)
+        return await this.adoptionrepository.activateAdoption(adoptionId)
     }
 
     async adoptionUser(userid: string) {

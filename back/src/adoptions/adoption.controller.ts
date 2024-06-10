@@ -28,7 +28,7 @@ export class AdoptionController {
 
     @Post('activate/:id')
     async activateAdoption(@Param('id',ParseUUIDPipe) adoptionId: string){
-    await this.adopcionservice.activateAdoption(adoptionId)
+    return await this.adopcionservice.activateAdoption(adoptionId)
 }
 
 
