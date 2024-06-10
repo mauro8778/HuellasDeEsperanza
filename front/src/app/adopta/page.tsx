@@ -77,13 +77,21 @@ export default function Adopta() {
     setIsModalOpen(false);
   };
 
+  const updateMascota = (updatedMascota: IMascotas) => {
+    setMascotasState(prevState =>
+      prevState.map(mascota =>
+        mascota.id === updatedMascota.id ? updatedMascota : mascota
+      )
+    );
+  };
+
   return (
     <main className="flex flex-col items-center bg-gray-300">
       <button onClick={() => setIsModalOpen(true)} className="px-4 py-2 bg-green-700 text-white rounded hover:bg-green-800 mt-4">
         Filtrar Mascotas
       </button>
       <Suspense fallback={<div>Cargando mascotas...</div>}>
-        <ListaMascotas mascotas={mascotasState} />
+        <ListaMascotas mascotas={mascotasState} updateMascota={updateMascota} />
       </Suspense>
       {isModalOpen && (
         <Modal 
