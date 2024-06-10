@@ -13,7 +13,8 @@ export default function Adopta() {
   useEffect(() => {
     const fetchMascotas = async () => {
       try {
-        const response = await fetch('https://backpf-prueba.onrender.com/search/pets');
+        const queryParams = new URLSearchParams();
+        const response = await fetch(`https://backpf-prueba.onrender.com/search/pets?${queryParams.toString()}`);
         if (!response.ok) {
           throw new Error('Error al obtener los datos de las mascotas');
         }
@@ -37,10 +38,9 @@ export default function Adopta() {
 
   const filtrarMascotas = () => {
     return mascotasState.filter(mascota => {
-
-      const edadCoincide = filters.edad ? String(mascota.age)?.toLowerCase().includes(filters.edad.toLowerCase()) : true;
-      const tamañoCoincide = filters.tamaño ? mascota.pet_size?.toLowerCase().includes(filters.tamaño.toLowerCase()) : true; 
-      const razaCoincide = filters.raza ? mascota.breed?.toLowerCase().includes(filters.raza.toLowerCase()) : true; 
+      const edadCoincide = filters.edad ? mascota.age === Number(filters.edad) : true;
+      const tamañoCoincide = filters.tamaño ? mascota.pet_size === filters.tamaño : true; 
+      const razaCoincide = filters.raza ? mascota.breed === filters.raza : true; 
       return edadCoincide && tamañoCoincide && razaCoincide;
     });
   };
@@ -53,6 +53,8 @@ export default function Adopta() {
     );
   };
 
+  const filteredMascotas = filtrarMascotas();
+
   return (
     <main className="flex flex-col items-center bg-gray-300">
       <div className="flex justify-center space-x-2">
@@ -61,7 +63,11 @@ export default function Adopta() {
         </button>
       </div>
       <Suspense fallback={<div>Cargando mascotas...</div>}>
-        <ListaMascotas mascotas={filtrarMascotas()} updateMascota={updateMascota} />
+        {filteredMascotas.length > 0 ? (
+          <ListaMascotas mascotas={filteredMascotas} updateMascota={updateMascota} />
+        ) : (
+          <div>No se encontraron mascotas con los filtros seleccionados</div>
+        )}
       </Suspense>
       <ModalFilterMascotas
         isOpen={filterModalVisible}

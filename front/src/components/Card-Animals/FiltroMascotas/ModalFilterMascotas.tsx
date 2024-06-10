@@ -14,10 +14,16 @@ const ModalFilterMascotas: React.FC<ModalProps> = ({ onClose, onFilter, isOpen, 
   const [raza, setRaza] = useState('');
   const [tamaño, setTamaño] = useState('');
 
+  const handleRazaChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    console.log('Raza seleccionada:', e.target.value);
+    setRaza(e.target.value);
+  };
+
   const handleFilter = () => {
-    onFilter(edad, raza, tamaño);
+    onFilter(edad, tamaño, raza); // Aquí edad, raza y tamaño están en el orden correcto
     onClose();
   };
+  
 
   return (
     <div className={`fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 transition-opacity duration-300 ${isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
@@ -35,18 +41,7 @@ const ModalFilterMascotas: React.FC<ModalProps> = ({ onClose, onFilter, isOpen, 
             ))}
           </select>
         </div>
-        <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-700 mb-2">Raza</label>
-          <select
-            value={raza}
-            onChange={(e) => setRaza(e.target.value)}
-            className="w-full p-2 border border-gray-300 rounded">
-            <option value="">Todas</option>
-            {razas.map((zon, index) => (
-              <option key={index} value={zon}>{zon}</option>
-            ))}
-          </select>
-        </div>
+        
         <div className="mb-4">
           <label className="block text-sm font-medium text-gray-700 mb-2">Tamaño</label>
           <select
@@ -58,9 +53,21 @@ const ModalFilterMascotas: React.FC<ModalProps> = ({ onClose, onFilter, isOpen, 
               <option key={index} value={tam}>{tam}</option>
             ))}
           </select>
+          <div className="mb-4">
+          <label className="block text-sm font-medium text-gray-700 mb-2">Raza</label>
+          <select
+            value={raza}
+            onChange={handleRazaChange}
+            className="w-full p-2 border border-gray-300 rounded">
+            <option value="">Todas</option>
+            {razas.map((raz, index) => (
+              <option key={index} value={raz}>{raz}</option>
+            ))}
+          </select>
+        </div>
         </div>
         <div className="flex justify-end space-x-2">
-          <button onClick={handleFilter} className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">Aplicar Filtro</button>
+          <button onClick={handleFilter} className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-600">Aplicar Filtro</button>
           <button onClick={onClose} className="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600">Cerrar</button>
         </div>
       </div>
