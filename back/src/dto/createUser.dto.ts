@@ -76,7 +76,7 @@ export class CreateUserDto {
 
   @IsOptional()
   @IsInt()
-  @Length(10)
+  @Length(0-10)
   @ApiProperty({
     description: 'Debe ser un numero de telefono',
     example: 1133445566,

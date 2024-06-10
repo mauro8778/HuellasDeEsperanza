@@ -23,7 +23,7 @@ export class UserRepository implements OnModuleInit {
   }
   async getUsers() {
     const users = await this.usersRepository.find({
-      relations:['pets']
+      relations:['pets','favorite_shelters','favorite_pets']
     });
 
     if (users.length === 0) {
@@ -109,7 +109,7 @@ export class UserRepository implements OnModuleInit {
   async addShelterFavorite(id: string, userId: string) {
     const user: UserEntity = await this.usersRepository.findOne({
       where: { id: userId },
-      relations: ['favorite']
+      relations: ['favorite_shelters']
     });
 
     if (!user) {
@@ -134,7 +134,7 @@ export class UserRepository implements OnModuleInit {
   async addPetFavorite(petId: string, userId: string) {
     const user: UserEntity = await this.usersRepository.findOne({
       where: { id: userId },
-      relations: ['favorite']
+      relations: ['favorite_pets']
     });
 
     if (!user) {
