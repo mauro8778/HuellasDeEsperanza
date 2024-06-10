@@ -1,7 +1,8 @@
-import { Body, Controller, Delete, Get, Param, ParseUUIDPipe, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseUUIDPipe, Post, Req, UseGuards } from '@nestjs/common';
 import { AdoptionService } from './adoption.service';
 import { CreateAdopcionDto } from 'src/dto/createAdopcion.dto';
 import { ApiTags } from '@nestjs/swagger';
+import { AuthGuard } from 'src/guards/auth.guard';
 
 @ApiTags("Adoption")
 @Controller('adoption')
@@ -18,11 +19,18 @@ export class AdoptionController {
         return await this.adopcionservice.adoptionsById(id)
     }
 
-    @Post('new')
-    async newAdoption(@Body() adoption: CreateAdopcionDto){
-        const {user, shelter, pet} = adoption;
-        return await this.adopcionservice.newAdoption(user, shelter, pet)
-    }
+    @UseGuards(AuthGuard)
+    @Post('new/:id')
+    async newAdoption(@Param('id') petid: string, @Req() request) {
+    const userId = request.user['https://huellasdesperanza.com/userID'];
+    return await this.adopcionservice.newAdoption(userId, petid);
+}
+
+    @Post('activate/:id')
+    async activateAdoption(@Param('id',ParseUUIDPipe) adoptionId: string){
+    return await this.adopcionservice.activateAdoption(adoptionId)
+}
+
 
     @Delete('delete/:id')
     async Deleteadoption(@Param('id', ParseUUIDPipe) id: string){

@@ -1,9 +1,10 @@
-import { Column, Entity, ManyToMany, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { v4 as uuid } from 'uuid';
 // import { DonationEntity } from './donation.entity';
 import { AdoptionEntity } from './adoption.entity';
 import { PetsEntity } from './pets.entity';
 import { OrderDetailsEntity } from './orderDetail.entity';
+import { UserEntity } from './user.entity';
 
 @Entity({
   name: 'shelter',
@@ -79,17 +80,23 @@ export class ShelterEntity {
   })
   isActive: boolean;
 
-  // @Column({
-  //   nullable: true,
-  // })
-  // donations: number;
+  @Column({
+    nullable: true,
+    type: "decimal"
+  })
+  rate: number;
 
 
 
-  @OneToMany(() => AdoptionEntity, (adoptions) => adoptions.shelter)
+
+  @ManyToMany(() => UserEntity, (user) => user.favorite_shelters)
+  user: UserEntity[];
+
+  @ManyToMany(() => AdoptionEntity, (adoptions) => adoptions.shelter)
   adoptions: AdoptionEntity[];
 
   @OneToMany(() => PetsEntity, (pets) => pets.shelter)
+  @JoinColumn()
   pets: PetsEntity[];
 
   @ManyToMany(() => OrderDetailsEntity, (orderdetail) => orderdetail.shelters)

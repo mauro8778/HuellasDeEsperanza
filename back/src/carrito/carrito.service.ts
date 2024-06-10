@@ -6,8 +6,8 @@ import { ShelterOrderDto } from '../dto/shelterOrderDto';
 export class CarritoService {
     constructor( private carritoRepository: CarritoRepository ){}
 
-    addOrder(userId: string, shelters: ShelterOrderDto[]) {
-        return this.carritoRepository.addOrder(userId, shelters)
+    addOrder(shelterId, userId:string) {
+        return this.carritoRepository.addOrder(userId, shelterId)
     }
 
     getOrder(id: string) {

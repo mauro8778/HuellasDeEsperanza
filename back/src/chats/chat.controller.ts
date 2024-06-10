@@ -1,30 +1,16 @@
-import { Body, Controller, Delete, Get, Param, ParseUUIDPipe, Post } from '@nestjs/common';
-import { ChatService } from './chat.service';
-import { ChatEntity } from 'src/entidades/chat.entity';
+import { Body, Controller, Delete, Get, Param, ParseUUIDPipe, Post, Res } from '@nestjs/common';
+
 import { ApiTags } from '@nestjs/swagger';
+import { Response } from 'express';
+import { join } from 'path';
 
 @ApiTags("Chat")
 @Controller('chat')
 export class ChatController {
-    constructor(private readonly chatservices:ChatService){}
-
-    // @Get()
-    // async chat(){
-    //     return await this.chatservices.chat()
-    // }
-
-    // @Get(':id')
-    // async chatById(@Param('id',ParseUUIDPipe) id:string){
-    //     return await this.chatservices.chatById(id)
-    // }
-
-    // @Post('new')
-    // async newChat(@Body() chat: Omit<ChatEntity, "id">){
-    //     return await this.chatservices.newChat(chat)
-    // }
-
-    // @Delete('delete/:id')
-    // async DeleteChat(@Param('id',ParseUUIDPipe) id:string){
-    //     return await this.chatservices.DeleteChat(id)
-    // }
+    
+    @Get()
+    serverStaticFiles(@Res() res: Response){
+        const filePath = join(__dirname,'public', 'index.html');
+        res.sendFile(filePath);
+    }
 }

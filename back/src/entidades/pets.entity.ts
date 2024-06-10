@@ -1,19 +1,21 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
-import {v4 as uuid} from "uuid"
+import { Column, Entity, JoinColumn, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { v4 as uuid } from "uuid"
 import { ShelterEntity } from "./shelter.entity";
+import { UserEntity } from "./user.entity";
+import { AdoptionEntity } from "./adoption.entity";
 
 
 @Entity({
     name: 'pet'
 })
-export class PetsEntity{
+export class PetsEntity {
 
     @PrimaryGeneratedColumn("uuid")
     id: string = uuid()
-    
+
 
     @Column({
-        type:"varchar",
+        type: "varchar",
         nullable: true,
         default: "Sin nombre"
     })
@@ -21,17 +23,24 @@ export class PetsEntity{
 
 
     @Column({
-        type:"varchar",
+        type: "varchar",
         nullable: false
     })
     sexo: string
 
-        
+
     @Column({
-        type:"varchar",
+        type: "varchar",
         nullable: false
     })
     breed: string
+
+
+    @Column({
+        type: "varchar",
+        nullable: false
+    })
+    species: string
 
 
     @Column({
@@ -46,7 +55,7 @@ export class PetsEntity{
 
 
     @Column({
-        type:"varchar",
+        type: "varchar",
         nullable: true,
         default: ""
     })
@@ -54,7 +63,7 @@ export class PetsEntity{
 
 
     @Column({
-        type:"varchar",
+        type: "varchar",
         nullable: false
     })
     pet_size: string
@@ -68,7 +77,7 @@ export class PetsEntity{
 
 
     @Column({
-        type:"varchar",
+        type: "varchar",
         nullable: true
     })
     godfather?: string | undefined
@@ -76,17 +85,22 @@ export class PetsEntity{
     @Column({
         nullable: true,
         default: false,
-      })
-      isCondition: boolean;
+    })
+    isCondition: boolean;
 
     @Column({
         nullable: true,
         default: true,
-      })
-      isActive: boolean;
+    })
+    isActive: boolean;
 
+    @ManyToOne(() => ShelterEntity, (shelter) => shelter.pets)
+    @JoinColumn()
+    shelter: ShelterEntity
 
-    @ManyToOne(() => ShelterEntity, shelter => shelter.pets)
-    shelter: ShelterEntity 
+    @ManyToMany(() => UserEntity, (user) => user.favorite_pets)
+    user: UserEntity[];
 
+    @ManyToOne(() => UserEntity, (user) => user.pets)
+    users: UserEntity;
 }

@@ -1,11 +1,11 @@
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
-import {v4 as uuid} from "uuid"
+import { v4 as uuid } from "uuid"
 
 
 @Entity({
-    name:'volunteer'    
+    name: 'volunteer'
 })
-export class VolunteerEntity{
+export class VolunteerEntity {
 
     @PrimaryGeneratedColumn("uuid")
     id: string = uuid()
@@ -14,7 +14,7 @@ export class VolunteerEntity{
     @Column({
         nullable: false,
     })
-    date:Date
+    date: Date
 
 
     @Column({
@@ -27,7 +27,7 @@ export class VolunteerEntity{
     @Column()
     shelter_id: string
 
-    
+
     @Column()
     user_id: string
 }

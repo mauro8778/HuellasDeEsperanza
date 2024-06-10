@@ -36,7 +36,6 @@ export class AuthGuard implements CanActivate {
       decodedToken.expDate = new Date(decodedToken.exp * 1000).toISOString();
       request.user = decodedToken
 
-      console.log(request.user);
 
       /* const userRoles = decodedToken['https://huellasdesperanza.com/roles']; */
 

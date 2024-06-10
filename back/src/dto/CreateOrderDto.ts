@@ -7,13 +7,13 @@ import { ShelterOrderDto } from "./shelterOrderDto"
 
 export class CreateOrderDto {
 
-    @ApiProperty({
-        description: 'Se requiere que el userId no esté vacío y cumpla con el formato UUID.',
-        example: "UIID"
-      })
-    @IsNotEmpty()
-    @IsUUID()
-    userId: string = uuid()
+    // @ApiProperty({
+    //     description: 'Se requiere que el userId no esté vacío y cumpla con el formato UUID.',
+    //     example: "UIID"
+    //   })
+    // @IsNotEmpty()
+    // @IsUUID()
+    // userId: string = uuid()
 
 
     @ApiProperty({

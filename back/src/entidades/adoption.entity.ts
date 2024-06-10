@@ -19,7 +19,8 @@ export class AdoptionEntity{
     })
     date: Date
 
-
+    @Column()
+    isActive:boolean
     
     @ManyToOne(() => UserEntity, (user) => user.adoptions)
     user: UserEntity
