@@ -58,7 +58,6 @@ const Form_Login: React.FC = () => {
     event.preventDefault();
     setError(null);
 
-
     if (!validateEmail(userData.email) || !validatePassword(userData.password)) {
       setError("Por favor, corrige los errores en el formulario.");
       return;
@@ -67,7 +66,6 @@ const Form_Login: React.FC = () => {
     try {
       const response = await fetch("https://backpf-prueba.onrender.com/auth/login", {
         method: "POST",
-       
         headers: {
           "Content-Type": "application/json"
         },
@@ -76,18 +74,14 @@ const Form_Login: React.FC = () => {
 
       if (!response.ok) {
         throw new Error("Error al iniciar sesión");
-
       }
 
       const data = await response.json();
+      console.log('Datos de la respuesta:', data);
 
-      console.log('Datos de la respuesta:', data); 
-
-      const { access_token, id_token } = data; 
-
+      const { access_token, id_token } = data;
       localStorage.setItem("userSession", JSON.stringify({ access_token, id_token }));
-      
-      console.log('Datos de la sesión del usuario almacenados en localStorage:', {  access_token, id_token }); 
+      console.log('Datos de la sesión del usuario almacenados en localStorage:', { access_token, id_token });
 
       Swal.fire({
         title: "¡Inicio de sesión exitoso!",
@@ -113,6 +107,16 @@ const Form_Login: React.FC = () => {
         }
       });
     }
+  };
+
+  const handleGoogleLogin = () => {
+    // aca se agrega la logica la logueo con google
+    console.log("Logueado con Google");
+  };
+
+  const handleFacebookLogin = () => {
+    
+    console.log("Loguedo Facebook");
   };
 
   return (
@@ -163,6 +167,10 @@ const Form_Login: React.FC = () => {
           </button>
         </div>
         <Button type='submit' label='Ingresar' />
+        <div className='mt-5 mb-10 flex flex-col items-center justify-center gap-y-2'>
+          <Button type='button' label='Ingresar con Google' onClick={handleGoogleLogin} />
+          <Button type='button' label='Ingresar con Facebook' onClick={handleFacebookLogin} />
+        </div>
         <div className='mt-5 mb-10 flex items-center justify-center gap-x-2'>
           <p className='text-gray-500'>¿No tienes una cuenta?</p>
           <button

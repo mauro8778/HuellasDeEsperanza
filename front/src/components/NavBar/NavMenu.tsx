@@ -18,7 +18,7 @@ const NavMenu: React.FC = () => {
             pathname: "/Home",
             query: {name: "test"},
           }}>
-            Inicio
+            Home
           </Link>
         </li>
         <li>
@@ -26,7 +26,7 @@ const NavMenu: React.FC = () => {
             pathname: "/adopta",
             query: {name: "test"},
           }}>
-            Adopta
+            Adoptar
           </Link>
         </li>
         {/* <li className="relative z-10" onClick={toggleMenu}>

@@ -3,11 +3,10 @@ import DonationsUI from '../donations/page';
 
 const Donations_user = () => {
   return (
-    <div className='space-y-4'>
-      <div className='bg-white p-4 rounded-lg shadow'>
-       
-        <DonationsUI />
-      </div>
+    <div className='space-y-4 max-w-3xl max-h-64 p-4 rounded-lg shadow'>
+      
+        {/* <DonationsUI /> */}
+    
      
     
     </div>

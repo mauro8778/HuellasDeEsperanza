@@ -6,11 +6,11 @@ import { Card } from '@/components/ui/Card';
 
 const Dashboard = () => {
   return (
-    <div className='flex flex-col items-center justify-center min-h-screen p-4 mt-20'>
+    <div className='flex flex-col items-center justify-center  bg-red-400 min-h-screen p-4 mt-20'>
       <div className='max-w-screen-lg w-full'>
         <div className='flex flex-col space-y-8 md:flex-row md:space-x-8'>
           <div className='flex-1'>
-            <Card title="Your Donations">
+            <Card title="Donaciondes">
               <Donations_user />
             </Card>
           </div>
