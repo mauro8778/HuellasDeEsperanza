@@ -11,7 +11,7 @@ const DetailAnimals = ({ params }: { params: { id: string } }) => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch(`https://backpf-prueba.onrender.com/pets/${params.id}`);
+                const response = await fetch(`https://huellasdesperanza.onrender.com/pets/${params.id}`);
                 if (!response.ok) {
                     throw new Error('Failed to fetch data');
                 }

@@ -14,7 +14,7 @@ export default function Adopta() {
     const fetchMascotas = async () => {
       try {
         const queryParams = new URLSearchParams();
-        const response = await fetch(`https://backpf-prueba.onrender.com/search/pets?${queryParams.toString()}`);
+        const response = await fetch(`https://huellasdesperanza.onrender.com/search/pets?${queryParams.toString()}`);
         if (!response.ok) {
           throw new Error('Error al obtener los datos de las mascotas');
         }

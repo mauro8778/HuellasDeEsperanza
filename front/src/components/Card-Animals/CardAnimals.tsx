@@ -50,7 +50,7 @@ const CardAnimals: React.FC<{ mascota: IMascotas, updateMascota: (mascota: IMasc
 
   const handleSaveChanges = async () => {
     try {
-      const response = await fetch(`https://backpf-prueba.onrender.com/pets/${mascota.id}`, {
+      const response = await fetch(`https://huellasdesperanza.onrender.com/pets/${mascota.id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json'
