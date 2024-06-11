@@ -34,7 +34,7 @@ export class UpdatePetsDto {
     @IsOptional()
     @IsString()
     @ApiProperty({
-        example: "mes o año"
+        example: "mes o año"})
     month: string
 
 
@@ -75,13 +75,5 @@ export class UpdatePetsDto {
     })
     species: string
 
-    @IsOptional()
-    @IsString()
-    @Length(2, 200)
-    @ApiProperty({
-        description: "Descripción del producto",
-        example: "..."
-    })
-    description?: string
 
 }
