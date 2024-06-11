@@ -14,28 +14,55 @@ export const RefugioDetail: React.FC<IRefugios> = ({ id, name, description, imgU
     setSelectedAmount(selectedAmount === amount ? null : amount);
   };
 
-  const handleAddToCart = () => {
+  const handleAddToCart = async () => {
     if (selectedAmount === null) {
       Swal.fire('Por favor, selecciona un monto para donar');
       return;
     }
-
-    const donation = {
-      shelter: { id, name: shelter_name },
-      amount: selectedAmount
-    };
-
-    let donations = localStorage.getItem('donations');
-    donations = donations ? JSON.parse(donations) : [];
-    if (Array.isArray(donations)) {
-      donations.push(donation);
-      localStorage.setItem('donations', JSON.stringify(donations));
+  
+    // saco la info del local storage
+    const donations = localStorage.getItem('donations');
+    const parsedDonations = donations ? JSON.parse(donations) : [];
+  
+    // Aca se crea el objeto para enviar la donacion al back
+    const donationData = parsedDonations.map((donation: any) => ({
+      id: donation.shelter.id,
+      price: Number(donation.amount)
+    }));
+  
+    try {
+      // Hacer la solicitud POST
+      const response = await fetch("https://backpf-prueba.onrender.com/carrito", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(donationData)
+      });
+  
+      if (!response.ok) {
+        throw new Error("Error al agregar donación al carrito");
+      }
+  
       Swal.fire(`Tu donación de $${selectedAmount} fue agregada con éxito`);
       window.location.href = '/refugios';
-    } else {
-      console.error("Error: donations no es un array.");
+    } catch (error) {
+      console.error('Error al agregar donación al carrito:', error);
+      Swal.fire({
+        title: "¡Error!",
+        text: "Hubo un error al agregar la donación al carrito. Por favor, inténtalo nuevamente.",
+        icon: "error",
+        confirmButtonText: "Aceptar",
+        timer: 2000,
+        customClass: {
+          popup: 'max-w-md w-full p-4 bg-white rounded-lg shadow-lg',
+          title: 'text-xl font-bold text-gray-700',
+          confirmButton: 'bg-green-500 text-white rounded px-4 py-2 mt-2'
+        }
+      });
     }
   };
+  
 
   return (
     <>
