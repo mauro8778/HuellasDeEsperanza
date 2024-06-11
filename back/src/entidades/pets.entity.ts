@@ -77,8 +77,16 @@ export class PetsEntity {
 
 
     @Column({
+        nullable: true,
+        type: "text",
+        array:true
+      })
+      listImg?: string[];
+
+
+    @Column({
         type: "varchar",
-        nullable: true
+        nullable: true,
     })
     godfather?: string | undefined
 

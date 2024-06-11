@@ -70,6 +70,10 @@ export class CreatePetsDto{
     })
     imgUrl?: string   
 
+
+    @IsEmpty()
+    listImg? : string[]
+
     
     
     @IsOptional()
