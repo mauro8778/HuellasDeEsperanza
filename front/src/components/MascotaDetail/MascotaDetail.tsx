@@ -3,18 +3,28 @@
 import { IMascotas } from '@/interface/IMascotas';
 import Image from 'next/image';
 import Link from 'next/link'; 
+import FavoriteStar from './FavoriteStar';
+import { useState } from 'react';
 
 export const MascotaDetail: React.FC<IMascotas> = ({ name, age, description, imgUrl, breed, sexo, pet_size }) => {
+      const [isFavorite, setIsFavorite] = useState(false);
+
+      const handleToggleFavorite = () => {
+    setIsFavorite(!isFavorite);
+  };
     return (
         <>
             <div className="mt-5 mb-20 grid grid-cols-1 md:grid-cols-3 gap-3 ">
-                <div className="col-span-1 md:col-span-2 flex justify-center">
+                <div className="col-span-1 md:col-span-2 flex justify-center relative"> 
                     <Image
                         src={imgUrl ?? ''} 
                         alt={name ?? ''} 
                         width={500} 
                         height={300}
                     />
+                    <div className="absolute top-2 right-2">
+                        <FavoriteStar isFavorite={isFavorite} onToggleFavorite={handleToggleFavorite} isLoggedIn />
+                    </div>
                 </div>
                 <div className="col-span-1 px-5 shadow-xl m-5">
                     <h1 className='antialiased font-bold text-xl'>Te presentamos a {name}</h1>

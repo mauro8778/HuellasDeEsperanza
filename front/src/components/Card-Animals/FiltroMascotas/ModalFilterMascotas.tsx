@@ -20,7 +20,7 @@ const ModalFilterMascotas: React.FC<ModalProps> = ({ onClose, onFilter, isOpen, 
   };
 
   const handleFilter = () => {
-    onFilter(edad, tamaño, raza); // Aquí edad, raza y tamaño están en el orden correcto
+    onFilter(edad, tamaño, raza);
     onClose();
   };
   

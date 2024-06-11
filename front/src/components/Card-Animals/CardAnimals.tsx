@@ -3,6 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { IMascotas } from '@/interface/IMascotas';
 import EditMascota from './EditMascota';
+import DeleteMascota from './DeleteMascota';
 
 const truncateDescription = (text: string, maxLength: number) => {
   if (text.length <= maxLength) return text;
@@ -49,7 +50,7 @@ const CardAnimals: React.FC<{ mascota: IMascotas, updateMascota: (mascota: IMasc
 
   const handleSaveChanges = async () => {
     try {
-      const response = await fetch(`https://backpf-prueba.onrender.com/pets/${mascota.id}`, {
+      const response = await fetch(`https://huellasdesperanza.onrender.com/pets/${mascota.id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json'
@@ -71,25 +72,29 @@ const CardAnimals: React.FC<{ mascota: IMascotas, updateMascota: (mascota: IMasc
     }
   };
 
+
   return (
-    <>
-      <div className="bg-transparent rounded-lg shadow-2xl p-4 m-2 md:m-4 max-w-xs mx-auto transform transition-transform duration-200 hover:scale-105">
-        <div className="absolute top-2 right-2">
-          <button onClick={handleEditClick} className="group">
-            <svg 
-                className="h-8 w-8 text-green-700 group-hover:text-rose-500" 
-                viewBox="0 0 24 24"  
-                fill="none"  
-                stroke="currentColor"  
-                strokeWidth="2"  
-                strokeLinecap="round"  
-                strokeLinejoin="round">  
-                <circle cx="12" cy="12" r="1" />  
-                <circle cx="19" cy="12" r="1" />  
-                <circle cx="5" cy="12" r="1" />
-            </svg>
-          </button>
+      <>
+        <div className="bg-transparent rounded-lg shadow-2xl p-4 m-2 md:m-4 max-w-xs mx-auto transform transition-transform duration-200 hover:scale-105 relative">
+          <div className="absolute mr-2 top-2 right-2 flex items-center ">
+            <button onClick={handleEditClick} className="group mr-2">
+                <svg 
+                    className=" h-6 w-6 text-green-700 group-hover:bg-gray-400 rounded-full" 
+                    viewBox="0 0 24 24"  
+                    fill="none"  
+                    stroke="currentColor"  
+                    strokeWidth="2"  
+                    strokeLinecap="round"  
+                    strokeLinejoin="round">  
+                    <circle cx="12" cy="12" r="1" />  
+                    <circle cx="19" cy="12" r="1" />  
+                    <circle cx="5" cy="12" r="1" />
+                </svg>
+            </button>
+            <DeleteMascota mascotaId={mascota.id} onDelete={() => updateMascota(mascota)} />
         </div>
+
+
         <Link href={`/adopta/${mascota.id}`}>
           <div className="flex justify-center mt-5">
             {mascota.imgUrl && (
