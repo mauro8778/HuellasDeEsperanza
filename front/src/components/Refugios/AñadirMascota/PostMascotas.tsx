@@ -11,7 +11,7 @@ const FormularioMascota: React.FC<FormularioMascotaProps> = ({ onClose, onAddMas
   const [sexo, setSexo] = useState('');
   const [raza, setRaza] = useState('');
   const [edad, setEdad] = useState<number | null>(null);
-  const [mes, setMes] = useState<number | null>(null);
+  const [mes, setMes] = useState('');
   const [tamaño, setTamaño] = useState('');
   const [descripcion, setDescripcion] = useState('');
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -32,7 +32,7 @@ const FormularioMascota: React.FC<FormularioMascotaProps> = ({ onClose, onAddMas
         const formData = new FormData();
         formData.append('file', selectedFile);
 
-        const response = await fetch('https://backpf-prueba.onrender.com/files/uploadFile', {
+        const response = await fetch('https://huellasdesperanza.onrender.com/files/uploadFile', {
           method: 'POST',
           body: formData,
         });
@@ -54,7 +54,7 @@ const FormularioMascota: React.FC<FormularioMascotaProps> = ({ onClose, onAddMas
           imgUrl: imageUrl, 
         };
 
-        const mascotaResponse = await fetch('https://backpf-prueba.onrender.com/pets', {
+        const mascotaResponse = await fetch('https://huellasdesperanza.onrender.com/pets', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -118,9 +118,9 @@ const FormularioMascota: React.FC<FormularioMascotaProps> = ({ onClose, onAddMas
           </label>
           <input
             id="edadMeses"
-            type="number"
+            type="text"
             value={mes !== null ? mes : ''}
-            onChange={(e) => setMes(e.target.value ? parseInt(e.target.value) : null)}
+            onChange={(e) => setMes(e.target.value)}
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             placeholder="Mes"
           />

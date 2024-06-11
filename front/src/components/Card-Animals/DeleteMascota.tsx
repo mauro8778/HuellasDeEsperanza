@@ -32,7 +32,7 @@ const DeleteMascota: React.FC<{ mascotaId?: string, onDelete: (mascotaId: string
     return (
           <button onClick={handleDeleteClick} className="group">
             <svg
-              className="rounded-full h-6 w-6 text-green-700 group-hover:bg-gray-400"
+              className="rounded-full h-6 w-6 text-gray-500 group-hover:bg-gray-400"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor">
