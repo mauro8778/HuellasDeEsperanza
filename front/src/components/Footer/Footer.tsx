@@ -3,7 +3,7 @@ import Link from "next/link"
 
 const Footer= () => {
     return (
-        <footer className="bg-blue-100/80 font-sans dark:bg-gray-900 mt-10 ">
+        <footer className="bg-gray-50 font-sans dark:bg-gray-900 mt-10 border-t-2 border-gray-200 shadow-2xl ">
     <div className="container px-6 py-12 mx-auto ">
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-y-10 lg:grid-cols-4 ">
             
@@ -11,13 +11,13 @@ const Footer= () => {
                 {/* <p className="font-semibold text-gray-800 dark:text-white">Link</p> */}
 
                 <div className="flex flex-col items-start mt-5 space-y-2 ">
-                    <Link href= "/nosotros" className="text-gray-600 transition-colors duration-300 dark:text-gray-300 dark:hover:text-blue-400 hover:underline hover:cursor-pointer hover:text-blue-500" >
+                    <Link href= "/nosotros" className="text-gray-600 transition-colors duration-300 dark:text-gray-300 dark:hover:text-blue-400 hover:underline hover:cursor-pointer hover:text-tertiary" >
                         Quienes Somos
                     </Link>
-                    <Link href= "/" className="text-gray-600 transition-colors duration-300 dark:text-gray-300 dark:hover:text-blue-400 hover:underline hover:cursor-pointer hover:text-blue-500" >
+                    <Link href= "/" className="text-gray-600 transition-colors duration-300 dark:text-gray-300 dark:hover:text-blue-400 hover:underline hover:cursor-pointer hover:text-tertiary" >
                         Refugios
                     </Link>
-                    <Link href= "/adopta" className="text-gray-600 transition-colors duration-300 dark:text-gray-300 dark:hover:text-blue-400 hover:underline hover:cursor-pointer hover:text-blue-500" >
+                    <Link href= "/adopta" className="text-gray-600 transition-colors duration-300 dark:text-gray-300 dark:hover:text-blue-400 hover:underline hover:cursor-pointer hover:text-tertiary" >
                         Quiero Adoptar
                     </Link>
                 </div>
@@ -27,22 +27,22 @@ const Footer= () => {
                 {/* <p className="font-semibold text-gray-800 dark:text-white">Link</p> */}
 
                 <div className="flex flex-col items-start mt-5 space-y-2">
-                    <Link href= "/Home" className="text-gray-600 transition-colors duration-300 dark:text-gray-300 dark:hover:text-blue-400 hover:underline hover:cursor-pointer hover:text-blue-500" >
+                    <Link href= "/Home" className="text-gray-600 transition-colors duration-300 dark:text-gray-300 dark:hover:text-blue-400 hover:underline hover:cursor-pointer hover:text-tertiary" >
                         Home
                     </Link>
 
-                    <Link href= "/" className="text-gray-600 transition-colors duration-300 dark:text-gray-300 dark:hover:text-blue-400 hover:underline hover:cursor-pointer hover:text-blue-500" >
+                    <Link href= "/" className="text-gray-600 transition-colors duration-300 dark:text-gray-300 dark:hover:text-blue-400 hover:underline hover:cursor-pointer hover:text-tertiary" >
                         Home
                     </Link>
 
-                    <Link href= "/" className="text-gray-600 transition-colors duration-300 dark:text-gray-300 dark:hover:text-blue-400 hover:underline hover:cursor-pointer hover:text-blue-500" >
+                    <Link href= "/" className="text-gray-600 transition-colors duration-300 dark:text-gray-300 dark:hover:text-blue-400 hover:underline hover:cursor-pointer hover:text-tertiary" >
                         Home
                     </Link>
                 </div>
             </div>
         </div>
         
-        <hr className="my-6 border-gray-200 md:my-8 dark:border-gray-700 h-2" />
+        <hr className="my-6 border-gray-400 md:my-8 dark:border-gray-700 h-2" />
         
         <div className="sm:flex sm:items-center sm:justify-between">
             

@@ -9,9 +9,6 @@ import Image from 'next/image';
 import { decodeJwt } from '@/utils/decodeJwt';
 import { JwtPayload } from '@/types/index';
 
-
-
-
 const SideNav: React.FC = () => {
   const [userData, setUserData] = useState<Partial<JwtPayload> | null>(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -42,9 +39,12 @@ const SideNav: React.FC = () => {
 
   const handleSignOut = () => {
     localStorage.removeItem('userSession');
+    localStorage.removeItem('donations');
+    localStorage.removeItem('token');
     setIsLoggedIn(false);
     setUserData(null);
     setIsGoogleAuthenticated(false);
+    window.location.href = '/Home'; // Pruevo con este metodo
   };
 
   return (
@@ -54,24 +54,23 @@ const SideNav: React.FC = () => {
           <ImageLogo />
         </div>
       </Link>
-      <div className="text-center mb-4   ">
+      <div className="text-center mb-4">
         {isLoggedIn ? (
           <>
-            <div className="flex items-center justify-center mb-2 bg-gray-200 h-28 rounded-md ">
+            <div className="flex items-center justify-center mb-2 bg-gray-200 h-28 rounded-md">
               <Image
-                className="rounded-full w-24 h-24  "
+                className="rounded-full w-24 h-24"
                 alt="Avatar de usuario"
                 src={userData?.picture || '/avatar.webp'}
                 width={100}
                 height={100}
               />
             </div>
-            <div className="flex flex-col h-[100px] grow items-center justify-center  gap-2 rounded-md bg-gray-200 p-3 text-sm font-medium md:flex-none md:justify-start md:p-2 md:px-3">
+            <div className="flex flex-col h-[100px] grow items-center justify-center gap-2 rounded-md bg-gray-200 p-3 text-sm font-medium md:flex-none md:justify-start md:p-2 md:px-3">
               {userData && (
                 <>
-                  {userData.nickname && <p className="text-black"> {userData.nickname}</p>}
-                  {userData.name && <p className="text-black"> {userData.name}</p>}
-                  {/* {userData.email && <p className="text-black"> {userData.email}</p>} */}
+                  {userData.nickname && <p className="text-black">{userData.nickname}</p>}
+                  {userData.name && <p className="text-black">{userData.name}</p>}
                 </>
               )}
             </div>
@@ -80,7 +79,6 @@ const SideNav: React.FC = () => {
           <div className="flex flex-col h-[100px] grow items-center justify-center gap-2 rounded-md bg-gray-200 p-3 text-sm font-medium md:flex-none md:justify-start md:p-2 md:px-3">
             <p className="text-black"><strong>Nombre:</strong></p>
             <p className="text-black"><strong>Email:</strong></p>
-            {/* <p className="text-black"><strong>Usuario:</strong></p> */}
           </div>
         )}
       </div>
@@ -88,16 +86,14 @@ const SideNav: React.FC = () => {
         <NavLinks />
         <div className="hidden h-auto w-full grow rounded-md bg-gray-200 md:block"></div>
         <form className="w-full">
-          <Link href={'/Home'}>
-            <button
-              type="button"
-              onClick={handleSignOut}
-              className="flex h-[48px] w-full mb-8  items-center justify-center gap-2 rounded-md bg-gray-200 p-3 text-sm font-medium hover:bg-pink-200 hover:text-pink-600 md:flex-none md:justify-start md:p-2 md:px-3"
-            >
-              <FaPowerOff className="w-6" />
-              <div className="hidden md:block">Sign Out</div>
-            </button>
-          </Link>
+          <button
+            type="button"
+            onClick={handleSignOut}
+            className="flex h-[48px] w-full mb-8 items-center justify-center gap-2 rounded-md bg-gray-200 p-3 text-sm font-medium hover:bg-pink-200 hover:text-pink-600 md:flex-none md:justify-start md:p-2 md:px-3"
+          >
+            <FaPowerOff className="w-6" />
+            <div className="hidden md:block">Sign Out</div>
+          </button>
         </form>
       </div>
     </div>

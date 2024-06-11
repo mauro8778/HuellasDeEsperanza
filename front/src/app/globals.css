@@ -2,3 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+  
+    background-color: #F3F4F6;
+}
+
+
+colores {
+  color: #ff5e7b,
+}

@@ -4,6 +4,7 @@ import { ReactNode } from "react";
 import metadata from "@/app/metadata";
 import HiddenNavBar from "@/components/hidden_navbar/HiddenNavBar";
 import Navbar from "@/components/NavBar/NavBar";
+import Footer from "@/components/Footer/Footer";
 
 
 const inter = Inter({ subsets: ["latin"] });
@@ -28,6 +29,7 @@ export default function RootLayout({
           <Navbar/>
         </HiddenNavBar>
         {children}
+        <Footer/>
       </body>
     </html>
   );
