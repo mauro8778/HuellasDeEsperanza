@@ -94,7 +94,7 @@ const Form_Register: React.FC = () => {
     console.log('Datos a enviar:', { ...formData, phone: phoneAsNumber });
 
     try {
-      const response = await fetch('https://backpf-prueba.onrender.com/auth/register/user', {
+      const response = await fetch('https://huellasdesperanza.onrender.com/auth/register/user', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

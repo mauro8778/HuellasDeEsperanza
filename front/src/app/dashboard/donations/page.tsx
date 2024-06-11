@@ -59,7 +59,7 @@ export const DonationsUI: React.FC = () => {
   const handleCheckout = async () => {
     console.log('Iniciando handleCheckout');
     try {
-      const response = await axios.post('https://backpf-prueba.onrender.com/mercado-pago', {
+      const response = await axios.post('https://huellasdesperanza.onrender.com/mercado-pago', {
         title: 'Donaciones a refugios',
         price: total,
         // quantity: 1

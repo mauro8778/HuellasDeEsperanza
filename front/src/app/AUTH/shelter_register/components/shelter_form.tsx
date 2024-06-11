@@ -143,7 +143,7 @@ const ShelterForm: React.FC = () => {
 
         console.log('Form Data to Send:', formDataToSend);
 
-        const response = await fetch('https://backpf-prueba.onrender.com/auth/register/shelter', {
+        const response = await fetch('https://huellasdesperanza.onrender.com/auth/register/shelter', {
           method: 'POST',
           //  credentials: 'include',
           headers: {

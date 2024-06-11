@@ -32,7 +32,7 @@ export const RefugioDetail: React.FC<IRefugios> = ({ id, name, description, imgU
   
     try {
       // Hacer la solicitud POST
-      const response = await fetch("https://backpf-prueba.onrender.com/carrito", {
+      const response = await fetch("https://huellasdesperanza.onrender.com/carrito", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

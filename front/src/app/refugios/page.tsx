@@ -17,7 +17,7 @@ const Page = () => {
   const [zonasDisponibles, setZonasDisponibles] = useState<string[]>([]);
 
   useEffect(() => {
-    fetch('https://backpf-prueba.onrender.com/shelters')
+    fetch('https://huellasdesperanza.onrender.com/shelters')
       .then(response => response.json())
       .then((data: IRefugios[]) => {
         setRefugios(data);
