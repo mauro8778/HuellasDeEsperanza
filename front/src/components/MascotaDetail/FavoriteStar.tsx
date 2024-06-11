@@ -41,14 +41,15 @@ const FavoriteStar: React.FC<FavoriteStarProps> = ({ isFavorite, onToggleFavorit
   return (
     <>
       <button onClick={handleClick} className="focus:outline-none">
-        <svg
-          className={`h-7 w-7 ${isFavorite ? 'text-yellow-500' : 'text-gray-400'} transition-colors duration-200`}
-          viewBox="0 0 24 24"
-          fill="currentColor"
-          stroke="none">
-          <path d="M12 20l-7 -7a4 4 0 0 1 6.5 -6a.9 .9 0 0 0 1 0a4 4 0 0 1 6.5 6l-7 7" />
-        </svg>
-      </button>
+          <svg
+            className={`h-7 w-7 ${isFavorite ? 'text-yellow-500' : 'text-gray-400'} transition-transform duration-200 transform hover:scale-125 hover:text-yellow-500`}
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            stroke="none">
+            <path d="M12 20l-7 -7a4 4 0 0 1 6.5 -6a.9 .9 0 0 0 1 0a4 4 0 0 1 6.5 6l-7 7" />
+          </svg>
+        </button>
+
       {showLoginPrompt && (
         <div className="bg-yellow-200 p-2 mt-2 rounded-md">
           <p className="text-sm text-yellow-800">
