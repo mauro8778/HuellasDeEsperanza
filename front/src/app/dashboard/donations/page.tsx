@@ -26,8 +26,8 @@ export const DonationsUI: React.FC = () => {
   const [total, setTotal] = useState(0);
   const [preferenceId, setPreferenceId] = useState<string | null>(null);
 
-  initMercadoPago('TEST-5423250e-6e54-4e3b-a21b-160a1653fc7a');
-
+  initMercadoPago('TEST-5423250e-6e54-4e3b-a21b-160a1653fc7a');// initMercadoPago
+// local storage
   useEffect(() => {
     if (typeof window !== 'undefined' && window.localStorage) {
       const userToken = localStorage.getItem('userSession');
@@ -43,7 +43,7 @@ export const DonationsUI: React.FC = () => {
       }
     }
   }, []);
-
+ //contador de donaciones
   useEffect(() => {
     const donationsTotal = donations.reduce((totalAcumulated, donation) => totalAcumulated + donation.amount, 0);
     setTotal(donationsTotal);
@@ -55,7 +55,7 @@ export const DonationsUI: React.FC = () => {
     setDonations(updatedDonations);
     localStorage.setItem('donations', JSON.stringify(updatedDonations));
   };
-
+ // aca hago el checkout de mercado pago
   const handleCheckout = async () => {
     console.log('Iniciando handleCheckout');
     try {

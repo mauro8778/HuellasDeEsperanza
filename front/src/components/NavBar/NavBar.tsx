@@ -45,7 +45,7 @@ const Navbar: React.FC = () => {
   };
 
   return (
-    <header className="bg-primary h-36 flex items-center justify-between px-4 border-4 rounded-xl  ">
+    <header className="bg-primary   h-36 flex items-center justify-between px-4 border-4 rounded-xl  ">
       <Logo />
       
       <NavMenu />

@@ -16,7 +16,7 @@ const config: Config = {
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
       colors: {
-        primary: '#ff5e7b', // Rosado intenso
+        primary: '#41d3be', // Rosado intenso
         secondary: '#8AFF70', // Verde neón
         tertiary: '#708aff', // Azul lavanda 
         quaternary: '#A47AFF ', // Azul celeste
