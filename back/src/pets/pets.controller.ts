@@ -2,7 +2,7 @@ import { Body, Controller, Delete, Get, Param, ParseUUIDPipe, Post, Put, Req, Us
 import { PetsService } from './pets.service';
 import { CreatePetsDto } from 'src/dto/createPets.dto';
 import { UpdatePetsDto } from 'src/dto/updatePets.dto';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { Auth0Guard } from 'src/guards/auth0.guard';
 import { AuthGuard } from 'src/guards/auth.guard';
 import { CreateListImgDto } from 'src/dto/CreateListImg.dto';
@@ -22,6 +22,7 @@ export class PetsController {
         return this.petsService.getPetById(id);
     }
 
+    @ApiBearerAuth()
     @UseGuards(AuthGuard)
     @Post()
     addPet(@Body() pet : CreatePetsDto, @Req() request){

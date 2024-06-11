@@ -11,6 +11,7 @@ import { CreateShelterDto } from 'src/dto/createShelter.dto';
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
+  
   @UseGuards(Auth0Guard)
   @Post('/register/user')
   Register(@Body() register: CreateUserDto, @Req() req) {
