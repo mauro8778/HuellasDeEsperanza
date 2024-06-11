@@ -1,80 +1,48 @@
 'use client';
 import React, { useState, useEffect, lazy, Suspense } from 'react';
 import { IMascotas } from '@/interface/IMascotas';
-import Modal from '@/components/Card-Animals/FiltroMascotas/Modal';
-
+import ModalFilterMascotas from '@/components/Card-Animals/FiltroMascotas/ModalFilterMascotas';
 const ListaMascotas = lazy(() => import('@/components/Card-Animals/ListaMascotas'));
 
 export default function Adopta() {
   const [mascotasState, setMascotasState] = useState<IMascotas[]>([]);
-  const [filters, setFilters] = useState({ age: '', pet_size: '', breed: '' });
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [filterOptions, setFilterOptions] = useState({
-    age: [],
-    pet_size: [],
-    breed: []
-  });
+  const [filterModalVisible, setFilterModalVisible] = useState<boolean>(false);
+  const [filters, setFilters] = useState<{ edad: string; tamaño: string; raza: string }>({ edad: '', tamaño: '', raza: '' });
+  const [filterOptions, setFilterOptions] = useState<{ edades: number[]; tamaños: string[]; razas: string[] }>({ edades: [], tamaños: [], razas: [] });
 
   useEffect(() => {
-    const fetchMascotas = async (filters: { age: string, pet_size: string, breed: string }) => {
+    const fetchMascotas = async () => {
       try {
-        const { age, pet_size, breed } = filters;
         const queryParams = new URLSearchParams();
-
-        if (age) queryParams.append('age', age);
-        if (pet_size) queryParams.append('pet_size', pet_size.toLowerCase());
-        if (breed) queryParams.append('breed', breed.toLowerCase());
-
         const response = await fetch(`https://backpf-prueba.onrender.com/search/pets?${queryParams.toString()}`);
         if (!response.ok) {
           throw new Error('Error al obtener los datos de las mascotas');
         }
         const data: IMascotas[] = await response.json();
         setMascotasState(data);
+        const edades = Array.from(new Set(data.map(mascota => mascota.age || 0))); 
+        const tamaños = Array.from(new Set(data.map(mascota => mascota.pet_size || ''))); 
+        const razas = Array.from(new Set(data.map(mascota => mascota.breed || '')));
+        setFilterOptions({ edades, tamaños, razas });
       } catch (error) {
         console.error(error);
       }
     };
-
-    fetchMascotas(filters);
-  }, [filters]);
-
-  useEffect(() => {
-    const fetchFilterOptions = async () => {
-      try {
-        const response = await fetch(`https://backpf-prueba.onrender.com/search/pets`);
-        if (!response.ok) {
-          throw new Error('Error al obtener las opciones de filtro');
-        }
-        const data: IMascotas[] = await response.json();
-        extractFilterOptions(data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    fetchFilterOptions();
+    fetchMascotas();
   }, []);
 
-  const extractFilterOptions = (data: IMascotas[]) => {
-    const ageOptions = Array.from(new Set(data.map(mascota => mascota.age))).sort();
-    const petSizeOptions = Array.from(new Set(data.map(mascota => mascota.pet_size))).sort();
-    const breedOptions = Array.from(new Set(data.map(mascota => mascota.breed))).sort();
+  const handleFilter = (edad: string, tamaño: string, raza: string) => {
+    setFilters({ edad, tamaño, raza });
+    setFilterModalVisible(false);
+  };
 
-    setFilterOptions({
-      age: ageOptions,
-      pet_size: petSizeOptions,
-      breed: breedOptions
+  const filtrarMascotas = () => {
+    return mascotasState.filter(mascota => {
+      const edadCoincide = filters.edad ? mascota.age === Number(filters.edad) : true;
+      const tamañoCoincide = filters.tamaño ? mascota.pet_size === filters.tamaño : true; 
+      const razaCoincide = filters.raza ? mascota.breed === filters.raza : true; 
+      return edadCoincide && tamañoCoincide && razaCoincide;
     });
-  };
-
-  const handleFilterChange = (newFilters: { age: string, pet_size: string, breed: string }) => {
-    setFilters(newFilters);
-  };
-
-  const handleModalFilter = (age: string, sexo: string, category: string, petSize: string) => {
-    handleFilterChange({ age, pet_size: petSize.toLowerCase(), breed: category.toLowerCase() });
-    setIsModalOpen(false);
   };
 
   const updateMascota = (updatedMascota: IMascotas) => {
@@ -85,21 +53,30 @@ export default function Adopta() {
     );
   };
 
+  const filteredMascotas = filtrarMascotas();
+
   return (
     <main className="flex flex-col items-center bg-gray-300">
-      <button onClick={() => setIsModalOpen(true)} className="px-4 py-2 bg-green-700 text-white rounded hover:bg-green-800 mt-4">
-        Filtrar Mascotas
-      </button>
+      <div className="flex justify-center space-x-2">
+        <button onClick={() => setFilterModalVisible(true)} className="mt-3 text-white bg-green-700 hover:bg-green-600 focus:ring-4 focus:outline-none focus:ring-blue-200 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">
+          Filtrar Refugios
+        </button>
+      </div>
       <Suspense fallback={<div>Cargando mascotas...</div>}>
-        <ListaMascotas mascotas={mascotasState} updateMascota={updateMascota} />
+        {filteredMascotas.length > 0 ? (
+          <ListaMascotas mascotas={filteredMascotas} updateMascota={updateMascota} />
+        ) : (
+          <div>No se encontraron mascotas con los filtros seleccionados!</div>
+        )}
       </Suspense>
-      {isModalOpen && (
-        <Modal 
-          onClose={() => setIsModalOpen(false)} 
-          onFilter={handleModalFilter}
-          options={filterOptions} 
-        />
-      )}
+      <ModalFilterMascotas
+        isOpen={filterModalVisible}
+        onClose={() => setFilterModalVisible(false)}
+        onFilter={handleFilter}
+        edades={filterOptions.edades}
+        tamaños={filterOptions.tamaños}
+        razas={filterOptions.razas}
+      />
     </main>
   );
 }

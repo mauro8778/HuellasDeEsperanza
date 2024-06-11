@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { Suspense, useEffect, useState } from 'react';
 import ListaRefugios from '@/components/Refugios/ListaRefugios';
 import { IRefugios } from '@/interface/IRefugios';
 import ModalFilter from '@/components/Refugios/FiltroRefugio/ModalFilterRefugios';
@@ -21,13 +21,14 @@ const Page = () => {
       .then(response => response.json())
       .then((data: IRefugios[]) => {
         setRefugios(data);
-        const ubicaciones = [...new Set(data.map(refugio => refugio.location))];
-        const zonas = [...new Set(data.map(refugio => refugio.zona))];
+        const ubicaciones = Array.from(new Set(data.map(refugio => refugio.location)));
+        const zonas = Array.from(new Set(data.map(refugio => refugio.zona)));
         setUbicacionesDisponibles(ubicaciones);
         setZonasDisponibles(zonas);
       })
       .catch(error => console.error('Error fetching data:', error));
   }, []);
+  
 
   const handleOpenFilterModal = () => {
     setFilterModalVisible(true);
@@ -61,9 +62,11 @@ const Page = () => {
       return ubicacionCoincide && zonaCoincide;
     });
   };
+  const filteredRefugios = filtrarRefugios();
+
 
   return (
-    <main className='bg-gray-300'>
+    <main className='bg-gray-300 flex flex-col items-center'>
       <div className="flex justify-center space-x-2">
         <button onClick={handleOpenFilterModal} className="mt-3 text-white bg-green-700 hover:bg-green-600 focus:ring-4 focus:outline-none focus:ring-blue-200 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">
           Filtrar Refugios
@@ -73,7 +76,14 @@ const Page = () => {
         </button>
       </div>
 
+      <Suspense fallback={<div>Cargando mascotas...</div>}>
+        {filteredRefugios.length > 0 ? (
       <ListaRefugios refugios={filtrarRefugios()} />
+    ) : (
+          <div>No se encontraron mascotas con los filtros seleccionados</div>
+        )}
+      </Suspense>
+
 
       <ModalFilter
         isOpen={filterModalVisible}

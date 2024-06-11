@@ -134,6 +134,7 @@ const ShelterForm: React.FC = () => {
 
     if (!someInvalid) {
       try {
+
         const formDataToSend = {
           ...formData,
           dni: formData.dni === '' ? null : formData.dni,

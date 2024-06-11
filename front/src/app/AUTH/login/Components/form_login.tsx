@@ -58,6 +58,7 @@ const Form_Login: React.FC = () => {
     event.preventDefault();
     setError(null);
 
+
     if (!validateEmail(userData.email) || !validatePassword(userData.password)) {
       setError("Por favor, corrige los errores en el formulario.");
       return;
@@ -75,6 +76,7 @@ const Form_Login: React.FC = () => {
 
       if (!response.ok) {
         throw new Error("Error al iniciar sesión");
+
       }
 
       const data = await response.json();
