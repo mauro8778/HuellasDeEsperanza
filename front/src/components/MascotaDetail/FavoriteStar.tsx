@@ -15,7 +15,7 @@ const FavoriteStar: React.FC<FavoriteStarProps> = ({ isFavorite, onToggleFavorit
       return;
     }
 
-    fetch('//favorite', {
+    fetch('https://huellasdesperanza.onrender.com/users/pet/favorite/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

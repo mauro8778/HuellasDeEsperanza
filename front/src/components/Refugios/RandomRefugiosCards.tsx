@@ -6,7 +6,7 @@ const RandomRefugiosCards: React.FC = () => {
   const [randomRefugios, setRandomRefugios] = useState([]);
 
   useEffect(() => {
-    fetch("https://backpf-prueba.onrender.com/shelters")
+    fetch("https://huellasdesperanza.onrender.com/shelters")
       .then(response => response.json())
       .then(data => {
         const shuffled = data.sort(() => 0.5 - Math.random());
