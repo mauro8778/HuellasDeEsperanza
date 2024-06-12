@@ -1,7 +1,7 @@
 import { Body, Controller, Get, Param, ParseUUIDPipe, Post, Req, UseGuards } from '@nestjs/common';
 import { CreateOrderDto } from 'src/dto/CreateOrderDto';
 import { CarritoService } from './carrito.service';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { AuthGuard } from 'src/guards/auth.guard';
 
 @ApiTags("Carrito")
@@ -9,7 +9,7 @@ import { AuthGuard } from 'src/guards/auth.guard';
 export class CarritoController {
     constructor(private readonly carritoServices: CarritoService){}
 
-    
+    @ApiBearerAuth()
     @UseGuards(AuthGuard)
     @Post()
     addOrder(@Body() order: CreateOrderDto,  @Req() request){
