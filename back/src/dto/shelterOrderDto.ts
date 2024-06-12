@@ -5,7 +5,8 @@ export class ShelterOrderDto {
     @IsNotEmpty()
     @IsUUID()
     @ApiProperty({
-      description: 'Se requiere que el ID no esté vacío y cumpla con el formato UUID.'
+      description: 'Se requiere que el ID no esté vacío y cumpla con el formato UUID.',
+      example: '{ "id" : " UUID" }'
     })
     id: string
 
@@ -13,7 +14,7 @@ export class ShelterOrderDto {
     @IsNumber()
     @ApiProperty({
       description: "Se requiere que el price no esté vacío",
-      example: `{ "price": number}`
+      example: `{ "price": number }`
     })
     price: number
   }
