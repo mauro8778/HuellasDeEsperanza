@@ -23,6 +23,7 @@ const FavoriteStar: React.FC<FavoriteStarProps> = ({ isFavorite, onToggleFavorit
 
   const handleClick = () => {
     if (!isLoggedIn) {
+      console.error('El usuario no está autenticado');
       setShowLoginPrompt(true); 
       return;
     }
@@ -34,7 +35,7 @@ const FavoriteStar: React.FC<FavoriteStarProps> = ({ isFavorite, onToggleFavorit
 
     console.log('ID de mascota:', petId); 
 
-    fetch('https://huellasdesperanza.onrender.com/users/pet/favorite', {
+    fetch(`https://huellasdesperanza.onrender.com/users/pet/favorite/${petId}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -55,6 +56,7 @@ const FavoriteStar: React.FC<FavoriteStarProps> = ({ isFavorite, onToggleFavorit
   };
 
   const handleLogin = () => {
+    console.log('Botón de favoritos presionado');
     window.location.href = '/login';
   };
 
