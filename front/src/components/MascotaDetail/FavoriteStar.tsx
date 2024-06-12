@@ -2,11 +2,12 @@ import React, { useState } from 'react';
 
 interface FavoriteStarProps {
   isFavorite: boolean;
-  onToggleFavorite: () => void;
-  isLoggedIn: boolean; 
+  onToggleFavorite: (petId: string) => void; 
+  isLoggedIn: boolean;
+  petId: string; 
 }
 
-const FavoriteStar: React.FC<FavoriteStarProps> = ({ isFavorite, onToggleFavorite, isLoggedIn }) => {
+const FavoriteStar: React.FC<FavoriteStarProps> = ({ isFavorite, onToggleFavorite, isLoggedIn, petId }) => {
   const [showLoginPrompt, setShowLoginPrompt] = useState(false);
 
   const handleClick = () => {
@@ -14,17 +15,18 @@ const FavoriteStar: React.FC<FavoriteStarProps> = ({ isFavorite, onToggleFavorit
       setShowLoginPrompt(true); 
       return;
     }
+    console.log("petId:", petId);
 
-    fetch('//favorite', {
+    fetch('https://huellasdesperanza.onrender.com/users/pet/favorite/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ isFavorite: !isFavorite }),
+      body: JSON.stringify({ petId: petId, isFavorite: !isFavorite }),
     })
     .then(response => {
       if (response.ok) {
-        onToggleFavorite();
+        onToggleFavorite(petId); 
       } else {
         throw new Error('Error al almacenar el favorito');
       }
