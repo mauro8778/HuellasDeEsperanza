@@ -8,6 +8,7 @@ interface FormularioMascotaProps {
 
 const FormularioMascota: React.FC<FormularioMascotaProps> = ({ onClose, onAddMascota }) => {
   const [nombre, setNombre] = useState('');
+  const [especie, setEspecie] = useState('');
   const [sexo, setSexo] = useState('');
   const [raza, setRaza] = useState('');
   const [edad, setEdad] = useState<number | null>(null);
@@ -29,7 +30,7 @@ const FormularioMascota: React.FC<FormularioMascotaProps> = ({ onClose, onAddMas
     console.log('asdasd', token);
     
 
-    if (nombre && sexo && raza && edad !== null  && mes !== null  &&tamaño && selectedFile) {
+    if (nombre && sexo && raza && edad !== null  && mes !== null  &&tamaño && selectedFile && especie) {
       try {
         const formData = new FormData();
         formData.append('file', selectedFile);
@@ -54,6 +55,7 @@ const FormularioMascota: React.FC<FormularioMascotaProps> = ({ onClose, onAddMas
           pet_size: tamaño,
           description: descripcion,
           imgUrl: imageUrl, 
+          specie: especie,
         };
 
         const mascotaResponse = await fetch('https://huellasdesperanza.onrender.com/pets', {
@@ -100,6 +102,22 @@ const FormularioMascota: React.FC<FormularioMascotaProps> = ({ onClose, onAddMas
         />
       </div>
 
+      <div className="mb-4">
+        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="especie">
+          ¿Perro o Gato?
+        </label>
+        <select
+          id="especie"
+          value={especie}
+          onChange={(e) => setEspecie(e.target.value)}
+          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+        >
+          <option value="">Seleccione una opción</option>
+          <option value="Macho">Perro</option>
+          <option value="Hembra">Gato</option>
+        </select>
+      </div>
+
       <div className="flex mb-4">
         <div className="">
           <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="edad">
@@ -116,7 +134,7 @@ const FormularioMascota: React.FC<FormularioMascotaProps> = ({ onClose, onAddMas
         </div>
         <div className="">
           <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="mes">
-            mes de la Mascota 
+            Meses o Años
           </label>
           <input
             id="edadMeses"
@@ -175,19 +193,16 @@ const FormularioMascota: React.FC<FormularioMascotaProps> = ({ onClose, onAddMas
       </div>
 
       <div className="mb-4">
-        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="tipo">
-          Tipo
+        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="nombre">
+          Raza
         </label>
-        <select
-          id="tipo"
+        <input
+          id="raza"
+          type="text"
           value={raza}
           onChange={(e) => setRaza(e.target.value)}
           className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-        >
-          <option value="">Seleccione una opción</option>
-          <option value="Perro">Perro</option>
-          <option value="Gato">Gato</option>
-        </select>
+        />
       </div>
 
       <div className="mb-4">
