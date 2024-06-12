@@ -1,7 +1,7 @@
 
 
 export interface IRefugios {
-    id?: number;
+    id?: string;
     name: string;
     zona: string;
     imgUrl: string;

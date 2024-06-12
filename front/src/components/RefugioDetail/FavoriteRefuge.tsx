@@ -4,10 +4,10 @@ interface FavoriteStarProps {
   isFavorite: boolean;
   onToggleFavorite: (petId: string) => void;
   isLoggedIn: boolean;
-  petId: string;
+  id: string;
 }
 
-const FavoriteRefuge: React.FC<FavoriteStarProps> = ({ isFavorite, onToggleFavorite, isLoggedIn, petId }) => {
+const FavoriteRefuge: React.FC<FavoriteStarProps> = ({ isFavorite, onToggleFavorite, isLoggedIn, id }) => {
   const [showLoginPrompt, setShowLoginPrompt] = useState(false);
   const [accessToken, setAccessToken] = useState<string | null>(null);
 
@@ -33,20 +33,20 @@ const FavoriteRefuge: React.FC<FavoriteStarProps> = ({ isFavorite, onToggleFavor
       return;
     }
 
-    console.log('ID de mascota:', petId);
+    console.log('ID de mascota:', id);
 
     const method = isFavorite ? 'PUT' : 'POST'; 
-    fetch(`https://huellasdesperanza.onrender.com/users/shelter/favorite/${petId}`, {
+    fetch(`https://huellasdesperanza.onrender.com/users/shelter/favorite/${id}`, {
       method: method,
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${accessToken}`
       },
-      body: JSON.stringify({ petId: petId, isFavorite: !isFavorite }), 
+      body: JSON.stringify({ refugeId: id, isFavorite: !isFavorite }), 
     })
       .then(response => {
         if (response.ok) {
-          onToggleFavorite(petId);
+          onToggleFavorite(id);
         } else {
           throw new Error('Error al actualizar el favorito');
         }
@@ -63,15 +63,18 @@ const FavoriteRefuge: React.FC<FavoriteStarProps> = ({ isFavorite, onToggleFavor
 
   return (
     <>
-      <button onClick={handleClick} className="focus:outline-none">
-        <svg
-          className={`h-7 w-7 ${isFavorite ? 'text-yellow-500' : 'text-gray-400'} transition-transform duration-200 transform hover:scale-125 hover:text-yellow-500`}
-          viewBox="0 0 24 24"
-          fill="currentColor"
-          stroke="none">
-          <path d="M12 20l-7 -7a4 4 0 0 1 6.5 -6a.9 .9 0 0 0 1 0a4 4 0 0 1 6.5 6l-7 7" />
-        </svg>
-      </button>
+    <div className=''>
+        <button onClick={handleClick} className="focus:outline-none">
+            <svg
+                className={`h-7 w-7 ${isFavorite ? 'text-yellow-500' : 'text-gray-400'} transition-transform duration-200 transform hover:scale-125 hover:text-yellow-500`}
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                stroke="none">
+                <path d="M12 20l-7 -7a4 4 0 0 1 6.5 -6a.9 .9 0 0 0 1 0a4 4 0 0 1 6.5 6l-7 7" />
+            </svg>
+        </button>
+    </div>
+      
 
       {showLoginPrompt && (
         <div className="bg-yellow-200 p-2 mt-2 rounded-md">
