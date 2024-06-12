@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 
 interface FavoriteStarProps {
   isFavorite: boolean;
-  onToggleFavorite: (petId: string) => void; 
+  onToggleFavorite: (petId: string) => void;
   isLoggedIn: boolean;
-  petId: string; 
+  petId: string;
 }
 
 const FavoriteStar: React.FC<FavoriteStarProps> = ({ isFavorite, onToggleFavorite, isLoggedIn, petId }) => {
@@ -16,7 +16,7 @@ const FavoriteStar: React.FC<FavoriteStarProps> = ({ isFavorite, onToggleFavorit
     if (userSessionString) {
       const userSession = JSON.parse(userSessionString);
       const token = userSession.access_token;
-      console.log('Token de acceso:', token); 
+      console.log('Token de acceso:', token);
       setAccessToken(token);
     }
   }, []);
@@ -24,7 +24,7 @@ const FavoriteStar: React.FC<FavoriteStarProps> = ({ isFavorite, onToggleFavorit
   const handleClick = () => {
     if (!isLoggedIn) {
       console.error('El usuario no está autenticado');
-      setShowLoginPrompt(true); 
+      setShowLoginPrompt(true);
       return;
     }
 
@@ -33,26 +33,27 @@ const FavoriteStar: React.FC<FavoriteStarProps> = ({ isFavorite, onToggleFavorit
       return;
     }
 
-    console.log('ID de mascota:', petId); 
+    console.log('ID de mascota:', petId);
 
+    const method = isFavorite ? 'PUT' : 'POST'; 
     fetch(`https://huellasdesperanza.onrender.com/users/pet/favorite/${petId}`, {
-      method: 'POST',
+      method: method,
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${accessToken}`
       },
-      body: JSON.stringify({ petId: petId, isFavorite: !isFavorite }),
+      body: JSON.stringify({ petId: petId, isFavorite: !isFavorite }), 
     })
-    .then(response => {
-      if (response.ok) {
-        onToggleFavorite(petId); 
-      } else {
-        throw new Error('Error al almacenar el favorito');
-      }
-    })
-    .catch(error => {
-      console.error('Error:', error);
-    });
+      .then(response => {
+        if (response.ok) {
+          onToggleFavorite(petId);
+        } else {
+          throw new Error('Error al actualizar el favorito');
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
   };
 
   const handleLogin = () => {
@@ -63,14 +64,14 @@ const FavoriteStar: React.FC<FavoriteStarProps> = ({ isFavorite, onToggleFavorit
   return (
     <>
       <button onClick={handleClick} className="focus:outline-none">
-          <svg
-            className={`h-7 w-7 ${isFavorite ? 'text-yellow-500' : 'text-gray-400'} transition-transform duration-200 transform hover:scale-125 hover:text-yellow-500`}
-            viewBox="0 0 24 24"
-            fill="currentColor"
-            stroke="none">
-            <path d="M12 20l-7 -7a4 4 0 0 1 6.5 -6a.9 .9 0 0 0 1 0a4 4 0 0 1 6.5 6l-7 7" />
-          </svg>
-        </button>
+        <svg
+          className={`h-7 w-7 ${isFavorite ? 'text-yellow-500' : 'text-gray-400'} transition-transform duration-200 transform hover:scale-125 hover:text-yellow-500`}
+          viewBox="0 0 24 24"
+          fill="currentColor"
+          stroke="none">
+          <path d="M12 20l-7 -7a4 4 0 0 1 6.5 -6a.9 .9 0 0 0 1 0a4 4 0 0 1 6.5 6l-7 7" />
+        </svg>
+      </button>
 
       {showLoginPrompt && (
         <div className="bg-yellow-200 p-2 mt-2 rounded-md">
