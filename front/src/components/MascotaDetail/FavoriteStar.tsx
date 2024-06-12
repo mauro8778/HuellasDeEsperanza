@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 interface FavoriteStarProps {
   isFavorite: boolean;
@@ -9,18 +9,36 @@ interface FavoriteStarProps {
 
 const FavoriteStar: React.FC<FavoriteStarProps> = ({ isFavorite, onToggleFavorite, isLoggedIn, petId }) => {
   const [showLoginPrompt, setShowLoginPrompt] = useState(false);
+  const [accessToken, setAccessToken] = useState<string | null>(null);
+
+  useEffect(() => {
+    const userSessionString = localStorage.getItem('userSession');
+    if (userSessionString) {
+      const userSession = JSON.parse(userSessionString);
+      const token = userSession.access_token;
+      console.log('Token de acceso:', token); 
+      setAccessToken(token);
+    }
+  }, []);
 
   const handleClick = () => {
     if (!isLoggedIn) {
       setShowLoginPrompt(true); 
       return;
     }
-    console.log("petId:", petId);
 
-    fetch('https://huellasdesperanza.onrender.com/users/pet/favorite/', {
+    if (!accessToken) {
+      console.error('No se encontró el token de acceso en el localStorage.');
+      return;
+    }
+
+    console.log('ID de mascota:', petId); 
+
+    fetch('https://huellasdesperanza.onrender.com/users/pet/favorite', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': `Bearer ${accessToken}`
       },
       body: JSON.stringify({ petId: petId, isFavorite: !isFavorite }),
     })
