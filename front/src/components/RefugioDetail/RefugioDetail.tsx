@@ -105,7 +105,7 @@ export const RefugioDetail: React.FC<IRefugios> = ({ id, name, description, imgU
   </div>
 
       <div className="donation-section max-w-3xl mx-auto mt-5 p-5 bg-white shadow-xl rounded-lg">
-  <h2 className="text-lg font-bold mb-3 text-center">Donar al refugio y deja tu huella</h2>
+  <h2 className="text-lg font-bold mb-3 text-center">Doná al refugio y deja tu huella</h2>
   <div className="donation-amounts flex justify-around mt-3">
     <div
       onClick={() => handleSelectAmount(500)}
