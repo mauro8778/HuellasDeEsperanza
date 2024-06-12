@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import Button from '@/components/ui/button';
 import Input from '@/components/ui/input';
 import Swal from 'sweetalert2';
+import Link from 'next/link';
 
 const Form_Register: React.FC = () => {
   const router = useRouter();
@@ -52,7 +53,6 @@ const Form_Register: React.FC = () => {
     phone: (value: string) => /^\d{10}$/.test(value),
     location: (value: string) => value.trim().length > 2
   };
-  
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -151,7 +151,18 @@ const Form_Register: React.FC = () => {
 
     }
   };
-  
+
+  const handleGoogleLogin = () => {
+    console.log("Redirigiendo a Google");
+    alert("Redirigiendo a Google");
+    window.location.href = 'https://huellasdesperanza.onrender.com/google/redirect';
+  };
+
+  const handleFacebookLogin = () => {
+    console.log("Redirigiendo a Facebook");
+    alert("Redirigiendo a Facebook");
+    window.location.href = 'https://huellasdesperanza.onrender.com/facebook/redirect';
+  };
 
   return (
     <div className='w-full max-w-md'>
@@ -198,6 +209,12 @@ const Form_Register: React.FC = () => {
           </div>
         ))}
         <Button type='submit' label='Crear cuenta' />
+        <div className='mt-5 mb-10 flex flex-col items-center justify-center gap-y-2'>
+          <Link href={'https://huellasdesperanza.onrender.com/google/redirect'} >
+          <Button type='button' label='Registrarse con Google' onClick={handleGoogleLogin} />
+          </Link>
+
+        </div>
         <div className='mt-5 mb-10 flex items-center justify-center gap-x-2'>
           <p className='text-gray-500'>¿Tienes una cuenta?</p>
           <button

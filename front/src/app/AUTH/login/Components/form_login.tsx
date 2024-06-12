@@ -110,13 +110,15 @@ const Form_Login: React.FC = () => {
   };
 
   const handleGoogleLogin = () => {
-    // aca se agrega la logica la logueo con google
-    console.log("Logueado con Google");
+    console.log("Redirigiendo a Google");
+    alert("Redirigiendo a Google");
+    window.location.href = 'https://huellasdesperanza.onrender.com/google/redirect';
   };
 
   const handleFacebookLogin = () => {
-    
-    console.log("Loguedo Facebook");
+    console.log("Redirigiendo a Facebook");
+    alert("Redirigiendo a Facebook");
+    window.location.href = 'https://huellasdesperanza.onrender.com/facebook/redirect';
   };
 
   return (

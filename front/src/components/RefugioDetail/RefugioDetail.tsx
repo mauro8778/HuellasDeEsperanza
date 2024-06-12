@@ -1,14 +1,25 @@
 'use client';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Swal from 'sweetalert2';
 import { IRefugios } from '@/interface/IRefugios';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import { FaPaw } from 'react-icons/fa'; 
+import { FaPaw } from 'react-icons/fa';
 
 export const RefugioDetail: React.FC<IRefugios> = ({ id, name, description, imgUrl, location, zona, shelter_name, phone }) => {
-  const [selectedAmount, setSelectedAmount] = useState<number | null>(null); 
+  const [selectedAmount, setSelectedAmount] = useState<number | null>(null);
+  const [accessToken, setAccessToken] = useState<string | null>(null);
   const router = useRouter();
+
+  useEffect(() => {
+    const userSessionString = localStorage.getItem('userSession');
+    if (userSessionString) {
+      const userSession = JSON.parse(userSessionString);
+      const token = userSession.access_token;
+      console.log('Token de acceso:', token);
+      setAccessToken(token);
+    }
+  }, []);
 
   const handleSelectAmount = (amount: number) => {
     setSelectedAmount(selectedAmount === amount ? null : amount);
@@ -20,61 +31,53 @@ export const RefugioDetail: React.FC<IRefugios> = ({ id, name, description, imgU
       return;
     }
 
-    const userSession = localStorage.getItem('userSession');
-    const tokenId = userSession ? JSON.parse(userSession) : null;
-
-
-    console.log('token de acceso:', userSession);
-
-    if (!userSession) {
+    if (!accessToken) {
       Swal.fire('Por favor, inicia sesión para donar');
       return;
     }
 
-    // Obtener las donaciones del local storage
+    
     const donations = localStorage.getItem('donations');
     const parsedDonations = donations ? JSON.parse(donations) : [];
-    console.log("donaciones ya guardadas :", parsedDonations);
+    console.log("Donaciones ya guardadas:", parsedDonations);
 
-    // Agregar la nueva donación al array
     const newDonation = {
       shelter: { id, name: shelter_name },
       amount: selectedAmount
     };
-    console.log('nuevas donaciones:', newDonation);
+    console.log('Nuevas donaciones:', newDonation);
 
     const updatedDonations = [...parsedDonations, newDonation];
 
-    // Guardar las donaciones actualizadas en el local storage
+    
     localStorage.setItem('donations', JSON.stringify(updatedDonations));
 
-    console.log('donaciones actualizadas:', updatedDonations);
+    console.log('Donaciones actualizadas:', updatedDonations);
 
-    // Crea el objeto para enviar la donación al backend
+    
     const donationData = updatedDonations.map((donation: any) => ({
       id: donation.shelter.id,
       price: Number(donation.amount)
     }));
 
-    console.log(' se creo el objeto donacion data:', donationData);
+    console.log('Se creó el objeto donationData:', donationData);
 
     try {
-      // Hacer la solicitud POST
+      
       const response = await fetch("https://huellasdesperanza.onrender.com/carrito", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": `Bearer ${tokenId}`
+          "Authorization": `Bearer ${accessToken}`
         },
         body: JSON.stringify(donationData)
       });
 
-      console.log('respuesta del backend:', response);
+      console.log('Respuesta del backend:', response);
 
       if (!response.ok) {
         throw new Error("Error al agregar donación al carrito");
-        }
-     
+      }
 
       Swal.fire(`Tu donación de $${selectedAmount} fue agregada con éxito`);
       window.location.href = '/refugios';

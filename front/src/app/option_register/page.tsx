@@ -1,4 +1,4 @@
-import Footer from '@/components/Footer/Footer';
+
 import Image from 'next/image';
 import Link from 'next/link';
 import { FaUser, FaHome } from 'react-icons/fa';
@@ -36,7 +36,7 @@ export const RegistroPage: React.FC = () => {
           </Link>
         </div>
       </div>
-     <Footer/>
+     
     </div>
   );
 };
