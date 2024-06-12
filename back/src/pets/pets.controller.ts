@@ -6,6 +6,7 @@ import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { Auth0Guard } from 'src/guards/auth0.guard';
 import { AuthGuard } from 'src/guards/auth.guard';
 import { CreateListImgDto } from 'src/dto/CreateListImg.dto';
+import { ImgDto } from 'src/dto/imgList.dto';
 
 @ApiTags("Pets")
 @Controller('pets')
@@ -47,10 +48,9 @@ export class PetsController {
     }
 
     @Post('/addImg/:id')
-    addPetImg(@Param('id', ParseUUIDPipe) id: string, @Body() imgUrl: CreateListImgDto) {
-        const {listImg} = imgUrl
+    addPetImg(@Param('id', ParseUUIDPipe) id: string, @Body() imgUrl: ImgDto[]) {
 
-        return this.petsService.addPetImg(id, listImg);
+        return this.petsService.addPetImg(id, imgUrl);
     }
 
 }

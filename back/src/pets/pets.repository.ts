@@ -114,14 +114,14 @@ export class PetsRepository {
     }
 
 
-    async addPetImg(id: string, listImg) {
+    async addPetImg(id: string, imgUrl) {
         const pet: PetsEntity = await this.petsRepository.findOne({where: {id}})
 
         if (!pet) {
             throw new BadRequestException("Mascota no encontrada")
         }
 
-        const arrayImg = await Promise.all( listImg.map((img) => {
+        const arrayImg = await Promise.all( imgUrl.map((img) => {
             return img
         }))
 
