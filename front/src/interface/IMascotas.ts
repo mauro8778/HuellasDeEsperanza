@@ -10,5 +10,6 @@ export interface IMascotas  {
     pet_size?: string
     imgUrl?: string
     imgUrls?: string[];
+    isActive?: boolean
   }
 

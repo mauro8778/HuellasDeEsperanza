@@ -2,7 +2,7 @@ import { IRefugios } from "@/interface/IRefugios";
 
 export async function getShelterDB() { 
     try {
-        const res= await fetch ("https://backpf-prueba.onrender.com/shelters", {
+        const res= await fetch ("https://huellasdesperanza.onrender.com/shelters", {
             method: "GET",
             headers: {
                 "Cache-Control": "no-cache" 

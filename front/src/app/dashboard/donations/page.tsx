@@ -33,7 +33,7 @@ const DonationsUI: React.FC<DonationsUIProps> = ({ donations, setDonations }) =>
 
   const handleCheckout = async () => {
     try {
-      const response = await axios.post('https://backpf-prueba.onrender.com/mercado-pago', {
+      const response = await axios.post('https://huellasdesperanza.onrender.com/mercado-pago', {
         title: 'Donaciones a refugios',
         price: total,
       });

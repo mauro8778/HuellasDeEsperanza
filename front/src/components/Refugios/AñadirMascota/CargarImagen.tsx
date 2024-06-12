@@ -25,7 +25,7 @@ const CargaImagen = () => {
     formData.append('file', selectedFile);
 
     try {
-      const response = await fetch('https://backpf-prueba.onrender.com/files/uploadFile', {
+      const response = await fetch('https://huellasdesperanza.onrender.com/files/uploadFile', {
         method: 'POST',
         body: formData,
       });

@@ -4,9 +4,9 @@ const DeleteMascota: React.FC<{ mascotaId?: string, onDelete: (mascotaId: string
         if (window.confirm("¿Estás seguro de que quieres eliminar esta mascota?")) {
           try {
             const response = await fetch(
-              `https://backpf-prueba.onrender.com/pets/${mascotaId}`,
+              `https://huellasdesperanza.onrender.com/pets/delete/${mascotaId}`,
               {
-                method: "DELETE",
+                method: "POST",
               }
             );
   

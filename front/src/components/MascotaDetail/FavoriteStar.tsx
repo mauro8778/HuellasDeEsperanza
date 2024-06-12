@@ -1,30 +1,51 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 interface FavoriteStarProps {
   isFavorite: boolean;
-  onToggleFavorite: () => void;
-  isLoggedIn: boolean; 
+  onToggleFavorite: (petId: string) => void; 
+  isLoggedIn: boolean;
+  petId: string; 
 }
 
-const FavoriteStar: React.FC<FavoriteStarProps> = ({ isFavorite, onToggleFavorite, isLoggedIn }) => {
+const FavoriteStar: React.FC<FavoriteStarProps> = ({ isFavorite, onToggleFavorite, isLoggedIn, petId }) => {
   const [showLoginPrompt, setShowLoginPrompt] = useState(false);
+  const [accessToken, setAccessToken] = useState<string | null>(null);
+
+  useEffect(() => {
+    const userSessionString = localStorage.getItem('userSession');
+    if (userSessionString) {
+      const userSession = JSON.parse(userSessionString);
+      const token = userSession.access_token;
+      console.log('Token de acceso:', token); 
+      setAccessToken(token);
+    }
+  }, []);
 
   const handleClick = () => {
     if (!isLoggedIn) {
+      console.error('El usuario no está autenticado');
       setShowLoginPrompt(true); 
       return;
     }
 
-    fetch('//favorite', {
+    if (!accessToken) {
+      console.error('No se encontró el token de acceso en el localStorage.');
+      return;
+    }
+
+    console.log('ID de mascota:', petId); 
+
+    fetch(`https://huellasdesperanza.onrender.com/users/pet/favorite/${petId}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': `Bearer ${accessToken}`
       },
-      body: JSON.stringify({ isFavorite: !isFavorite }),
+      body: JSON.stringify({ petId: petId, isFavorite: !isFavorite }),
     })
     .then(response => {
       if (response.ok) {
-        onToggleFavorite();
+        onToggleFavorite(petId); 
       } else {
         throw new Error('Error al almacenar el favorito');
       }
@@ -35,6 +56,7 @@ const FavoriteStar: React.FC<FavoriteStarProps> = ({ isFavorite, onToggleFavorit
   };
 
   const handleLogin = () => {
+    console.log('Botón de favoritos presionado');
     window.location.href = '/login';
   };
 

@@ -15,7 +15,7 @@ const RandomAnimalCards: React.FC = () => {
   };
 
   useEffect(() => {
-    fetch("https://backpf-prueba.onrender.com/pets")
+    fetch("https://huellasdesperanza.onrender.com/pets")
       .then(response => response.json())
       .then(data => selectRandomMascotas(data))
       .catch(error => console.error("Error fetching mascotas:", error));
