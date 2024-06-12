@@ -3,6 +3,7 @@ import { CreateOrderDto } from 'src/dto/CreateOrderDto';
 import { CarritoService } from './carrito.service';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { AuthGuard } from 'src/guards/auth.guard';
+import { ShelterOrderDto } from 'src/dto/shelterOrderDto';
 
 @ApiTags("Carrito")
 @Controller('carrito')
@@ -12,13 +13,12 @@ export class CarritoController {
     @ApiBearerAuth()
     @UseGuards(AuthGuard)
     @Post()
-    addOrder(@Body() order: CreateOrderDto,  @Req() request){
-        const {shelters} = order
+    addOrder(@Body() order: ShelterOrderDto[],  @Req() request){
 
         const userId = request.user['https://huellasdesperanza.com/userID'];
 
 
-        return this.carritoServices.addOrder(shelters, userId)
+        return this.carritoServices.addOrder(order, userId)
     }
 
 

@@ -38,7 +38,7 @@ export class CarritoRepository {
         return order;
     }
 
-    async addOrder(userId, shelters) {
+    async addOrder(ordershelter, userId) {
         let total = 0;
 
         const user = await this.usersRepository.findOneBy({ id: userId })
@@ -54,7 +54,7 @@ export class CarritoRepository {
         const newOrder = await this.ordersRepository.save(order);
 
         const sheltersArray = await Promise.all(
-            shelters.map(async (element: ShelterOrderDto) => {
+            ordershelter.map(async (element: ShelterOrderDto) => {
                 const shelter = await this.shelterRepository.findOneBy({
                     id: element.id,
                 });
