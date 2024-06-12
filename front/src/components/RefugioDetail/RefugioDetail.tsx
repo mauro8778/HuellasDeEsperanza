@@ -5,10 +5,16 @@ import { IRefugios } from '@/interface/IRefugios';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { FaPaw } from 'react-icons/fa'; 
+import FavoriteRefuge from './FavoriteRefuge';
 
 export const RefugioDetail: React.FC<IRefugios> = ({ id, name, description, imgUrl, location, zona, shelter_name, phone }) => {
   const [selectedAmount, setSelectedAmount] = useState<number | null>(null); 
   const router = useRouter();
+  const [isFavorite, setIsFavorite] = useState(false);
+
+  const handleToggleFavorite = () => {
+    setIsFavorite(!isFavorite);
+  };
 
   const handleSelectAmount = (amount: number) => {
     setSelectedAmount(selectedAmount === amount ? null : amount);
@@ -98,6 +104,7 @@ export const RefugioDetail: React.FC<IRefugios> = ({ id, name, description, imgU
   return (
     <>
       <div className="max-w-3xl mx-auto mt-5 mb-5 bg-white shadow-xl rounded-lg overflow-hidden">
+
         <div className="flex flex-col md:flex-row">
           <div className="md:w-1/2">
             <Image
@@ -117,7 +124,26 @@ export const RefugioDetail: React.FC<IRefugios> = ({ id, name, description, imgU
             <p className="font-light">{description}</p>
           </div>
         </div>
+
+
+      <div className="md:w-1/2 p-5 flex flex-col items-center justify-center text-center relative">
+        <div className="absolute top-2 right-2">
+          { id && <FavoriteRefuge isFavorite={isFavorite} onToggleFavorite={handleToggleFavorite} isLoggedIn id={id} />}
+        </div>
+
+        <h1 className='antialiased font-bold text-xl mb-3'>
+          {shelter_name}
+        </h1>
+
+        <h2 className="text-sm mb-1">Estamos en {zona}</h2>
+        <h2 className="text-sm mb-1">Ubicados en {location}</h2>
+        <h2 className="text-sm mt-5">Contacto: {name} - {phone}</h2>
+
+        <h3 className="font-bold text-sm mt-5">Descripción:</h3>
+        <p className="font-light">{description}</p>
       </div>
+    </div>
+  
 
       <div className="donation-section max-w-3xl mx-auto mt-5 p-5 bg-white shadow-xl rounded-lg">
         <h2 className="text-lg font-bold mb-3 text-center">Donar al refugio y deja tu huella</h2>
