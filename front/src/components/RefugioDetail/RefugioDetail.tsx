@@ -19,34 +19,66 @@ export const RefugioDetail: React.FC<IRefugios> = ({ id, name, description, imgU
       Swal.fire('Por favor, selecciona un monto para donar');
       return;
     }
-  
-    // saco la info del local storage
+
+    const userSession = localStorage.getItem('userSession');
+    const tokenId = userSession ? JSON.parse(userSession) : null;
+
+
+    console.log('token de acceso:', userSession);
+
+    if (!userSession) {
+      Swal.fire('Por favor, inicia sesión para donar');
+      return;
+    }
+
+    // Obtener las donaciones del local storage
     const donations = localStorage.getItem('donations');
     const parsedDonations = donations ? JSON.parse(donations) : [];
-  
-    // Aca se crea el objeto para enviar la donacion al back
-    const donationData = parsedDonations.map((donation: any) => ({
+    console.log("donaciones ya guardadas :", parsedDonations);
+
+    // Agregar la nueva donación al array
+    const newDonation = {
+      shelter: { id, name: shelter_name },
+      amount: selectedAmount
+    };
+    console.log('nuevas donaciones:', newDonation);
+
+    const updatedDonations = [...parsedDonations, newDonation];
+
+    // Guardar las donaciones actualizadas en el local storage
+    localStorage.setItem('donations', JSON.stringify(updatedDonations));
+
+    console.log('donaciones actualizadas:', updatedDonations);
+
+    // Crea el objeto para enviar la donación al backend
+    const donationData = updatedDonations.map((donation: any) => ({
       id: donation.shelter.id,
       price: Number(donation.amount)
     }));
-  
+
+    console.log(' se creo el objeto donacion data:', donationData);
+
     try {
       // Hacer la solicitud POST
-      const response = await fetch("https://backpf-prueba.onrender.com/carrito", {
+      const response = await fetch("https://huellasdesperanza.onrender.com/carrito", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${tokenId}`
         },
         body: JSON.stringify(donationData)
       });
-  
+
+      console.log('respuesta del backend:', response);
+
       if (!response.ok) {
         throw new Error("Error al agregar donación al carrito");
-      }
-  
+        }
+     
+
       Swal.fire(`Tu donación de $${selectedAmount} fue agregada con éxito`);
       window.location.href = '/refugios';
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error al agregar donación al carrito:', error);
       Swal.fire({
         title: "¡Error!",
@@ -62,12 +94,10 @@ export const RefugioDetail: React.FC<IRefugios> = ({ id, name, description, imgU
       });
     }
   };
-  
 
   return (
     <>
       <div className="max-w-3xl mx-auto mt-5 mb-5 bg-white shadow-xl rounded-lg overflow-hidden">
-        
         <div className="flex flex-col md:flex-row">
           <div className="md:w-1/2">
             <Image
@@ -78,16 +108,11 @@ export const RefugioDetail: React.FC<IRefugios> = ({ id, name, description, imgU
               className="object-cover h-full w-full"
             />
           </div>
-
           <div className="md:w-1/2 p-5 flex flex-col items-center justify-center text-center">
-            <h1 className='antialiased font-bold text-xl mb-3'>
-              {shelter_name}
-            </h1>
-
+            <h1 className='antialiased font-bold text-xl mb-3'>{shelter_name}</h1>
             <h2 className="text-sm mb-1">Estamos en {zona}</h2>
             <h2 className="text-sm mb-1">Ubicados en {location}</h2>
             <h2 className="text-sm mt-5">Contacto: {name} - {phone}</h2>
-
             <h3 className="font-bold text-sm mt-5">Descripción:</h3>
             <p className="font-light">{description}</p>
           </div>
@@ -95,39 +120,22 @@ export const RefugioDetail: React.FC<IRefugios> = ({ id, name, description, imgU
       </div>
 
       <div className="donation-section max-w-3xl mx-auto mt-5 p-5 bg-white shadow-xl rounded-lg">
-  <h2 className="text-lg font-bold mb-3 text-center">Donar al refugio y deja tu huella</h2>
-  <div className="donation-amounts flex justify-around mt-3">
-    <div
-      onClick={() => handleSelectAmount(500)}
-      className={`cursor-pointer border-2 border-blue-500 rounded-lg p-4 text-center bg-blue-100 transition-transform transform active:bg-blue-200 active:scale-95 ${selectedAmount === 500 && 'bg-blue-300'} w-32 h-48 flex flex-col justify-center items-center`}
-    >
-      <p className="text-lg font-bold">Donar</p>
-      <p className="text-2xl font-bold">$500</p>
-      <p className="text-xs font-bold">ARG</p>
-      <hr className="my-2" />
-      <FaPaw className="text-primary mx-auto" size={24} />
-    </div>
-    <div
-      onClick={() => handleSelectAmount(1000)}
-      className={`cursor-pointer border-2 border-blue-500 rounded-lg p-4 text-center bg-blue-100 transition-transform transform active:bg-blue-200 active:scale-95 ${selectedAmount === 1000 && 'bg-blue-300'} w-32 h-48 flex flex-col justify-center items-center`}
-    >
-      <p className="text-lg font-bold">Donar</p>
-      <p className="text-2xl font-bold">$1000</p>
-      <p className="text-xs font-bold">ARG</p>
-      <hr className="my-2" />
-      <FaPaw className="text-primary mx-auto" size={24} />
-    </div>
-    <div
-      onClick={() => handleSelectAmount(5000)}
-      className={`cursor-pointer border-2 border-blue-500 rounded-lg p-4 text-center bg-blue-100 transition-transform transform active:bg-blue-200 active:scale-95 ${selectedAmount === 5000 && 'bg-blue-300'} w-32 h-48 flex flex-col justify-center items-center`}
-    >
-      <p className="text-lg font-bold">Donar</p>
-      <p className="text-2xl font-bold">$5000</p>
-      <p className="text-xs font-bold">ARG</p>
-      <hr className="my-2" />
-      <FaPaw className="text-primary mx-auto" size={24} />
-    </div>
-  </div>
+        <h2 className="text-lg font-bold mb-3 text-center">Donar al refugio y deja tu huella</h2>
+        <div className="donation-amounts flex justify-around mt-3">
+          {[500, 1000, 5000].map(amount => (
+            <div
+              key={amount}
+              onClick={() => handleSelectAmount(amount)}
+              className={`cursor-pointer border-2 border-blue-500 rounded-lg p-4 text-center bg-blue-100 transition-transform transform active:bg-blue-200 active:scale-95 ${selectedAmount === amount && 'bg-blue-300'} w-32 h-48 flex flex-col justify-center items-center`}
+            >
+              <p className="text-lg font-bold">Donar</p>
+              <p className="text-2xl font-bold">${amount}</p>
+              <p className="text-xs font-bold">ARG</p>
+              <hr className="my-2" />
+              <FaPaw className="text-primary mx-auto" size={24} />
+            </div>
+          ))}
+        </div>
         <button onClick={handleAddToCart} className="mt-3 bg-tertiary hover:bg-indigo-600 text-white font-bold py-2 px-4 rounded-2xl w-full">
           Agregar donación 
         </button>

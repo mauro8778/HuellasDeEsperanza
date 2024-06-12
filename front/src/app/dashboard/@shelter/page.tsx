@@ -1,14 +1,14 @@
-import React from 'react'
+'use client';
 
-const Shelter_user = () => {
+import React from 'react';
+
+const ShelterPage = () => {
   return (
-    <div className='  flex flex-col items-center justify-center bg-violet-400 rounded-md md:h-[300px] w-full '>
-         <div className='text-3xl font-mono font-bold '>
-             REFUGIOS FAVORITOS
-             </div>
+    <div>
+      <h1 className="text-2xl font-bold mb-4">Refugios</h1>
+      {/* Contenido de la página de refugios */}
     </div>
-    
-  )
-}
+  );
+};
 
-export default Shelter_user
+export default ShelterPage;

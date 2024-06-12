@@ -48,7 +48,7 @@ const SideNav: React.FC = () => {
   };
 
   return (
-    <div className="flex h-full flex-col px-3 py-4 md:px-2 m-0 p-0">
+    <div className="flex h-full flex-col px-3 w-64 py-4 md:px-2 m-0 p-0">
       <Link className="mb-2 flex h-20 items-end justify-start rounded-md bg-primary p-4 md:h-40" href="/Home">
         <div className="w-32 text-white md:w-40">
           <ImageLogo />
@@ -69,16 +69,16 @@ const SideNav: React.FC = () => {
             <div className="flex flex-col h-[100px] grow items-center justify-center gap-2 rounded-md bg-gray-200 p-3 text-sm font-medium md:flex-none md:justify-start md:p-2 md:px-3">
               {userData && (
                 <>
-                  {userData.nickname && <p className="text-black">{userData.nickname}</p>}
-                  {userData.name && <p className="text-black">{userData.name}</p>}
+                  {userData.nickname && <p className="text-gray-800 text-xl">{userData.nickname}</p>}
+                  {userData.name && <p className="text-gray-800 text-base">{userData.name}</p>}
                 </>
               )}
             </div>
           </>
         ) : (
           <div className="flex flex-col h-[100px] grow items-center justify-center gap-2 rounded-md bg-gray-200 p-3 text-sm font-medium md:flex-none md:justify-start md:p-2 md:px-3">
-            <p className="text-black"><strong>Nombre:</strong></p>
-            <p className="text-black"><strong>Email:</strong></p>
+            <p className="text-gray-500"><strong>Nombre:</strong></p>
+            <p className="text-gray-500"><strong>Email:</strong></p>
           </div>
         )}
       </div>

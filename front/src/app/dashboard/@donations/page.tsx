@@ -1,16 +1,15 @@
-import React from 'react';
-import DonationsUI from '../donations/page';
+'use client';
 
-const Donations_user = () => {
+import React from 'react';
+
+const DonationsPage = () => {
   return (
-    <div className='space-y-4 max-w-3xl max-h-64 p-4 rounded-lg shadow'>
-      
-        {/* <DonationsUI /> */}
-    
-     
-    
+    <div>
+      <h1 className="text-2xl font-bold mb-4">Donaciones</h1>
+      {/* Contenido de la página de donaciones */}
     </div>
   );
-}
+};
 
-export default Donations_user;
+export default DonationsPage;
+
